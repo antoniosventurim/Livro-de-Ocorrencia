@@ -119,12 +119,6 @@ table {
     border-radius: 3px;
     background-color: #dbdbdf;
 }
-
-.descricao-ocorrencia {
-    display: flex;
-    justify-content: space-between;
-}
-
 .table-usuarios{
     border-radius: 5px;
 

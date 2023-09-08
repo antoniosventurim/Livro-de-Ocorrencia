@@ -158,7 +158,7 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <td><?php echo substr($ocorrencia['titulo'], 0, 20); ?></td>
                             <td>
                                 <div class="descricao-ocorrencia">
-                                    <div><?php echo substr($ocorrencia['descricao'], 0, 30); ?>
+                                    <div><?php echo substr($ocorrencia['descricao'], 0, 50) . " ..."; ?>
                             </td>
                             </div> <!-- Limitar a 100 caracteres -->
                             <td><?php echo $ocorrencia['local']; ?></td>
