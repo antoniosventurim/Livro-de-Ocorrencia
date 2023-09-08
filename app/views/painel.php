@@ -350,7 +350,6 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-
         <!-- Modal TODOS OS USUARIO -->
         <div class="modal fade" id="allusers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
