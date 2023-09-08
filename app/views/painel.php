@@ -197,7 +197,7 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                     <div class="modal-footer">
                                         <div><b><?php echo $ocorrencia['nome_responsavel']; ?></b></div>
-                                        <div><b><?php echo $ocorrencia['data_registro']; ?></b></div>
+                                        <div><b><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></b></div>
                                         <!-- Botão para abrir o Modal de Adicionar Observação -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarObservacao_<?php echo $ocorrencia['id']; ?>">
                                             Adicionar Observação
