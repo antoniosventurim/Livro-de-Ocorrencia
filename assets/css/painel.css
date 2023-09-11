@@ -128,3 +128,6 @@ table {
     border-radius: 5px;
 
 }
+.active>.page-link, .page-link.active{
+    color: red;
+}

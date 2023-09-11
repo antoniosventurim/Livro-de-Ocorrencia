@@ -14,10 +14,21 @@ if (isset($_POST['adduser'])) {
     $nome = $_POST['nome'];
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
-    
-
     // Obtém o ID do usuário logado da variável de sessão
     $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
+
+    // Verifique se já existe um usuário com o mesmo nome de usuário
+    $queryVerificarUsuarioExistente = "SELECT id FROM usuarios WHERE usuario = :usuario";
+    $statementVerificarUsuarioExistente = $pdo->prepare($queryVerificarUsuarioExistente);
+    $statementVerificarUsuarioExistente->bindParam(':usuario', $usuario);
+    $statementVerificarUsuarioExistente->execute();
+
+    if ($statementVerificarUsuarioExistente->rowCount() > 0) {
+        // Já existe um usuário com esse nome de usuário, exiba uma mensagem de erro
+        $_SESSION['mensagem'] = "Nome de usuário já está em uso. Escolha outro.";
+        header('Location: painel'); // Redirecione para a página de registro
+        exit;
+    }
 
     // Processa o formulário e insere a ocorrência no banco de dados
     $queryInserirUsuario = "INSERT INTO usuarios (tipo_usuario, nome, usuario, senha, data_registro) VALUES (:tipo_usuario, :nome, :usuario, :senha, NOW())";

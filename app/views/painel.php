@@ -161,7 +161,7 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <div><?php echo substr($ocorrencia['descricao'], 0, 50) . " ..."; ?>
                             </td>
                             </div> <!-- Limitar a 100 caracteres -->
-                            <td><?php echo $ocorrencia['local']; ?></td>
+                            <td><?php echo substr($ocorrencia['local'], 0, 20); ?></td>
                             <td><?php echo $ocorrencia['nome_responsavel']; ?></td>
                             <td><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></td> <!-- Formata data e hora para dd/mm/aaaa H:i -->
                             <td>
@@ -326,6 +326,7 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="mb-3">
                                             <label for="usuario" class="form-label"><b>Usuário</b></label>
                                             <input type="text" class="form-control" id="usuario" name="usuario" placeholder="EX: antonio.venturim" required>
+                                            <span id="usuarioValidationMessage"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -348,6 +349,7 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </form>
                         </div>
+                        <div id="erroCadastroUsuario" class="alert alert-danger" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -412,6 +414,36 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     </tfoot>
 
+    <script>
+        const usuarioInput = document.getElementById("usuario");
+        const usuarioValidationMessage = document.getElementById("usuarioValidationMessage");
+
+        usuarioInput.addEventListener("input", function() {
+            const usuario = usuarioInput.value;
+
+            // Enviar uma solicitação AJAX para verificar_usuario.php
+            fetch("verificar_usuario.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `usuario=${encodeURIComponent(usuario)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        usuarioValidationMessage.textContent = "Nome de usuário disponível.";
+                        usuarioValidationMessage.style.color = "green";
+                    } else {
+                        usuarioValidationMessage.textContent = "Nome de usuário já está em uso.";
+                        usuarioValidationMessage.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro na solicitação AJAX: " + error);
+                });
+        });
+    </script>
 </body>
 
 </html>
