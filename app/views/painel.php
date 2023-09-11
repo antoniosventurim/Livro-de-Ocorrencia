@@ -178,9 +178,12 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Descrição Completa</b></h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body bodydescription">
                                         <?php echo $ocorrencia['descricao']; ?>
+
                                         <hr>
+                                        <div><b><?php echo $ocorrencia['nome_responsavel']; ?></b></div>
+                                        <div><b><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></b></div>
                                     </div>
                                     <div class="observacoes">
                                         <p><strong>Observações Adicionais:</strong></p>
@@ -196,8 +199,7 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <div><b><?php echo $ocorrencia['nome_responsavel']; ?></b></div>
-                                        <div><b><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></b></div>
+
                                         <!-- Botão para abrir o Modal de Adicionar Observação -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarObservacao_<?php echo $ocorrencia['id']; ?>">
                                             Adicionar Observação
@@ -390,8 +392,8 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
 
-          <!-- Modal RELATÓRIOS -->
-          <div class="modal fade" id="relatorios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <!-- Modal RELATÓRIOS -->
+        <div class="modal fade" id="relatorios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">

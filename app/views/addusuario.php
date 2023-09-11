@@ -20,7 +20,7 @@ if (isset($_POST['adduser'])) {
     $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
 
     // Processa o formulário e insere a ocorrência no banco de dados
-    $queryInserirUsuario = "INSERT INTO usuarios (tipo_usuario, nome, usuario, senha, data_registro) VALUES (:tipo_usuario, :nome, :usuario, :senha, NOW()))";
+    $queryInserirUsuario = "INSERT INTO usuarios (tipo_usuario, nome, usuario, senha, data_registro) VALUES (:tipo_usuario, :nome, :usuario, :senha, NOW())";
     $statement = $pdo->prepare($queryInserirUsuario);
     $statement->bindParam(':nome', $nome);
     $statement->bindParam(':usuario', $usuario);

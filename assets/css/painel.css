@@ -76,6 +76,11 @@ table {
     color: black;
     text-align: center;
 }
+.bodydescription{
+    border-radius: 5px;
+    border: 1px solid;
+    margin: 10px;
+}
 
 .page-link[aria-label="Voltar"]::before {
     content: "Voltar";
