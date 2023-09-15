@@ -82,12 +82,12 @@ table {
     margin: 10px;
 }
 
-.page-link[aria-label="Voltar"]::before {
-    content: "Voltar";
+.page-link[aria-label="Anterior"]::before {
+    content: "Anterior";
 }
 
-.page-link[aria-label="Avançar"]::after {
-    content: "Avançar";
+.page-link[aria-label="Próximo"]::after {
+    content: "Próximo";
 }
 
 .paginacao-todas {

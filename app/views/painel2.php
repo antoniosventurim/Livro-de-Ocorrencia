@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../../');
     exit;
 }
+
 $idUsuarioLogado = $_SESSION['id'];
 $tipoUsuarioLogado = $_SESSION['tipo_usuario'];
 // Consulta SQL para obter o nome do usuário com base no ID armazenado na sessão
@@ -91,16 +92,13 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="40" height="32">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                    <span class="fs-4">Portaria Digital</span>
+                <a href="/" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span>PORTARIA DIGITAL</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white" aria-current="page">
+                        <a href="http://localhost/portaria/app/views/painel2" class="nav-link text-white" aria-current="page">
                             <i class="bi bi-house-fill">
                                 <use xlink:href="#hom"></use>
                             </i>
@@ -136,6 +134,12 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     <li>
+                        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#addocorrenciaa">
+                            <i class="bi bi-key"></i>
+                            Retirada de Chave
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#relatorioss">
                             <i class="bi bi-file-earmark-pdf"></i>
                             Relatórios
@@ -145,8 +149,8 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <hr>
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong><?php echo $_SESSION['usuario']; ?></strong>
+                        <img src="../../assets/images/fav.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong class="user-logado"><?php echo $_SESSION['usuario']; ?></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
@@ -253,30 +257,35 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <nav class="paginacao" aria-label="Navegação de Páginas">
                         <ul class="pagination">
-                            <?php if ($totalPaginas > 1) : ?>
-                                <!-- Botão "Previous" -->
-                                <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Voltar">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
+                            <!-- Botão "Previous" -->
+                            <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
 
-                                <?php for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) : ?>
-                                    <!-- Página atual (com classe "active") -->
-                                    <li class="page-item selected-button <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
-                                        <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
-                                    </li>
-                                <?php endfor; ?>
+                            <?php
+                            $numPaginasVisiveis = 5; // Defina o número de páginas visíveis desejado
+                            $inicio = max(1, $paginaAtual - floor($numPaginasVisiveis / 2));
+                            $fim = min($totalPaginas, $inicio + $numPaginasVisiveis - 1);
 
-                                <!-- Botão "Next" -->
-                                <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Avançar">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
+                            for ($pagina = $inicio; $pagina <= $fim; $pagina++) :
+                            ?>
+                                <!-- Página atual (com classe "active") -->
+                                <li class="page-item <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endfor; ?>
+
+                            <!-- Botão "Next" -->
+                            <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
+
                     <!-- Modal ADICIONA NOVA OCORRENCIA -->
                     <div class="modal fade" id="addocorrenciaa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">

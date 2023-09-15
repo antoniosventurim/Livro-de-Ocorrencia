@@ -7,14 +7,26 @@
 
 .side-bar {
     height: 100vh;
+
 }
+
+.nav-link {
+    font-family: sans-serif;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 30px;
+    text-align: center;
+}
+
 
 .table-info {
     display: flex;
     align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
-
     margin-left: 10%;
     margin-top: 5%;
     height: 80vh;
@@ -57,7 +69,7 @@
 .paginacao {
     display: flex;
     width: 76%;
-    background-color: #28242c;
+    background-color: #212529;
     align-items: center;
     justify-content: center;
     font-weight: bold;
@@ -69,26 +81,60 @@
     font-size: 30px;
 }
 
+.page-link[aria-label="Anterior"]::before {
+    content: "Anterior";
+}
+
+.page-link[aria-label="Próxima"]::after {
+    content: "Próxima";
+}
+
 .btn-descricao {
     font-weight: 600;
     text-decoration: none;
     color: rgb(255, 255, 255);
     padding: 5px;
     border-radius: 5px;
-    background-color: green;
-
-
-
+    background-color: #212529;
 }
 
-.nav-pills .nav-link:hover{
+.btn-descricao:hover {
     background: rgb(167, 2, 2);
 }
 
-.pagination{
+.nav-pills .nav-link:hover {
+    background: rgb(167, 2, 2);
+}
+
+.pagination {
     margin: 6px;
 }
 
-.page-link{
+.page-link {
     margin: 5px;
+}
+
+.textoobservacao {
+    border: 1px solid black;
+    margin: 5px;
+    display: flex;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #dbdbdf;
+}
+
+.modaldescription {
+    color: black;
+    text-align: center;
+}
+
+.bodydescription {
+    border-radius: 5px;
+    border: 1px solid;
+    margin: 10px;
+}
+
+.user-logado {
+    text-transform: capitalize;
+    font-weight: 900;
 }
