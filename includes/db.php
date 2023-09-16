@@ -1,7 +1,7 @@
 <?php
 // Configurações do banco de dados
 $host = 'localhost';
-$dbname = 'portaria2';
+$dbname = 'portaria3';
 $username = 'root';
 $password = '';
 

@@ -46,6 +46,12 @@ $ocorrencias = buscarOcorrenciasPaginadas($pdo, $paginaAtual, $ocorrenciasPorPag
 $totalOcorrencias = calcularTotalOcorrencias($pdo);
 $totalPaginas = ceil($totalOcorrencias / $ocorrenciasPorPagina);
 
+$numPaginasVisiveis = 5; // Defina o número de páginas visíveis desejado
+$numPaginasAntesDepois = floor($numPaginasVisiveis / 2);
+$inicio = max(1, $paginaAtual - $numPaginasAntesDepois);
+$fim = min($totalPaginas, $inicio + $numPaginasVisiveis - 1);
+
+//busca no banco de dados as ocorrencias por ID
 function buscarObservacoes($pdo, $idOcorrencia)
 {
     $query = "SELECT o.*, u.usuario AS nome_usuario FROM observacoes o
@@ -153,7 +159,11 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <strong class="user-logado"><?php echo $_SESSION['usuario']; ?></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="logout.php">Sair</a></li>
+                        <li class="d-flex ml-5 align-items-center logout-user"><a class="dropdown-item" href="logout.php"><svg class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                                </svg>Sair</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -255,32 +265,33 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <div class="totalfooter">
                         <h1>Total Ocorrências: <?php echo $totalOcorrencias ?></h1>
                     </div>
+
+                    <!-- Paginação -->
                     <nav class="paginacao" aria-label="Navegação de Páginas">
                         <ul class="pagination">
-                            <!-- Botão "Previous" -->
+                            <!-- Botão "Anterior" -->
                             <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
                                 <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
-                                    <span aria-hidden="true">&laquo;</span>
+                                    <span aria-hidden="true">Voltar</span>
                                 </a>
                             </li>
 
                             <?php
-                            $numPaginasVisiveis = 5; // Defina o número de páginas visíveis desejado
-                            $inicio = max(1, $paginaAtual - floor($numPaginasVisiveis / 2));
-                            $fim = min($totalPaginas, $inicio + $numPaginasVisiveis - 1);
-
-                            for ($pagina = $inicio; $pagina <= $fim; $pagina++) :
+                            for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
                             ?>
-                                <!-- Página atual (com classe "active") -->
-                                <li class="page-item <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
-                                </li>
+                                <?php if ($pagina >= $inicio && $pagina <= $fim) : ?>
+                                    <li class="page-item <?php
+                                                            echo ($pagina === $paginaAtual) ? 'active' : '';
+                                                            ?>">
+                                        <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
+                                    </li>
+                                <?php endif; ?>
                             <?php endfor; ?>
 
-                            <!-- Botão "Next" -->
+                            <!-- Botão "Proximo" -->
                             <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
                                 <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
-                                    <span aria-hidden="true">&raquo;</span>
+                                    <span aria-hidden="true">Avancar</span>
                                 </a>
                             </li>
                         </ul>
@@ -327,11 +338,8 @@ $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </main>
-
-
     </div>
     </div>
-
     <!-- Modal ADICIONA NOVO USUARIO -->
     <div class="modal fade" id="adduserr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
