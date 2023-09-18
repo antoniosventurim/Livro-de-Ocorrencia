@@ -1,14 +1,14 @@
 <?php
 // Configurações do banco de dados
-$host = 'containers-us-west-53.railway.app';
-$dbname = 'railway';
-$username = 'root';
-$password = 'loRzF5NGDPLAUdbpaZfA';
-$port = 8066;
+$DB_HOST = 'aws.connect.psdb.cloud';
+$DB_USERNAME = 'wxqnfeza6gq60xsaagm0';
+$DB_PASSWORD = 'pscale_pw_OA5QyGcWn2KChfrwUMlm148NzJkX1Q7xVbnXKok569k';
+$DB_NAME = 'loRzF5NGDPLAUdbpaZfA';
+
 
 // Tentativa de conexão
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;", $username, $password);
 
     // Configurar o PDO para lançar exceções em caso de erros
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -19,4 +19,3 @@ try {
 } catch (PDOException $e) {
     echo "Erro de conexão: " . $e->getMessage();
 }
-?>
