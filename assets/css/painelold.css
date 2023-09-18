@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&family=Roboto:wght@400;700&display=swap');
+
+
+body {
+    margin: 0;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-image: url("../images/BOTAO5.png");
+    background-size: cover;
+}
+
+.main {
+    background-color: #212529;
+}
+
+.nav-bottom {
+    background-image: url("../images/botao3.png");
+    background-size: cover;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.nav-link {
+    font-weight: 800;
+    color: white
+}
+
+.user-logado {
+    text-transform: capitalize;
+    font-weight: 900;
+}
+
+.tabela-principal {
+    border-radius: 10px;
+    max-width: 98%;
+    color: white;
+    margin: 20px auto;
+}
+
+.tabela-principal,
+table {
+    background-image: url("../images/BOTAO4.png");
+    color: white;
+    text-align: center;
+    border: 1px solid #222222;
+}
+
+.table>:not(caption)>*>* {
+    padding: 1.0rem .5rem;
+}
+
+.header-tabela {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    color: rgb(255, 255, 255);
+    justify-content: space-between;
+    background-image: url("../images/BOTAO4.png");
+}
+
+.header-tabela h4 {
+    display: flex;
+    align-items: flex-end;
+    color: rgb(255, 255, 255);
+    font-weight: 800;
+}
+
+.modaldescription {
+    color: black;
+    text-align: center;
+}
+.bodydescription{
+    border-radius: 5px;
+    border: 1px solid;
+    margin: 10px;
+}
+
+.page-link[aria-label="Anterior"]::before {
+    content: "Anterior";
+}
+
+.page-link[aria-label="Próximo"]::after {
+    content: "Próximo";
+}
+
+.paginacao-todas {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: black;
+    font-weight: bold;
+    margin: 5px;
+    border: none;
+    background-image: url("../images/btn-avancar2.png");
+}
+
+.btn-descricao {
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    /*background: linear-gradient(90deg, rgba(139,139,139,1) 0%, rgba(0,0,0,1) 100%);*/
+    background-image: url("../images/botao3.png");
+    background-size: cover;
+
+
+}
+
+.textoobservacao {
+    border: 1px solid black;
+    margin: 5px;
+    display: flex;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #dbdbdf;
+}
+.table-usuarios{
+    border-radius: 5px;
+
+}
+.active>.page-link, .page-link.active{
+    color: red;
+}

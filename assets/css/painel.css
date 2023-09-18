@@ -1,119 +1,110 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&family=Roboto:wght@400;700&display=swap');
-
-
-body {
-    margin: 0;
-}
-
-body * {
-    box-sizing: border-box;
-}
-
-.navbar {
-    background-image: url("../images/BOTAO5.png");
-    background-size: cover;
-}
-
 .main {
-    background-color: #212529;
+    box-sizing: border-box;
+    height: 100vh;
+    background: rgb(167, 2, 2);
+    background: linear-gradient(90deg, rgb(168, 5, 5) 45%, rgba(242, 242, 242, 1) 45%, rgba(255, 255, 255, 1) 45%);
+    position: relative;
 }
 
-.nav-bottom {
-    background-image: url("../images/botao3.png");
-    background-size: cover;
-    margin: 0 5px;
-    border-radius: 5px;
+.side-bar {
+    height: 100vh;
+
 }
 
 .nav-link {
-    font-weight: 800;
-    color: white
+    font-family: sans-serif;
 }
 
-.user-logado {
-    text-transform: capitalize;
-    font-weight: 900;
-}
-
-.tabela-principal {
-    border-radius: 10px;
-    max-width: 98%;
-    color: white;
-    margin: 20px auto;
-}
-
-.tabela-principal,
-table {
-    background-image: url("../images/BOTAO4.png");
-    color: white;
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 30px;
     text-align: center;
-    border: 1px solid #222222;
 }
 
-.table>:not(caption)>*>* {
-    padding: 1.0rem .5rem;
-}
-
-.header-tabela {
-    font-family: 'Open Sans', sans-serif;
-    margin: 0 30px;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    color: rgb(255, 255, 255);
-    justify-content: space-between;
-    background-image: url("../images/BOTAO4.png");
-}
-
-.header-tabela h4 {
+.table-info {
     display: flex;
     align-items: flex-end;
-    color: rgb(255, 255, 255);
-    font-weight: 800;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-top: 5%;
+    height: 80vh;
+    width: 70vw;
+    background-color: #ffffff;
+    -webkit-box-shadow: 200px -87px 300px -83px rgba(145, 145, 145, 1);
+    -moz-box-shadow: 200px -87px 300px -83px rgba(145, 145, 145, 1);
+    box-shadow: 200px -87px 300px -83px rgba(145, 145, 145, 1);
 }
 
-.modaldescription {
-    color: black;
-    text-align: center;
+.table>tbody{
+    vertical-align: middle;
 }
-.bodydescription{
-    border-radius: 5px;
-    border: 1px solid;
-    margin: 10px;
+.tabela-principal {
+    width: 100%;
 }
 
-.page-link[aria-label="Anterior"]::before {
-    content: "Anterior";
-}
-
-.page-link[aria-label="Próximo"]::after {
-    content: "Próximo";
-}
-
-.paginacao-todas {
+.table-footer {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    height: 80px;
+
 }
 
+.totalfooter {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 284px;
+    background-color: green;
+}
+
+.totalfooter h1 {
+    font-size: 20px;
+
+}
+.pagination{
+    align-items: center;
+    margin-top: 15px;
+}
+
+.paginacao {
+    display: flex;
+    width: 76%;
+    background-color: #212529;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
 .pagination a {
     color: black;
     font-weight: bold;
     margin: 5px;
     border: none;
-    background-image: url("../images/btn-avancar2.png");
+}
+.active>.page-link, .page-link.active{
+    color: rgb(255, 255, 255);
+    background-color: rgb(167, 2, 2);
+    border-radius: 50px;
+    border: 4px solid rgb(189, 57, 57);
 }
 
 .btn-descricao {
     font-weight: 600;
     text-decoration: none;
-    color: white;
-    padding: 10px;
+    color: rgb(255, 255, 255);
+    padding: 5px;
     border-radius: 5px;
-    /*background: linear-gradient(90deg, rgba(139,139,139,1) 0%, rgba(0,0,0,1) 100%);*/
-    background-image: url("../images/botao3.png");
-    background-size: cover;
+    background-color: #212529;
+}
 
+.btn-descricao:hover {
+    background: rgb(167, 2, 2);
+}
 
+.nav-pills .nav-link:hover {
+    background: rgb(167, 2, 2);
 }
 
 .textoobservacao {
@@ -124,10 +115,67 @@ table {
     border-radius: 3px;
     background-color: #dbdbdf;
 }
-.table-usuarios{
-    border-radius: 5px;
 
+.modaldescription {
+    color: black;
+    text-align: center;
 }
-.active>.page-link, .page-link.active{
+
+.bodydescription {
+    border-radius: 5px;
+    border: 1px solid;
+    margin: 10px;
+}
+
+.user-logado {
+    text-transform: capitalize;
+    font-weight: 900;
+}
+.svg-logo{
+    margin-right: 3px;
+}
+
+.form-tipo-veiculo{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-tipo-veiculo .form-select{
+    font-weight: bold;
+    margin-left: 5px;
+    width: 40%;
+}
+.d-dowm-chaves{
+    background-color: #212529;
+}
+.r-chaves{
+    margin: 5px;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #363d44; ;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link:hover{
+    background-color: rgb(167, 2, 2);
+}
+
+.svg-bottomchaves{
+    margin-left: 20px;
+}
+
+.custom-width-motorista{
+    width: 50%;
+}
+
+.btn-registra-devolucao button{
+    margin-top: 5px;
+}
+
+.btn-devolucao-realizada{
+    color: green;
+}
+
+.info-footer-tabela svg{
     color: red;
 }

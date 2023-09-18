@@ -77,6 +77,32 @@ $statement = $pdo->prepare($queryObservacoes);
 $statement->execute();
 $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+// Query Retorna os Motoristas
+$queryMotoristas = "SELECT id, nome FROM motoristas";
+$statement = $pdo->prepare($queryMotoristas);
+$statement->execute();
+$motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//Query Retorna Veiculos
+$queryVeiculos = "SELECT id, nome FROM veiculos";
+$statement = $pdo->prepare($queryVeiculos);
+$statement->execute();
+$veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//Query Retorna reitada de veiculos
+$queryRetiradaVeiculos = "SELECT usuarios.nome AS nome_usuario, motoristas.nome AS nome_motorista, veiculos.nome AS nome_veiculo, retirada_veiculos.data_retirada, retirada_veiculos.destino, retirada_veiculos.id_data_devolucao, retirada_veiculos.id, devolucoes.data_devolucao FROM retirada_veiculos INNER JOIN usuarios ON retirada_veiculos.id_usuario = usuarios.id INNER JOIN motoristas ON retirada_veiculos.id_motorista = motoristas.id INNER JOIN veiculos ON retirada_veiculos.veiculo = veiculos.id LEFT JOIN devolucoes ON retirada_veiculos.id = devolucoes.id_retirada_veiculo ORDER BY retirada_veiculos.id DESC LIMIT 5;";
+$statement = $pdo->prepare($queryRetiradaVeiculos);
+$statement->execute();
+$retiradaVeiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//Query Retorna locais
+$queryLocais = "SELECT nome_local FROM locais";
+$statement = $pdo->prepare($queryLocais);
+$statement->execute();
+$retornalocais = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+$nomesLocais = array_column($retornalocais, 'nome_local');
+$locais = $nomesLocais;
 
 //var_dump($idUsuarioLogado);
 //var_dump($_SESSION['usuario']);
@@ -94,7 +120,7 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../assets/css/painel2.css">
+    <link rel="stylesheet" href="../../assets/css/painel.css">
     <link rel="shortcut icon" href="../../assets/images/fav.png">
     <title>Painel</title>
 </head>
@@ -103,13 +129,13 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-                <a href="http://localhost/livro/app/views/painel" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="http://localhost/livro-de-ocorrencia/app/views/painel" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span>PORTARIA DIGITAL</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="http://localhost/portaria/app/views/painel2" class="nav-link text-white" aria-current="page">
+                        <a href="http://localhost/livro-de-ocorrencia/app/views/painel" class="nav-link text-white" aria-current="page">
                             <i class="bi bi-house-fill">
                                 <use xlink:href="#hom"></use>
                             </i>
@@ -118,7 +144,7 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </li>
                     <li>
                         <?php if ($tipoUsuarioLogado === 1) {
-                            echo '<a href="painel2" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#adduserr">
+                            echo '<a href="painel2" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#adduser">
                             <i class="bi bi-person-add">
                             <use xlink:href="#hom"></use>
                         </i>
@@ -133,8 +159,60 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     <li>
+                        <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="bi bi-key"></i>
+                            Registros de Chaves <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                        <div class="d-dowm-chaves">
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#adicionaveiculo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Adicionar Veiculo
+                                    </a>';
+                                    } ?>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#adicionamotorista">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Adicionar Motorista
+                                    </a>';
+                                    } ?>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#retiradaveiculo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Retirada de Veiculo
+                                    </a>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#devolucaochave">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Devolucao
+                                    </a>
+                            </ul>
+                        </div>
+
+                    </li>
+                    <li>
                         <a href="painel2" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#ultimasobservacoes">
-                            <i class="bi bi-person-add">
+                            <i class="bi bi-journal-check">
                                 <use xlink:href="#hom"></use>
                             </i>
                             Ultimas Observacoes
@@ -149,23 +227,21 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                         } ?>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#adicionalocal">
                             <i class="bi bi-browser-safari"></i>
                             Adicionar Novo Local
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#addocorrenciaa">
-                            <i class="bi bi-key"></i>
-                            Retirada de Chave
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#relatorioss">
+                        <?php if ($tipoUsuarioLogado === 1) {
+                            echo '<a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#relatorioss">
                             <i class="bi bi-file-earmark-pdf"></i>
                             Relatórios
-                        </a>
+                        </a>';
+                        } ?>
+
                     </li>
+
                 </ul>
                 <hr>
                 <div class="dropdown">
@@ -184,7 +260,7 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="table-info">
                 <div class="tabela-principal">
-                    <table class="table">
+                    <table class="table table-fixed">
                         <thead>
                             <tr>
                                 <th scope="col">TÍTULO</th>
@@ -327,12 +403,16 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <label for="titulo" class="form-label"><b>Título</b></label>
                                             <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Informe um pequeno título da ocorrência" required>
                                         </div>
-
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label for="local" class="form-label"><b>Local</b></label>
-                                                    <input type="text" class="form-control" id="local" name="local" placeholder="Informe o local do Ocorrido" required>
+                                                    <label for="local" class="form-label"><b>Escolha um local:</b></label>
+                                                    <input class="form-control" list="localOptions" id="local" name="local" placeholder="Digite para pesquisar...">
+                                                    <datalist id="localOptions">
+                                                        <?php foreach ($locais as $local) : ?>
+                                                            <option value="<?php echo $local; ?>">
+                                                            <?php endforeach; ?>
+                                                    </datalist>
                                                 </div>
                                             </div>
                                         </div>
@@ -356,7 +436,7 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
     </div>
     </div>
     <!-- Modal ADICIONA NOVO USUARIO -->
-    <div class="modal fade" id="adduserr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="adduser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -366,7 +446,7 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <!-- CORPO DO MODAL/FORMULARIO ADICIONAR NOVO USUÁRIO -->
                 <div class="modal-body">
                     <div class="card-body">
-                        <form method="POST" action="addusuario.php">
+                        <form method="POST" action="processaUsuario.php">
                             <div class="mb-3">
                                 <label for="nome" class="form-label"><b>Nome Completo</b></label>
                                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite Seu nome Completo" required>
@@ -392,6 +472,7 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="0">Usuario</option>
                                     <option value="1">Administrador</option>
+                                    <option value="2">Motorista</option>
                                 </select>
                             </div>
                             <div>
@@ -413,11 +494,10 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL TODOS USUÁRIO -->
-                <div class="modal-body">
+                <div class="modal-body text-center">
                     <table class="table-usuarios table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
                                 <th scope="col">NOME COMPLETO</th>
                                 <th scope="col">USUARIO</th>
                                 <th scope="col">STATUS</th>
@@ -426,7 +506,6 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <tbody>
                             <?php foreach ($usuarios as $usuario) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
                                 <tr>
-                                    <td><?php echo $usuario['id']; ?></td>
                                     <td><?php echo $usuario['nome']; ?></td>
                                     <td><?php echo $usuario['usuario']; ?></td>
                                     <td><?php echo ($usuario['tipo_usuario'] == 1 ? 'Administrador' : 'Usuário Normal') ?></td>
@@ -458,6 +537,196 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+    <!-- Modal RETIRADA DE VEICULO -->
+    <div class="modal fade" id="retiradaveiculo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-x">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Retirada de Veiculo</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL RETIRADA DE VEICULO-->
+                <div class="modal-body">
+                    <form method="POST" action="processaRetiradaVeiculo.php">
+                        <div class="mb-3">
+                            <label for="usuarioResponsavel" class="form-label"><b>Responsavel pelo Veiculo:</b></label>
+                            <select class="form-select" id="usuarioResponsavel" name="usuarioResponsavel" required>
+                                <option value="" disabled selected>Selecione o Responsavel</option>
+                                <?php foreach ($motoristas as $motorista) : ?>
+                                    <option value="<?php echo $motorista['id']; ?>"><?php echo $motorista['nome']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipoVeiculo" class="form-label"><b>Selecione o Veículo:</b></label>
+                            <select class="form-select" id="nomeVeiculo" name="nomeVeiculo" required>
+                                <option value="" disabled selected>Selecione o tipo de veículo</option>
+                                <?php foreach ($veiculos as $veiculo) : ?>
+                                    <option value="<?php echo $veiculo['id']; ?>"><?php echo $veiculo['nome']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataRetirada" class="form-label"><b>Data e Hora da Retirada:</b></label>
+                            <input type="datetime-local" class="form-control" id="dataRetirada" name="dataRetirada" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="destino" class="form-label"><b>Informe o Destino do Veículo:</b></label>
+                            <textarea class="form-control" id="destino" name="destino" rows="4" placeholder="Informe o destino do veículo"></textarea>
+                        </div>
+                        <hr>
+                        <button type="submit" id="cadretiradaveiculo" name="cadretiradaveiculo" class="btn btn-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ADICIONA VEICULO -->
+    <div class="modal fade" id="adicionaveiculo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-x">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Veiculo</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL ADICIONA VEICULO-->
+                <div class="modal-body">
+                    <form method="POST" action="processaVeiculo.php">
+                        <div class="mb-3">
+                            <label for="tipo_veiculo" class="form-label"><b>Tipo de Veículo:</b></label>
+                            <select class="form-select custom-width-motorista" id="tipo_veiculo" name="tipo_veiculo" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Carro">Carro</option>
+                                <option value="Moto">Moto</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nome" class="form-label"><b>Nome do Veículo:</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="nome" name="nome" placeholder="Insira o nome do veículo" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="placa" class="form-label"><b>Placa:</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="placa" name="placa" placeholder="Insira a placa" required>
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <button type="submit" id="cadveiculo" name="cadveiculo" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ADICIONA MOTORISTA -->
+    <div class="modal fade" id="adicionamotorista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-x">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Motorista</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL ADICIONA MOTORISTA-->
+                <div class="modal-body">
+                    <form method="POST" action="processaMotorista.php">
+                        <div class="mb-3">
+                            <label for="motorista" class="form-label"><b>Nome do Motorista:</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="motorista" name="motorista" placeholder="Insira o nome do motorista" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="setor" class="form-label"><b>Setor do Motorista:</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="setor" name="setor" placeholder="Insira o setor do motorista" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cpf" class="form-label"><b>CPF do Motorista:</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="cpf" name="cpf" placeholder="Insira o CPF do motorista" required>
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <button type="submit" id="cadmotorista" name="cadmotorista" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal DEVOLUCAO -->
+    <div class="modal fade" id="devolucaochave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Devolucao de Chaves</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL DEVOLUCAO-->
+                <div class="modal-body text-center">
+                    <div class="container">
+                        <form action="processaDevolucao.php" method="post">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nome do Motorista</th>
+                                        <th>Nome do Veículo</th>
+                                        <th>Local</th>
+                                        <th>Data de Retirada</th>
+                                        <th>Data de Devolução</th>
+                                        <th>Registrar Devolução</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($retiradaVeiculos as $retiradaVeiculo) : ?>
+                                        <tr>
+                                            <td><?php echo $retiradaVeiculo['nome_motorista']; ?></td>
+                                            <td><?php echo $retiradaVeiculo['nome_veiculo']; ?></td>
+                                            <td><?php echo $retiradaVeiculo['destino']; ?></td>
+                                            <td><?php echo date('d/m/Y H:i', strtotime($retiradaVeiculo['data_retirada'])); ?></td>
+                                            <td><?php
+                                                $dataDevolucao = date('d/m/Y H:i', strtotime($retiradaVeiculo['data_devolucao']));
+                                                echo ($dataDevolucao == '01/01/1970 01:00') ? 'Sem Data' : $dataDevolucao;
+                                                ?></td>
+                                            <td>
+                                                <?php if (empty($retiradaVeiculo['data_devolucao'])) : ?>
+                                                    <form action="processaDevolucao.php" method="post">
+                                                        <div class="btn-registra-devolucao">
+                                                            <input type="hidden" name="idRetiradaVeiculo" value="<?php echo $retiradaVeiculo['id']; ?>">
+                                                            <input type="datetime-local" class="form-control" name="dataDevolucao" required>
+                                                            <button type="submit" class="btn btn-primary" name="devolucao" id="devolucao">Registrar Devolução</button>
+                                                        </div>
+                                                    </form>
+                                                <?php else : ?>
+                                                    <div class="btn-devolucao-realizada">
+                                                        <p><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2-square" viewBox="0 0 16 16">
+                                                                <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                                                <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                                                            </svg>Devolução Realizada</p>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <div class="info-footer-tabela">
+                                        <p><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                            </svg> Atencao ao registrar data de devolucao uma vez que registrada nao sera possivel alterar.</p>
+                                    </div>
+                                </tfoot>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="ultimasobservacoes" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -465,33 +734,31 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Ultimas Observacoes Registradas</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <!-- CORPO DO MODAL RELATÓRIOS-->
+                <!-- CORPO DO MODAL ULTIMAS OBSERVACOES-->
                 <div class="modal-body text-center">
                     <table class="table-usuarios table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
                                 <th scope="col">Observacao</th>
                                 <th scope="col">Titulo</th>
                                 <th scope="col">Data Registro</th>
                                 <th scope="col">Usuario Registrou</th>
-                                <th scope="col">Acao</th>
+                                <th scope="col">Visualizar Ocorrencia</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($totalObservacoes as $observacao) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
                                 <tr>
-                                    <td><?php echo $observacao['observacao_id']; ?></td>
                                     <td><?php echo substr($observacao['observacao'], 0, 20); ?></td>
                                     <td><?php echo $observacao['titulo_ocorrencia']; ?></td>
                                     <td><?php echo date('d/m/Y H:i', strtotime($observacao['data_registro'])); ?></td>
                                     <td><?php echo $observacao['nome_usuario']; ?></td>
                                     <td>
-                                        <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $ocorrencia['id']; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right-square-fill" viewBox="0 0 16 16">
-                                                <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12zM5.904 10.803 10 6.707v2.768a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-.5-.5H6.525a.5.5 0 1 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 .707.707z" />
-                                            </svg></a>
+                                        <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $ocorrencia['id']; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
+                                                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                                <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                                            </svg> Visualizar</a>
                                     </td>
-
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -501,9 +768,35 @@ $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+    <!-- Modal ADICIONA NOVO LOCAL -->
+    <div class="modal fade" id="adicionalocal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-x">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Local Para Ocorrencias</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL ADICIONA NOVO LOCAL-->
+                <div class="modal-body">
+                    <form method="POST" action="processaLocal.php">
+                        <div class="mb-3">
+                            <label for="local" class="form-label"><b>Nome do Local:</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="local" name="local" placeholder="Informe o novo local" required>
+                        </div>
 
-
-
+                        <div class="mb-3">
+                            <label for="bloco" class="form-label"><b>Bloco</b></label>
+                            <input type="text" class="form-control custom-width-motorista" id="bloco" name="bloco" placeholder="EX: Bloco 1" required>
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <button type="submit" id="cadlocal" name="cadlocal" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         const usuarioInput = document.getElementById("usuario");
         const usuarioValidationMessage = document.getElementById("usuarioValidationMessage");
