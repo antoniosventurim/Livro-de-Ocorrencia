@@ -160,8 +160,11 @@ $locais = $nomesLocais;
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="bi bi-key"></i>
-                            Registros de Chaves <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
+                                <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z" />
+                                <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.807.807 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155 1.806 0 4.037-.084 5.592-.155A1.479 1.479 0 0 0 15 9.611v-.413c0-.099-.01-.197-.03-.294l-.335-1.68a.807.807 0 0 0-.43-.563 1.807 1.807 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3H4.82Z" />
+                            </svg>
+                            Registros de Veiculos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                             </svg>
@@ -358,35 +361,47 @@ $locais = $nomesLocais;
                     </div>
 
                     <!-- Paginação -->
-                    <nav class="paginacao" aria-label="Navegação de Páginas">
-                        <ul class="pagination">
-                            <!-- Botão "Anterior" -->
-                            <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
-                                <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
-                                    <span aria-hidden="true">Voltar</span>
-                                </a>
-                            </li>
+                    <?php if ($totalOcorrencias > 10) : ?>
+                        <nav class="paginacao" aria-label="Navegação de Páginas">
+                            <ul class="pagination">
+                                <!-- Botão "Anterior" -->
+                                <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
+                                        <span aria-hidden="true">Voltar</span>
+                                    </a>
+                                </li>
 
-                            <?php
-                            for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
-                            ?>
-                                <?php if ($pagina >= $inicio && $pagina <= $fim) : ?>
-                                    <li class="page-item <?php
-                                                            echo ($pagina === $paginaAtual) ? 'active' : '';
-                                                            ?>">
-                                        <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endfor; ?>
+                                <?php
+                                for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
+                                    if ($pagina >= $inicio && $pagina <= $fim) :
+                                ?>
+                                        <li class="page-item <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
+                                            <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
+                                        </li>
+                                <?php
+                                    endif;
+                                endfor;
+                                ?>
 
-                            <!-- Botão "Proximo" -->
-                            <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
-                                <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
-                                    <span aria-hidden="true">Avancar</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                                <!-- Botão "Próximo" -->
+                                <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
+                                        <span aria-hidden="true">Avançar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- Exibe uma MSG no footer da tabela caso a quantidade de ocorrencias seja menor que 10 -->
+                    <?php else : ?>
+                        <nav class="paginacao" aria-label="Navegação de Páginas">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <span class="page-link">Aguardando mais Ocorrências</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    <?php endif; ?>
+
 
                     <!-- Modal ADICIONA NOVA OCORRENCIA -->
                     <div class="modal fade" id="addocorrenciaa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -575,6 +590,7 @@ $locais = $nomesLocais;
                             <textarea class="form-control" id="destino" name="destino" rows="4" placeholder="Informe o destino do veículo"></textarea>
                         </div>
                         <hr>
+                        <input type="hidden" name="statusRetirada" value="ativa">
                         <button type="submit" id="cadretiradaveiculo" name="cadretiradaveiculo" class="btn btn-primary">Cadastrar</button>
                     </form>
                 </div>
@@ -698,6 +714,7 @@ $locais = $nomesLocais;
                                                             <input type="datetime-local" class="form-control" name="dataDevolucao" required>
                                                             <button type="submit" class="btn btn-primary" name="devolucao" id="devolucao">Registrar Devolução</button>
                                                         </div>
+                                                        <input type="hidden" name="statusDevolucao" value="devolvido">
                                                     </form>
                                                 <?php else : ?>
                                                     <div class="btn-devolucao-realizada">
@@ -721,6 +738,9 @@ $locais = $nomesLocais;
                                     </div>
                                 </tfoot>
                             </table>
+                            <div class="mb-3">
+                                <button type="submit" id="cadlocal" name="cadlocal" data-bs-dismiss="modal" class="btn btn-danger">Cancelar</button>
+                            </div>
                         </form>
                     </div>
                 </div>
