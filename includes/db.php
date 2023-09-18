@@ -8,7 +8,7 @@ $DB_NAME = 'portaria';
 
 // Tentativa de conexão
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;", $username, $password);
+    $pdo = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME;", $DB_USERNAME, $DB_PASSWORD);
 
     // Configurar o PDO para lançar exceções em caso de erros
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
