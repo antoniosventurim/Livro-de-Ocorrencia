@@ -12,6 +12,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 if (isset($_POST['devolucao'])) {
     $dataDevolucao = $_POST['dataDevolucao'];
     $idRetirada = $_POST['idRetiradaVeiculo'];
+    $statusDevolucao = $_POST['statusDevolucao'];
 
     // Obtém o ID do usuário logado da variável de sessão
     $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
@@ -32,9 +33,10 @@ if (isset($_POST['devolucao'])) {
         $idDevolucao = $pdo->lastInsertId();
 
         // Insere o ID da devolução na tabela retirada_veiculos na coluna id_data_devolucao
-        $queryInserirIdDevolucao = "UPDATE retirada_veiculos SET id_data_devolucao = :idDevolucao WHERE id = :idRetiradaVeiculo";
+        $queryInserirIdDevolucao = "UPDATE retirada_veiculos SET statusVeiculo =:statusdevolucao, id_data_devolucao = :idDevolucao WHERE id = :idRetiradaVeiculo";
         $statement = $pdo->prepare($queryInserirIdDevolucao);
         $statement->bindParam(':idDevolucao', $idDevolucao);
+        $statement->bindParam(':statusdevolucao', $statusDevolucao);
         $statement->bindParam(':idRetiradaVeiculo', $idRetirada);
         $statement->execute();
 
