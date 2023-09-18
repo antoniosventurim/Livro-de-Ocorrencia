@@ -1,13 +1,14 @@
 <?php
 // Configurações do banco de dados
-$host = 'localhost';
-$dbname = 'portaria5';
+$host = 'containers-us-west-53.railway.app';
+$dbname = 'railway';
 $username = 'root';
-$password = '';
+$password = 'loRzF5NGDPLAUdbpaZfA';
+$port = 8066;
 
 // Tentativa de conexão
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password);
 
     // Configurar o PDO para lançar exceções em caso de erros
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
