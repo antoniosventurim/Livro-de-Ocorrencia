@@ -1,9 +1,9 @@
 <?php
 // Configurações do banco de dados
-$DB_HOST = 'aws.connect.psdb.cloud';
-$DB_USERNAME = 'blsb041bnriu5ef10tpm';
-$DB_PASSWORD = 'pscale_pw_ySLoxOtaejTRmtoAvg0W42cP32AKuon1QHvsKdDqGJn';
-$DB_NAME = 'portaria';
+$DB_HOST = 'localhost';
+$DB_USERNAME = 'root';
+$DB_PASSWORD = '';
+$DB_NAME = 'portariadigital';
 
 
 // Tentativa de conexão

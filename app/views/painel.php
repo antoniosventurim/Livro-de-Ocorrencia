@@ -358,35 +358,47 @@ $locais = $nomesLocais;
                     </div>
 
                     <!-- Paginação -->
-                    <nav class="paginacao" aria-label="Navegação de Páginas">
-                        <ul class="pagination">
-                            <!-- Botão "Anterior" -->
-                            <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
-                                <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
-                                    <span aria-hidden="true">Voltar</span>
-                                </a>
-                            </li>
+                    <?php if ($totalOcorrencias > 10) : ?>
+                        <nav class="paginacao" aria-label="Navegação de Páginas">
+                            <ul class="pagination">
+                                <!-- Botão "Anterior" -->
+                                <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
+                                        <span aria-hidden="true">Voltar</span>
+                                    </a>
+                                </li>
 
-                            <?php
-                            for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
-                            ?>
-                                <?php if ($pagina >= $inicio && $pagina <= $fim) : ?>
-                                    <li class="page-item <?php
-                                                            echo ($pagina === $paginaAtual) ? 'active' : '';
-                                                            ?>">
-                                        <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endfor; ?>
+                                <?php
+                                for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
+                                    if ($pagina >= $inicio && $pagina <= $fim) :
+                                ?>
+                                        <li class="page-item <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
+                                            <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
+                                        </li>
+                                <?php
+                                    endif;
+                                endfor;
+                                ?>
 
-                            <!-- Botão "Proximo" -->
-                            <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
-                                <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
-                                    <span aria-hidden="true">Avancar</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                                <!-- Botão "Próximo" -->
+                                <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
+                                        <span aria-hidden="true">Avançar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- Exibe uma MSG no footer da tabela caso a quantidade de ocorrencias seja menor que 10 -->
+                    <?php else : ?>
+                        <nav class="paginacao" aria-label="Navegação de Páginas">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <span class="page-link">Aguardando mais Ocorrências</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    <?php endif; ?>
+
 
                     <!-- Modal ADICIONA NOVA OCORRENCIA -->
                     <div class="modal fade" id="addocorrenciaa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
