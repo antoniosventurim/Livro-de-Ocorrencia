@@ -292,7 +292,7 @@ $locais = $nomesLocais;
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Descrição Completa</b></h1>
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">(ID - <?php echo $ocorrencia['id']; ?>) <b>Descrição Completa</b></h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body bodydescription">
@@ -320,8 +320,7 @@ $locais = $nomesLocais;
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarObservacao_<?php echo $ocorrencia['id']; ?>">
                                                     Adicionar Observação
                                                 </button>
-
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -344,7 +343,7 @@ $locais = $nomesLocais;
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" id="cadastra_observacao" name="cadastra_observacao" class="btn btn-primary">Salvar Observação</button>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -436,8 +435,8 @@ $locais = $nomesLocais;
                                             <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="1000" placeholder="Relate a Ocorrência" required></textarea>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Adicionar</button>
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -487,11 +486,11 @@ $locais = $nomesLocais;
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="0">Usuario</option>
                                     <option value="1">Administrador</option>
-                                    <option value="2">Motorista</option>
                                 </select>
                             </div>
-                            <div>
-                                <button type="submit" id="adduser" name="adduser" class="btn btn-primary w-md">Cadastrar</button>
+                            <div class="modal-footer">
+                                <button type="submit" name="adduser" id="adduser" class="btn btn-primary">Cadastrar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                             </div>
                         </form>
                     </div>
@@ -529,7 +528,7 @@ $locais = $nomesLocais;
                         </tbody>
                     </table>
                     <div class="modal-footer">
-                        <button type="submit" name="adduser" id="adduser" data-bs-toggle="modal" data-bs-target="#adduserr" class="btn btn-primary">Adicionar</button>
+                        <button type="submit" name="adduser" id="adduser" data-bs-toggle="modal" data-bs-target="#adduserr" class="btn btn-primary">Cadastrar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
@@ -589,9 +588,11 @@ $locais = $nomesLocais;
                             <label for="destino" class="form-label"><b>Informe o Destino do Veículo:</b></label>
                             <textarea class="form-control" id="destino" name="destino" rows="4" placeholder="Informe o destino do veículo"></textarea>
                         </div>
-                        <hr>
                         <input type="hidden" name="statusRetirada" value="ativa">
-                        <button type="submit" id="cadretiradaveiculo" name="cadretiradaveiculo" class="btn btn-primary">Cadastrar</button>
+                        <div class="modal-footer">
+                            <button type="submit" name="cadretiradaveiculo" id="cadretiradaveiculo" class="btn btn-primary">Cadastrar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -627,9 +628,9 @@ $locais = $nomesLocais;
                             <label for="placa" class="form-label"><b>Placa:</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="placa" name="placa" placeholder="Insira a placa" required>
                         </div>
-                        <hr>
-                        <div class="mb-3">
-                            <button type="submit" id="cadveiculo" name="cadveiculo" class="btn btn-primary">Cadastrar</button>
+                        <div class="modal-footer">
+                            <button type="submit" name="cadveiculo" id="cadveiculo" class="btn btn-primary">Cadastrar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
                 </div>
@@ -652,7 +653,6 @@ $locais = $nomesLocais;
                             <label for="motorista" class="form-label"><b>Nome do Motorista:</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="motorista" name="motorista" placeholder="Insira o nome do motorista" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="setor" class="form-label"><b>Setor do Motorista:</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="setor" name="setor" placeholder="Insira o setor do motorista" required>
@@ -662,9 +662,9 @@ $locais = $nomesLocais;
                             <label for="cpf" class="form-label"><b>CPF do Motorista:</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="cpf" name="cpf" placeholder="Insira o CPF do motorista" required>
                         </div>
-                        <hr>
-                        <div class="mb-3">
-                            <button type="submit" id="cadmotorista" name="cadmotorista" class="btn btn-primary">Cadastrar</button>
+                        <div class="modal-footer">
+                            <button type="submit" name="cadmotorista" id="cadmotorista" class="btn btn-primary">Cadastrar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
                 </div>
@@ -675,16 +675,16 @@ $locais = $nomesLocais;
     <!-- Modal DEVOLUCAO -->
     <div class="modal fade" id="devolucaochave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content text-center">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Devolucao de Chaves</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL DEVOLUCAO-->
-                <div class="modal-body text-center">
+                <div class="modal-body ">
                     <div class="container">
                         <form action="processaDevolucao.php" method="post">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered text-center">
                                 <thead>
                                     <tr>
                                         <th>Nome do Motorista</th>
@@ -712,7 +712,7 @@ $locais = $nomesLocais;
                                                         <div class="btn-registra-devolucao">
                                                             <input type="hidden" name="idRetiradaVeiculo" value="<?php echo $retiradaVeiculo['id']; ?>">
                                                             <input type="datetime-local" class="form-control" name="dataDevolucao" required>
-                                                            <button type="submit" class="btn btn-primary" name="devolucao" id="devolucao">Registrar Devolução</button>
+
                                                         </div>
                                                         <input type="hidden" name="statusDevolucao" value="devolvido">
                                                     </form>
@@ -738,10 +738,12 @@ $locais = $nomesLocais;
                                     </div>
                                 </tfoot>
                             </table>
-                            <div class="mb-3">
-                                <button type="submit" id="cadlocal" name="cadlocal" data-bs-dismiss="modal" class="btn btn-danger">Cancelar</button>
-                            </div>
+
                         </form>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="devolucao" id="devolucao">Registrar Devolução</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
                     </div>
                 </div>
             </div>
