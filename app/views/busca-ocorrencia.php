@@ -104,6 +104,14 @@ $retornalocais = $statement->fetchAll(PDO::FETCH_ASSOC);
 $nomesLocais = array_column($retornalocais, 'nome_local');
 $locais = $nomesLocais;
 
+
+//Sql Pesqusa
+if (!empty($_GET['search'])){
+    echo "Tem algo Pesquisa";
+    
+}else{
+    echo "Campo Vazio nao tem nada para pesquisar";
+}
 //var_dump($idUsuarioLogado);
 //var_dump($_SESSION['usuario']);
 //var_dump($_SESSION['tipo_usuario']);
@@ -120,7 +128,7 @@ $locais = $nomesLocais;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../assets/css/painel.css">
+    <link rel="stylesheet" href="../../assets/css/pesquisa.css">
     <link rel="shortcut icon" href="../../assets/images/fav.png">
     <title>Painel</title>
 </head>
@@ -269,189 +277,205 @@ $locais = $nomesLocais;
                     </ul>
                 </div>
             </div>
-            <div class="table-info">
-                <div class="tabela-principal">
-                    <table class="table table-fixed">
-                        <thead>
-                            <tr>
-                                <th scope="col">TÍTULO</th>
-                                <th scope="col">LOCAL</th>
-                                <th scope="col">RESPONSÁVEL</th>
-                                <th scope="col">DATA REGISTRO</th>
-                                <th scope="col">DESCRIÇÃO COMPLETA</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($ocorrencias as $ocorrencia) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
-                                <tr>
-                                    <td><?php echo substr($ocorrencia['titulo'], 0, 20); ?></td>
-                                    <!-- Limitar a 100 caracteres -->
-                                    <td><?php echo substr($ocorrencia['local'], 0, 20); ?></td>
-                                    <td><?php echo $ocorrencia['nome_responsavel']; ?></td>
-                                    <td><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></td> <!-- Formata data e hora para dd/mm/aaaa H:i -->
-                                    <td>
-                                        <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $ocorrencia['id']; ?>">
-                                            Visualizar Descrição
-                                            <ion-icon name="paper-plane-outline"></ion-icon></a>
-                                    </td>
-                                </tr>
-                                <!-- Modal DESCRIÇÃO COMPLETA -->
-                                <div class="modal fade modaldescription" id="descricao_completa_<?php echo $ocorrencia['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">(ID - <?php echo $ocorrencia['id']; ?>) <b>Descrição Completa</b></h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body bodydescription">
-                                                <?php echo $ocorrencia['descricao']; ?>
-
-                                                <hr>
-                                                <div><b><?php echo $ocorrencia['nome_responsavel']; ?></b></div>
-                                                <div><b><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></b></div>
-                                            </div>
-                                            <div class="observacoes">
-                                                <p><strong>Observações Adicionais:</strong></p>
-                                                <!-- Aqui você pode exibir as observações relacionadas a esta ocorrência -->
-                                                <div>
-                                                    <?php
-                                                    $idOcorrencia = $ocorrencia['id'];
-                                                    $observacoes = buscarObservacoes($pdo, $idOcorrencia); // Função para buscar observações no banco de dados
-                                                    foreach ($observacoes as $observacao) {
-                                                        echo "<div class='textoobservacao'><strong>" . $observacao['nome_usuario'] . "</strong>: " . $observacao['observacao'] . "</div>";
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <!-- Botão para abrir o Modal de Adicionar Observação -->
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarObservacao_<?php echo $ocorrencia['id']; ?>">
-                                                    Adicionar Observação
-                                                </button>
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- MODAL PARA ADICIONAR OBSERVAÇÕES -->
-                                <div class="modal fade modaldescription" id="adicionarObservacao_<?php echo $ocorrencia['id']; ?>" tabindex="-1" aria-labelledby="adicionarObservacaoLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="adicionarObservacaoLabel"><b>Adicionar Observação</b></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!-- Formulário para adicionar a observação -->
-                                                <form action="processaObservacao.php" method="POST">
-                                                    <input type="hidden" name="ocorrencia_id" value="<?php echo $ocorrencia['id']; ?>">
-                                                    <div class="mb-3">
-                                                        <label for="observacao" class="form-label"><b>Observação:</b></label>
-                                                        <textarea class="form-control" id="observacao" name="observacao" rows="4" required></textarea>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" id="cadastra_observacao" name="cadastra_observacao" class="btn btn-primary">Salvar Observação</button>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+            <div class="geral">
+                <div class="text-center">
+                    <h1></h1>
                 </div>
-                <div class="table-footer">
-                    <div class="totalfooter">
-                        <h1>Total Ocorrências: <?php echo $totalOcorrencias ?></h1>
-                    </div>
-
-                    <!-- Paginação -->
-                    <?php if ($totalOcorrencias > 10) : ?>
-                        <nav class="paginacao" aria-label="Navegação de Páginas">
-                            <ul class="pagination">
-                                <!-- Botão "Anterior" -->
-                                <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
-                                        <span aria-hidden="true">Voltar</span>
-                                    </a>
-                                </li>
-
-                                <?php
-                                for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
-                                    if ($pagina >= $inicio && $pagina <= $fim) :
-                                ?>
-                                        <li class="page-item <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
-                                            <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
-                                        </li>
-                                <?php
-                                    endif;
-                                endfor;
-                                ?>
-
-                                <!-- Botão "Próximo" -->
-                                <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
-                                        <span aria-hidden="true">Avançar</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <!-- Exibe uma MSG no footer da tabela caso a quantidade de ocorrencias seja menor que 10 -->
-                    <?php else : ?>
-                        <nav class="paginacao" aria-label="Navegação de Páginas">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <span class="page-link">Aguardando mais Ocorrências</span>
-                                </li>
-                            </ul>
-                        </nav>
-                    <?php endif; ?>
-
-
-                    <!-- Modal ADICIONA NOVA OCORRENCIA -->
-                    <div class="modal fade" id="addocorrenciaa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Nova Ocorrência</b></h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div>
+                    <div class="table-info">
+                        <div class="tabela-principal">
+                            <div class="box-pesquisa">
+                                <div class="titulo-box-pesquisa">
+                                    <h1>Buscar Registros</h1>
                                 </div>
-                                <!-- COPO DO MODAL/FORMULARIO ADICIONAR NOVA OCORRENCIA -->
-                                <div class="modal-body">
-                                    <form action="processaOcorrencia.php" method="POST">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="titulo" class="form-label"><b>Título</b></label>
-                                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Informe um pequeno título da ocorrência" required>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="local" class="form-label"><b>Escolha um local:</b></label>
-                                                    <input class="form-control" list="localOptions" id="local" name="local" placeholder="Digite para pesquisar...">
-                                                    <datalist id="localOptions">
-                                                        <?php foreach ($locais as $local) : ?>
-                                                            <option value="<?php echo $local; ?>">
-                                                            <?php endforeach; ?>
-                                                    </datalist>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="descricao" class="form-label"><b>Relatório Da Ocorrência</b></label>
-                                            <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="1000" placeholder="Relate a Ocorrência" required></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                        </div>
-                                    </form>
+                                <div class="input-group mb-3 box-search">
+                                    <input type="text" class="form-control input-search" id="pesquisar" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-addon2">
+                                    <button class="btn btn-primary" type="button" onclick="searchData()">Pesquisar</button>
                                 </div>
                             </div>
+                            <table class="table table-fixed text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">TÍTULO</th>
+                                        <th scope="col">LOCAL</th>
+                                        <th scope="col">RESPONSÁVEL</th>
+                                        <th scope="col">DATA REGISTRO</th>
+                                        <th scope="col">DESCRIÇÃO COMPLETA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($ocorrencias as $ocorrencia) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                                        <tr>
+                                            <td><?php echo substr($ocorrencia['titulo'], 0, 20); ?></td>
+                                            <!-- Limitar a 100 caracteres -->
+                                            <td><?php echo substr($ocorrencia['local'], 0, 20); ?></td>
+                                            <td><?php echo $ocorrencia['nome_responsavel']; ?></td>
+                                            <td><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></td> <!-- Formata data e hora para dd/mm/aaaa H:i -->
+                                            <td>
+                                                <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $ocorrencia['id']; ?>">
+                                                    Visualizar Descrição
+                                                    <ion-icon name="paper-plane-outline"></ion-icon></a>
+                                            </td>
+                                        </tr>
+                                        <!-- Modal DESCRIÇÃO COMPLETA -->
+                                        <div class="modal fade modaldescription" id="descricao_completa_<?php echo $ocorrencia['id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">(ID - <?php echo $ocorrencia['id']; ?>) <b>Descrição Completa</b></h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body bodydescription">
+                                                        <?php echo $ocorrencia['descricao']; ?>
+
+                                                        <hr>
+                                                        <div><b><?php echo $ocorrencia['nome_responsavel']; ?></b></div>
+                                                        <div><b><?php echo date('d/m/Y H:i', strtotime($ocorrencia['data_registro'])); ?></b></div>
+                                                    </div>
+                                                    <div class="observacoes">
+                                                        <p><strong>Observações Adicionais:</strong></p>
+                                                        <!-- Aqui você pode exibir as observações relacionadas a esta ocorrência -->
+                                                        <div>
+                                                            <?php
+                                                            $idOcorrencia = $ocorrencia['id'];
+                                                            $observacoes = buscarObservacoes($pdo, $idOcorrencia); // Função para buscar observações no banco de dados
+                                                            foreach ($observacoes as $observacao) {
+                                                                echo "<div class='textoobservacao'><strong>" . $observacao['nome_usuario'] . "</strong>: " . $observacao['observacao'] . "</div>";
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <!-- Botão para abrir o Modal de Adicionar Observação -->
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarObservacao_<?php echo $ocorrencia['id']; ?>">
+                                                            Adicionar Observação
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- MODAL PARA ADICIONAR OBSERVAÇÕES -->
+                                        <div class="modal fade modaldescription" id="adicionarObservacao_<?php echo $ocorrencia['id']; ?>" tabindex="-1" aria-labelledby="adicionarObservacaoLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="adicionarObservacaoLabel"><b>Adicionar Observação</b></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Formulário para adicionar a observação -->
+                                                        <form action="processaObservacao.php" method="POST">
+                                                            <input type="hidden" name="ocorrencia_id" value="<?php echo $ocorrencia['id']; ?>">
+                                                            <div class="mb-3">
+                                                                <label for="observacao" class="form-label"><b>Observação:</b></label>
+                                                                <textarea class="form-control" id="observacao" name="observacao" rows="4" required></textarea>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" id="cadastra_observacao" name="cadastra_observacao" class="btn btn-primary">Salvar Observação</button>
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-footer">
+                            <div class="totalfooter">
+                                <h1>Total Ocorrências: <?php echo $totalOcorrencias ?></h1>
+                            </div>
+
+                            <!-- Paginação -->
+                            <?php if ($totalOcorrencias > 10) : ?>
+                                <nav class="paginacao" aria-label="Navegação de Páginas">
+                                    <ul class="pagination">
+                                        <!-- Botão "Anterior" -->
+                                        <li class="page-item <?php echo ($paginaAtual === 1) ? 'disabled' : ''; ?>">
+                                            <a class="page-link" href="?page=<?php echo $paginaAtual - 1; ?>" aria-label="Anterior">
+                                                <span aria-hidden="true">Voltar</span>
+                                            </a>
+                                        </li>
+
+                                        <?php
+                                        for ($pagina = 1; $pagina <= $totalPaginas; $pagina++) :
+                                            if ($pagina >= $inicio && $pagina <= $fim) :
+                                        ?>
+                                                <li class="page-item <?php echo ($pagina === $paginaAtual) ? 'active' : ''; ?>">
+                                                    <a class="page-link" href="?page=<?php echo $pagina; ?>"><?php echo $pagina; ?></a>
+                                                </li>
+                                        <?php
+                                            endif;
+                                        endfor;
+                                        ?>
+
+                                        <!-- Botão "Próximo" -->
+                                        <li class="page-item <?php echo ($paginaAtual >= $totalPaginas) ? 'disabled' : ''; ?>">
+                                            <a class="page-link" href="?page=<?php echo $paginaAtual + 1; ?>" aria-label="Próxima">
+                                                <span aria-hidden="true">Avançar</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- Exibe uma MSG no footer da tabela caso a quantidade de ocorrencias seja menor que 10 -->
+                            <?php else : ?>
+                                <nav class="paginacao" aria-label="Navegação de Páginas">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled">
+                                            <span class="page-link">Aguardando mais Ocorrências</span>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            <?php endif; ?>
+
+
+                            <!-- Modal ADICIONA NOVA OCORRENCIA -->
+                            <div class="modal fade" id="addocorrenciaa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Nova Ocorrência</b></h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <!-- COPO DO MODAL/FORMULARIO ADICIONAR NOVA OCORRENCIA -->
+                                        <div class="modal-body">
+                                            <form action="processaOcorrencia.php" method="POST">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="titulo" class="form-label"><b>Título</b></label>
+                                                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Informe um pequeno título da ocorrência" required>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="local" class="form-label"><b>Escolha um local:</b></label>
+                                                            <input class="form-control" list="localOptions" id="local" name="local" placeholder="Digite para pesquisar...">
+                                                            <datalist id="localOptions">
+                                                                <?php foreach ($locais as $local) : ?>
+                                                                    <option value="<?php echo $local; ?>">
+                                                                    <?php endforeach; ?>
+                                                            </datalist>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="descricao" class="form-label"><b>Relatório Da Ocorrência</b></label>
+                                                    <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="1000" placeholder="Relate a Ocorrência" required></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
             </div>
         </main>
@@ -827,11 +851,48 @@ $locais = $nomesLocais;
             </div>
         </div>
     </div>
-    <script src="../../assets/scripts/scripts.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            verificaNomeUsuario();
+        const usuarioInput = document.getElementById("usuario");
+        const usuarioValidationMessage = document.getElementById("usuarioValidationMessage");
+
+        usuarioInput.addEventListener("input", function() {
+            const usuario = usuarioInput.value;
+
+            // Enviar uma solicitação AJAX para verificar_usuario.php
+            fetch("verificar_usuario.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `usuario=${encodeURIComponent(usuario)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        usuarioValidationMessage.textContent = "Nome de usuário disponível.";
+                        usuarioValidationMessage.style.color = "green";
+                    } else {
+                        usuarioValidationMessage.textContent = "Nome de usuário já está em uso.";
+                        usuarioValidationMessage.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro na solicitação AJAX: " + error);
+                });
         });
+    </script>
+    <script>
+        var search = document.getElementById('pesquisar');
+
+        search.addEventListener("keydown", function(event){
+            if (event.key === "Enter"){
+                searchData();
+            }
+        });
+        function searchData() {
+            window.location = 'busca-ocorrencia?search=' + search.value;
+
+        }
     </script>
 </body>
 
