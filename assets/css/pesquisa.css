@@ -1,0 +1,213 @@
+.main {
+    box-sizing: border-box;
+    height: 100vh;
+    background: rgb(167, 2, 2);
+    background: linear-gradient(180deg, rgba(167, 2, 2, 1) 34%, rgba(255, 255, 255, 1) 34%);
+    background: linear-gradient(180deg, rgb(168, 5, 5) 45%, rgba(242, 242, 242, 1) 45%, rgba(255, 255, 255, 1) 45%);
+    position: relative;
+}
+
+.side-bar {
+    height: 100vh;
+
+}
+
+.nav-link {
+    font-family: sans-serif;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 30px;
+    text-align: center;
+}
+
+.table-info {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-top: 5%;
+    height: 80vh;
+    width: 70vw;
+    background-color: #ffffff;
+    -webkit-box-shadow: -62px 168px 172px -49px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -62px 168px 172px -49px rgba(0, 0, 0, 0.5);
+    box-shadow: -62px 168px 172px -49px rgba(0, 0, 0, 0.5);
+}
+
+.table>tbody {
+    vertical-align: middle;
+}
+
+.tabela-principal {
+    width: 100%;
+}
+
+.table-footer {
+    display: flex;
+    width: 100%;
+    height: 80px;
+
+}
+
+.totalfooter {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    background-color: green;
+}
+
+.totalfooter h1 {
+    font-size: 20px;
+
+}
+
+.pagination {
+    align-items: center;
+    margin-top: 15px;
+}
+
+.paginacao {
+    display: flex;
+    width: 73%;
+    background-color: #212529;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.pagination a {
+    color: black;
+    font-weight: bold;
+    margin: 5px;
+    border: none;
+}
+
+.active>.page-link,
+.page-link.active {
+    color: rgb(255, 255, 255);
+    background-color: rgb(167, 2, 2);
+    border-radius: 50px;
+    border: 4px solid rgb(189, 57, 57);
+}
+
+.btn-descricao {
+    font-weight: 600;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #212529;
+}
+
+.btn-descricao:hover {
+    background: rgb(167, 2, 2);
+}
+
+.nav-pills .nav-link:hover {
+    background: rgb(167, 2, 2);
+}
+
+.textoobservacao {
+    border: 1px solid black;
+    margin: 5px;
+    display: flex;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #dbdbdf;
+}
+
+.modaldescription {
+    color: black;
+    text-align: center;
+}
+
+.bodydescription {
+    border-radius: 5px;
+    border: 1px solid;
+    margin: 10px;
+}
+
+.user-logado {
+    text-transform: capitalize;
+    font-weight: 900;
+}
+
+.svg-logo {
+    margin-right: 3px;
+}
+
+.form-tipo-veiculo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-tipo-veiculo .form-select {
+    font-weight: bold;
+    margin-left: 5px;
+    width: 40%;
+}
+
+.d-dowm-chaves {
+    background-color: #212529;
+}
+
+.r-chaves {
+    margin: 5px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    background-color: #363d44;
+    ;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link:hover {
+    background-color: rgb(167, 2, 2);
+}
+
+.svg-bottomchaves {
+    margin-left: 10px;
+}
+
+.custom-width-motorista {
+    width: 50%;
+}
+
+.btn-registra-devolucao button {
+    margin-top: 5px;
+}
+
+.btn-devolucao-realizada {
+    color: green;
+}
+
+.info-footer-tabela svg {
+    color: red;
+}
+
+.box-pesquisa {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.titulo-box-pesquisa {}
+
+.box-search {
+    width: 50%;
+    gap: 0.3%;
+    outline: none;
+}
+
+.input-search:focus {
+    outline: none;
+}
