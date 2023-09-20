@@ -104,6 +104,7 @@ $retornalocais = $statement->fetchAll(PDO::FETCH_ASSOC);
 $nomesLocais = array_column($retornalocais, 'nome_local');
 $locais = $nomesLocais;
 $retornaSearchs = '';
+$numeroRegistros = 0;
 
 //Sql Pesqusa Ocorrencias
 if (!empty($_GET['search'])) {
@@ -119,7 +120,9 @@ if (!empty($_GET['search'])) {
     $statement = $pdo->prepare($sqlSearch);
     $statement->execute();
     $retornaSearchs = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $numeroRegistros = $statement->rowCount();
 } else {
+    echo "Tem nada";
 }
 //var_dump($idUsuarioLogado);
 //var_dump($_SESSION['usuario']);
@@ -291,18 +294,18 @@ if (!empty($_GET['search'])) {
                 </div>
                 <div>
                     <div class="table-info">
-                        <div class="tabela-principal">
-                            <div class="box-pesquisa">
-                                <div class="titulo-box-pesquisa">
-                                    <h1>Buscar Registros</h1>
-                                </div>
-                                <div class="input-group mb-3 box-search">
-                                    <input type="text" class="form-control input-search" id="pesquisar" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-addon2">
-                                    <button class="btn btn-primary" type="button" onclick="searchData()">Pesquisar</button>
-                                </div>
+                        <div class="box-pesquisa">
+                            <div class="titulo-box-pesquisa">
+                                <h1>Buscar Registros</h1>
                             </div>
-                            <div class="scroll-search">
-                                <table class="table table-fixed text-center">
+                            <div class="input-group mb-3 box-search">
+                                <input type="text" class="form-control input-search" id="pesquisar" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-addon2">
+                                <button class="btn btn-primary" type="button" onclick="searchData()">Pesquisar</button>
+                            </div>
+                        </div>
+                        <div class="tabela-principal">
+                            <div>
+                                <table class="table col-xs-7 table-bordered table-striped table-condensed table-fixed text-center">
                                     <thead>
                                         <tr>
                                             <th scope="col">TÍTULO</th>
@@ -399,11 +402,11 @@ if (!empty($_GET['search'])) {
                         </div>
                         <div class="table-footer">
                             <div class="totalfooter">
-                                <h1>Total Ocorrências: <?php echo $totalOcorrencias ?></h1>
+                                <h1>TOTAL DE OCORRENCIAS: <?php echo $totalOcorrencias ?></h1>
                             </div>
                             <div class="paginacao">
-                                <div class="pagination">
-
+                                <div class="pagination text-white">
+                                    <h1>Total de Registros Encontrados: <?php echo $numeroRegistros ?></h1>
                                 </div>
                             </div>
 
@@ -870,6 +873,14 @@ if (!empty($_GET['search'])) {
             window.location = 'busca-ocorrencia?search=' + search.value;
 
         }
+    </script>
+    <script>
+        // Obtém a data e hora atual
+        const dataHoraAtual = new Date();
+        // Formata a data e hora no formato esperado (AAAA-MM-DDTHH:MM)
+        const formatoDataHora = `${dataHoraAtual.getFullYear()}-${(dataHoraAtual.getMonth() + 1).toString().padStart(2, '0')}-${dataHoraAtual.getDate().toString().padStart(2, '0')}T${dataHoraAtual.getHours().toString().padStart(2, '0')}:${dataHoraAtual.getMinutes().toString().padStart(2, '0')}`;
+        // Define o valor do input como a data e hora formatada
+        document.getElementById("dataRetirada").value = formatoDataHora;
     </script>
 </body>
 

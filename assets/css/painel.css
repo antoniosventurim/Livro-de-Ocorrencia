@@ -191,10 +191,3 @@
 .info-footer-tabela svg {
     color: red;
 }
-
-.scroll-search {
-    max-height: 100px;
-    /* Defina a altura máxima desejada */
-    overflow-y: auto;
-    /* Cria uma barra de rolagem vertical quando o conteúdo ultrapassa a altura máxima */
-}

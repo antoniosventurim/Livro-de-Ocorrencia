@@ -28,6 +28,7 @@
     align-items: flex-end;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 10px;
     margin-left: 10%;
     margin-top: 5%;
     height: 80vh;
@@ -44,12 +45,17 @@
 
 .tabela-principal {
     width: 100%;
+    display: block;
+    height: auto;
+    overflow-y: auto;
 }
 
 .table-footer {
     display: flex;
     width: 100%;
     height: 80px;
+    margin-top: auto;
+    flex-direction: row-reverse;
 
 }
 
@@ -60,10 +66,12 @@
     justify-content: center;
     width: 30%;
     background-color: green;
+
 }
 
 .totalfooter h1 {
     font-size: 20px;
+    margin-top: 8px; 
 
 }
 
@@ -193,15 +201,22 @@
     color: red;
 }
 
-.box-pesquisa {
+.box-pesquisa{
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
+    background-color: #dbdbdf;
+    border-radius: 10px 10px 0 0;
 }
 
-.titulo-box-pesquisa {}
-
+thead{
+    top: 0;
+    position: sticky;
+    z-index: 1;
+    background-color: #dbdbdf;
+    margin-top: -1px;
+}
 .box-search {
     width: 50%;
     gap: 0.3%;

@@ -833,6 +833,14 @@ $locais = $nomesLocais;
             verificaNomeUsuario();
         });
     </script>
+    <script>
+        // Obtém a data e hora atual
+        const dataHoraAtual = new Date();
+        // Formata a data e hora no formato esperado (AAAA-MM-DDTHH:MM)
+        const formatoDataHora = `${dataHoraAtual.getFullYear()}-${(dataHoraAtual.getMonth() + 1).toString().padStart(2, '0')}-${dataHoraAtual.getDate().toString().padStart(2, '0')}T${dataHoraAtual.getHours().toString().padStart(2, '0')}:${dataHoraAtual.getMinutes().toString().padStart(2, '0')}`;
+        // Define o valor do input como a data e hora formatada
+        document.getElementById("dataRetirada").value = formatoDataHora;
+    </script>
 </body>
 
 </html>
