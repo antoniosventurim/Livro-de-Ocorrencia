@@ -233,7 +233,7 @@ $locais = $nomesLocais;
                         <?php if ($tipoUsuarioLogado === 1) {
                             echo '<a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#alluserss">
                             <i class="bi bi-people-fill"></i>
-                            Usuarios Registrados
+                            Pessoas Registradas
                         </a>';
                         } ?>
                     </li>

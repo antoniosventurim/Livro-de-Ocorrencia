@@ -37,9 +37,10 @@
     box-shadow: 200px -87px 300px -83px rgba(145, 145, 145, 1);
 }
 
-.table>tbody{
+.table>tbody {
     vertical-align: middle;
 }
+
 .tabela-principal {
     width: 100%;
 }
@@ -64,7 +65,8 @@
     font-size: 20px;
 
 }
-.pagination{
+
+.pagination {
     align-items: center;
     margin-top: 15px;
 }
@@ -77,13 +79,16 @@
     justify-content: center;
     font-weight: bold;
 }
+
 .pagination a {
     color: black;
     font-weight: bold;
     margin: 5px;
     border: none;
 }
-.active>.page-link, .page-link.active{
+
+.active>.page-link,
+.page-link.active {
     color: rgb(255, 255, 255);
     background-color: rgb(167, 2, 2);
     border-radius: 50px;
@@ -131,51 +136,65 @@
     text-transform: capitalize;
     font-weight: 900;
 }
-.svg-logo{
+
+.svg-logo {
     margin-right: 3px;
 }
 
-.form-tipo-veiculo{
+.form-tipo-veiculo {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.form-tipo-veiculo .form-select{
+.form-tipo-veiculo .form-select {
     font-weight: bold;
     margin-left: 5px;
     width: 40%;
 }
-.d-dowm-chaves{
+
+.d-dowm-chaves {
     background-color: #212529;
 }
-.r-chaves{
+
+.r-chaves {
     margin: 5px;
 }
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
-    background-color: #363d44; ;
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    background-color: #363d44;
+    ;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link:hover{
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link:hover {
     background-color: rgb(167, 2, 2);
 }
 
-.svg-bottomchaves{
+.svg-bottomchaves {
     margin-left: 10px;
 }
 
-.custom-width-motorista{
+.custom-width-motorista {
     width: 50%;
 }
 
-.btn-registra-devolucao button{
+.btn-registra-devolucao button {
     margin-top: 5px;
 }
 
-.btn-devolucao-realizada{
+.btn-devolucao-realizada {
     color: green;
 }
 
-.info-footer-tabela svg{
+.info-footer-tabela svg {
     color: red;
+}
+
+.scroll-search {
+    max-height: 100px;
+    /* Defina a altura máxima desejada */
+    overflow-y: auto;
+    /* Cria uma barra de rolagem vertical quando o conteúdo ultrapassa a altura máxima */
 }
