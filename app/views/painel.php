@@ -72,7 +72,26 @@ $statement->execute();
 // Recupere os resultados em um array
 $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-$queryObservacoes = "SELECT obs.id AS observacao_id, obs.observacao, obs.data_registro, u.id AS usuario_id, u.nome AS nome_usuario, u.tipo_usuario, o.titulo AS titulo_ocorrencia, o.descricao AS descricao_ocorrencia, o.local AS local_ocorrencia FROM observacoes AS obs INNER JOIN usuarios AS u ON obs.id_usuario = u.id INNER JOIN ocorrencias AS o ON obs.id_ocorrencia = o.id ORDER BY obs.data_registro DESC LIMIT 10"; // Essa consulta traz o nome do responsavél ao inves do ID nesse caso podemos colocar o nome do responsavél ao inves do ID
+$queryObservacoes = "SELECT
+obs.id AS observacao_id,
+obs.id_ocorrencia,
+obs.observacao,
+obs.data_registro,
+u.id AS usuario_id,
+u.nome AS nome_usuario,
+u.tipo_usuario,
+o.titulo AS titulo_ocorrencia,
+o.descricao AS descricao_ocorrencia,
+o.local AS local_ocorrencia
+FROM
+observacoes AS obs
+INNER JOIN
+usuarios AS u ON obs.id_usuario = u.id
+INNER JOIN
+ocorrencias AS o ON obs.id_ocorrencia = o.id
+ORDER BY
+obs.data_registro DESC
+LIMIT 10";
 $statement = $pdo->prepare($queryObservacoes);
 $statement->execute();
 $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -129,13 +148,13 @@ $locais = $nomesLocais;
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-                <a href="http://localhost/livro-de-ocorrencia/app/views/painel" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="http://localhost/portaria/app/views/painel" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span>PORTARIA DIGITAL</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="http://localhost/livro-de-ocorrencia/app/views/painel" class="nav-link text-white" aria-current="page">
+                        <a href="http://localhost/portaria/app/views/painel" class="nav-link text-white" aria-current="page">
                             <i class="bi bi-house-fill">
                                 <use xlink:href="#hom"></use>
                             </i>
@@ -773,25 +792,27 @@ $locais = $nomesLocais;
                                 <th scope="col">Titulo</th>
                                 <th scope="col">Data Registro</th>
                                 <th scope="col">Usuario Registrou</th>
+                                <th scope="col">ID OCORRENCIA</th>
                                 <th scope="col">Visualizar Ocorrencia</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($totalObservacoes as $observacao) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                            <?php foreach ($totalObservacoes as $observacao) : ?>
                                 <tr>
                                     <td><?php echo substr($observacao['observacao'], 0, 20); ?></td>
                                     <td><?php echo $observacao['titulo_ocorrencia']; ?></td>
                                     <td><?php echo date('d/m/Y H:i', strtotime($observacao['data_registro'])); ?></td>
                                     <td><?php echo $observacao['nome_usuario']; ?></td>
+                                    <td><?php echo $observacao['id_ocorrencia']; ?></td>
                                     <td>
-                                        <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $ocorrencia['id']; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                                                <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
-                                            </svg> Visualizar</a>
+                                    <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $observacao['id_ocorrencia']; ?>">
+                                            Visualizar Descrição<?php echo $observacao['id_ocorrencia']; ?>
+                                            <ion-icon name="paper-plane-outline"></ion-icon></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -828,6 +849,7 @@ $locais = $nomesLocais;
         </div>
     </div>
     <script src="../../assets/scripts/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             verificaNomeUsuario();
