@@ -122,7 +122,7 @@ if (!empty($_GET['search'])) {
     $retornaSearchs = $statement->fetchAll(PDO::FETCH_ASSOC);
     $numeroRegistros = $statement->rowCount();
 } else {
-    echo "Tem nada";
+
 }
 //var_dump($idUsuarioLogado);
 //var_dump($_SESSION['usuario']);
