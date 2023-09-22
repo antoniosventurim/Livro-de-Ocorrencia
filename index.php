@@ -26,7 +26,7 @@ if (isset($_SESSION['mensagem'])) {
     <div class="main-login">
         <div class="left-login">
         </div>
-        <form action="./app/views/processaAutenticacao" method="post">
+        <form action="./app/views/processaAutenticacao.php" method="post">
             <div class="right-login">
                 <div class="card-login">
                     <h2>Entre com seu usuário e senha para continuar.</h2>

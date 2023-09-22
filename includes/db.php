@@ -1,9 +1,9 @@
 <?php
 // Configurações do banco de dados
-$DB_HOST = '';
-$DB_USERNAME = 'root';
-$DB_PASSWORD = '';
-$DB_NAME = 'portariadigital';
+$DB_HOST = 'localhost';
+$DB_USERNAME = 'pro43337_admin';
+$DB_PASSWORD = 'Nova@2023';
+$DB_NAME = 'pro43337_portariadigital';
 
 
 // Tentativa de conexão
