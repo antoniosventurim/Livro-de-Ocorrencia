@@ -138,6 +138,7 @@ if (!empty($_GET['search'])) {
     $statement->execute();
     $retornaSearchs = $statement->fetchAll(PDO::FETCH_ASSOC);
     $numeroRegistros = $statement->rowCount();
+    $msgsqlsearch = 'Registros Encontrados: ';
 } else {
     // Consulta para mostrar as 10 últimas ocorrências quando a pesquisa estiver vazia
     $sqlSearch = "SELECT ocorrencias.*, usuarios.nome AS nome_responsavel
@@ -149,6 +150,7 @@ if (!empty($_GET['search'])) {
     $statement->execute();
     $retornaSearchs = $statement->fetchAll(PDO::FETCH_ASSOC);
     $numeroRegistros = $statement->rowCount();
+    $msgsqlsearch = 'Últimos Registros: ';
 }
 
 //var_dump($idUsuarioLogado);
@@ -427,7 +429,7 @@ if (!empty($_GET['search'])) {
                             </div>
                             <div class="paginacao">
                                 <div class="pagination text-white">
-                                    <h1>Total de Registros Encontrados: <?php echo $numeroRegistros ?></h1>
+                                    <h4><?php echo $msgsqlsearch . $numeroRegistros ?></h4>
                                 </div>
                             </div>
 
@@ -559,28 +561,28 @@ if (!empty($_GET['search'])) {
                                     <td><?php echo ($usuario['tipo_usuario'] == 1 ? 'Administrador' : 'Usuário Normal') ?></td>
                                     <td><?php echo ($usuario['status_usuario'] == 1 ? 'Ativo' : 'Desativado') ?></td>
                                     <td>
-                                        <?php if ($usuario['status_usuario'] == 1) : ?>
-                                            <form method="POST" action="processaHabilitacaoUser.php">
-                                                <input type="hidden" name="usuario_id" value="<?php echo $usuario['id']; ?>">
-                                                <input type="hidden" name="novo_status" value="0"> <!-- Define o novo status como desativado -->
-                                                <button type="submit" name="alterastatususer">Desativar</button>
-                                            </form>
-                                        <?php else : ?>
-                                            <form method="POST" action="processaHabilitacaoUser.php">
-                                                <input type="hidden" name="usuario_id" value="<?php echo $usuario['id']; ?>">
-                                                <input type="hidden" name="novo_status" value="1"> <!-- Define o novo status como ativo -->
-                                                <button type="submit" name="alterastatususer">Ativar</button>
-                                            </form>
-                                        <?php endif; ?>
+                                        <form action="processaHabilitacaoUser.php" method="POST">
+                                            <input type="hidden" name="id_usuario" value="<?php echo $usuario['id']; ?>">
+                                            <select class="form-select" name="novo_status" id="novo_status">
+                                                <option value="" selected disabled>Selecione</option>
+                                                <?php if ($usuario['status_usuario'] == 1) : ?>
+                                                    <!-- Usuário está ativo, exibir opção de desativar -->
+                                                    <option value="0">Desativar</option>
+                                                <?php else : ?>
+                                                    <!-- Usuário está desativado, exibir opção de ativar -->
+                                                    <option value="1">Ativar</option>
+                                                <?php endif; ?>
+                                            </select>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                     <div class="modal-footer">
-                        <button type="submit" name="adduser" id="adduser" data-bs-toggle="modal" data-bs-target="#adduser" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" name="alterastatususer" id="alterastatususer" class="btn btn-primary">Salvar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -942,10 +944,9 @@ if (!empty($_GET['search'])) {
                 // Remova "?sucesso=1" da URL usando pushState
                 const newURL = window.location.href.replace('?sucesso=1', '');
                 window.history.pushState({}, document.title, newURL);
-            }, 6000);
+            }, 5000);
         }
     </script>
-
 </body>
 
 </html>

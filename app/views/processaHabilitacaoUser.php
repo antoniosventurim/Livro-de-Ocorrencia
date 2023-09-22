@@ -23,7 +23,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $statement->execute();
 
         // Redirecionar de volta para a página de onde veio
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header('Location: painel');
         exit;
     }
-?>
