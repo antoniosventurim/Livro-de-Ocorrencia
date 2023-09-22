@@ -1,6 +1,6 @@
 <?php
 // Configurações do banco de dados
-$DB_HOST = 'localhost';
+$DB_HOST = '';
 $DB_USERNAME = 'root';
 $DB_PASSWORD = '';
 $DB_NAME = 'portariadigital';

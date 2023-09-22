@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../../includes/db.php');
 // Verificar se o usuário está logado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Redirecionar para a página de login se não estiver logado
-    header('Location: login.php');
+    header('Location: login');
     exit;
 }
 
@@ -41,7 +41,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
         $statement->execute();
 
         // Redirecionar de volta para a página do painel após a inserção
-        header('Location: painel.php?sucesso=1');
+        header('Location: painel?sucesso=1');
         exit;
     }
 }

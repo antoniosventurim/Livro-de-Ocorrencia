@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['id'] = $idDoUsuario; // Armazene o ID do usuário na sessão
         $_SESSION['tipo_usuario'] = $tipousuario;
 
-        header('Location: painel.php');
+        header('Location: painel');
         exit;
     } else {
         $_SESSION['mensagem'] = "Login ou senha incorretos. Tente novamente.";

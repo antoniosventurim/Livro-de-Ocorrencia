@@ -33,22 +33,6 @@ $limiteExcedente = max(0, $totalOcorrencias - 10);
 
 // Defina o número de ocorrências por página
 $ocorrenciasPorPagina = 10;
-
-// Determine a página atual com base no parâmetro 'page' na URL
-$paginaAtual = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
-// Busque as ocorrências paginadas
-$ocorrencias = buscarOcorrenciasPaginadas($pdo, $paginaAtual, $ocorrenciasPorPagina);
-
-// Calcule o número total de ocorrências
-$totalOcorrencias = calcularTotalOcorrencias($pdo);
-$totalPaginas = ceil($totalOcorrencias / $ocorrenciasPorPagina);
-
-$numPaginasVisiveis = 5; // Defina o número de páginas visíveis desejado
-$numPaginasAntesDepois = floor($numPaginasVisiveis / 2);
-$inicio = max(1, $paginaAtual - $numPaginasAntesDepois);
-$fim = min($totalPaginas, $inicio + $numPaginasVisiveis - 1);
-
 //busca no banco de dados as ocorrencias por ID
 function buscarObservacoes($pdo, $idOcorrencia)
 {
