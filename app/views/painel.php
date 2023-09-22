@@ -66,7 +66,7 @@ function buscarObservacoes($pdo, $idOcorrencia)
 }
 
 // Consulta SQL para selecionar todos os usuários
-$queryuser = "SELECT id, nome, usuario, tipo_usuario FROM usuarios";
+$queryuser = "SELECT id, nome, usuario, tipo_usuario, status_usuario FROM usuarios";
 $statement = $pdo->prepare($queryuser);
 $statement->execute();
 
@@ -548,6 +548,7 @@ if (!empty($_GET['search'])) {
                                 <th scope="col">USUARIO</th>
                                 <th scope="col">PERFIL</th>
                                 <th scope="col">STATUS</th>
+                                <th scope="col">ACAO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -556,6 +557,22 @@ if (!empty($_GET['search'])) {
                                     <td><?php echo $usuario['nome']; ?></td>
                                     <td><?php echo $usuario['usuario']; ?></td>
                                     <td><?php echo ($usuario['tipo_usuario'] == 1 ? 'Administrador' : 'Usuário Normal') ?></td>
+                                    <td><?php echo ($usuario['status_usuario'] == 1 ? 'Ativo' : 'Desativado') ?></td>
+                                    <td>
+                                        <?php if ($usuario['status_usuario'] == 1) : ?>
+                                            <form method="POST" action="processaHabilitacaoUser.php">
+                                                <input type="hidden" name="usuario_id" value="<?php echo $usuario['id']; ?>">
+                                                <input type="hidden" name="novo_status" value="0"> <!-- Define o novo status como desativado -->
+                                                <button type="submit" name="alterastatususer">Desativar</button>
+                                            </form>
+                                        <?php else : ?>
+                                            <form method="POST" action="processaHabilitacaoUser.php">
+                                                <input type="hidden" name="usuario_id" value="<?php echo $usuario['id']; ?>">
+                                                <input type="hidden" name="novo_status" value="1"> <!-- Define o novo status como ativo -->
+                                                <button type="submit" name="alterastatususer">Ativar</button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
