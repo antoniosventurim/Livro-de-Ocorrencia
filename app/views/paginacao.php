@@ -1,5 +1,13 @@
 <?php
-function buscarOcorrenciasPaginadas($pdo, $pagina, $ocorrenciasPorPagina) {
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirecionar para a página de login se não estiver logado
+    header('Location: painel');
+    exit;
+}else{
+}
+
+function buscarOcorrenciasPaginadas($pdo, $pagina, $ocorrenciasPorPagina)
+{
     $inicio = ($pagina - 1) * $ocorrenciasPorPagina;
 
     $query = "SELECT o.*, u.usuario AS nome_responsavel FROM ocorrencias o LEFT JOIN usuarios u ON o.id_responsavel = u.id ORDER BY o.id DESC LIMIT $inicio, $ocorrenciasPorPagina";
@@ -8,7 +16,8 @@ function buscarOcorrenciasPaginadas($pdo, $pagina, $ocorrenciasPorPagina) {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function calcularTotalOcorrencias($pdo) {
+function calcularTotalOcorrencias($pdo)
+{
     // Consulta SQL para contar o número total de ocorrências
     $queryTotalOcorrencias = "SELECT COUNT(*) AS total_ocorrencias FROM ocorrencias";
     $statementTotalOcorrencias = $pdo->query($queryTotalOcorrencias);
@@ -16,7 +25,8 @@ function calcularTotalOcorrencias($pdo) {
     return $statementTotalOcorrencias->fetchColumn();
 }
 
-function exibirNavegacaoPaginacao($totalOcorrencias, $ocorrenciasPorPagina, $paginaAtual) {
+function exibirNavegacaoPaginacao($totalOcorrencias, $ocorrenciasPorPagina, $paginaAtual)
+{
     // Calcule o número total de páginas
     $totalPaginas = ceil($totalOcorrencias / $ocorrenciasPorPagina);
 
