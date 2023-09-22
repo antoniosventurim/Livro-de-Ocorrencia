@@ -3,7 +3,7 @@
 $DB_HOST = 'localhost';
 $DB_USERNAME = 'root';
 $DB_PASSWORD = '';
-$DB_NAME = 'portaria';
+$DB_NAME = 'portariadigital';
 
 
 // Tentativa de conexão

@@ -27,8 +27,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
     $retiradaAtiva = $statement->fetchColumn();
 
     if ($retiradaAtiva > 0) {
-        // O usuário já possui uma retirada de veículo ativa, exibir mensagem de erro
-        echo "Este motorista já possui um veiculo ativo e ainda não registrou devolução";
+        header('Location: painel?erro=1');
     } else {
         // O usuário não possui uma retirada ativa, permitir a nova retirada e registrá-la no banco de dados
         $queryInserirRetirada = "INSERT INTO retirada_veiculos (id_motorista, id_usuario, veiculo, destino, data_retirada, statusVeiculo, data_registro) VALUES (:usuarioResponsavel, :id_usuario, :veiculo, :destino, :dataRetirada, :statusRetirada, NOW())";
@@ -42,7 +41,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
         $statement->execute();
 
         // Redirecionar de volta para a página do painel após a inserção
-        header('Location: painel');
+        header('Location: painel?sucesso=1');
         exit;
     }
 }

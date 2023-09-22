@@ -23,6 +23,33 @@
     text-align: center;
 }
 
+.mensagem-erro {
+    background-color: #ff0000;
+    /* Cor de fundo vermelha para indicar erro */
+    color: rgb(255, 255, 255);
+    /* Cor do texto */
+    padding: 10px;
+    /* Espaçamento interno para melhor aparência */
+    text-align: center;
+    /* Centralize o texto */
+    display: none;
+    /* Inicialmente, oculte a mensagem de erro */
+}
+
+.mensagem-suc {
+    background-color: #008a50;
+    /* Cor de fundo vermelha para indicar erro */
+    color: rgb(255, 255, 255);
+    /* Cor do texto */
+    padding: 10px;
+    /* Espaçamento interno para melhor aparência */
+    text-align: center;
+    /* Centralize o texto */
+    display: none;
+    /* Inicialmente, oculte a mensagem de erro */
+}
+
+
 .table-info {
     display: flex;
     align-items: flex-end;
@@ -31,7 +58,7 @@
     border-radius: 10px;
     margin-left: 10%;
     margin-top: 5%;
-    height: 80vh;
+    height: 85vh;
     width: 70vw;
     background-color: #ffffff;
     -webkit-box-shadow: -62px 168px 172px -49px rgba(0, 0, 0, 0.5);
@@ -71,7 +98,7 @@
 
 .totalfooter h1 {
     font-size: 20px;
-    margin-top: 8px; 
+    margin-top: 8px;
 
 }
 
@@ -201,7 +228,7 @@
     color: red;
 }
 
-.box-pesquisa{
+.box-pesquisa {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -210,13 +237,14 @@
     border-radius: 10px 10px 0 0;
 }
 
-thead{
+thead {
     top: 0;
     position: sticky;
     z-index: 1;
     background-color: #dbdbdf;
     margin-top: -1px;
 }
+
 .box-search {
     width: 50%;
     gap: 0.3%;
