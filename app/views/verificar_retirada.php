@@ -1,7 +1,6 @@
 <?php
 // Inclua seus arquivos de configuração e conexão com o banco de dados aqui
 require_once(__DIR__ . '/../../includes/db.php');
-
 // Certifique-se de que recebeu um valor válido do motoristaResponsavel (via POST)
 if (isset($_POST['usuarioResponsavel']) && !empty($_POST['usuarioResponsavel'])) {
     // Obtenha o valor do motoristaResponsavel do POST

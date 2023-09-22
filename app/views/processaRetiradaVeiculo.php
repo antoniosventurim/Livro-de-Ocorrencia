@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../../includes/db.php');
 // Verificar se o usuário está logado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Redirecionar para a página de login se não estiver logado
-    header('Location: login');
+    header('Location: login.php');
     exit;
 }
 
@@ -27,7 +27,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
     $retiradaAtiva = $statement->fetchColumn();
 
     if ($retiradaAtiva > 0) {
-        header('Location: painel?erro=1');
+        header('Location: painel.php?erro=1');
     } else {
         // O usuário não possui uma retirada ativa, permitir a nova retirada e registrá-la no banco de dados
         $queryInserirRetirada = "INSERT INTO retirada_veiculos (id_motorista, id_usuario, veiculo, destino, data_retirada, statusVeiculo, data_registro) VALUES (:usuarioResponsavel, :id_usuario, :veiculo, :destino, :dataRetirada, :statusRetirada, NOW())";
@@ -41,7 +41,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
         $statement->execute();
 
         // Redirecionar de volta para a página do painel após a inserção
-        header('Location: painel?sucesso=1');
+        header('Location: painel.php?sucesso=1');
         exit;
     }
 }

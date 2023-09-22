@@ -1,14 +1,11 @@
 <?php
 session_start();
 require_once(__DIR__ . '/../../includes/db.php');
-require_once('paginacao.php');
 //print_r($_SESSION);
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../../');
     exit;
 }
-
-
 $idUsuarioLogado = $_SESSION['id'];
 $tipoUsuarioLogado = $_SESSION['tipo_usuario'];
 // Consulta SQL para obter o nome do usuário com base no ID armazenado na sessão

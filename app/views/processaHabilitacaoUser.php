@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../../includes/db.php');
 // Verificar se o usuário está logado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Redirecionar para a página de login se não estiver logado
-    header('Location: login');
+    header('Location: login.php');
     exit;
 }
     if (isset($_POST['alterastatususer'])) {
@@ -23,6 +23,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $statement->execute();
 
         // Redirecionar de volta para a página de onde veio
-        header('Location: painel');
+        header('Location: painel.php');
         exit;
     }

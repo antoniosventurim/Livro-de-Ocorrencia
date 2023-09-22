@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../../includes/db.php');
 // Verificar se o usuário está logado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Redirecionar para a página de login se não estiver logado
-    header('Location: login');
+    header('Location: login.php');
     exit;
 }
 
@@ -26,7 +26,7 @@ if (isset($_POST['adduser'])) {
     if ($statementVerificarUsuarioExistente->rowCount() > 0) {
         // Já existe um usuário com esse nome de usuário, exiba uma mensagem de erro
         $_SESSION['mensagem'] = "Nome de usuário já está em uso. Escolha outro.";
-        header('Location: painel'); // Redirecione para a página de registro
+        header('Location: painel.php'); // Redirecione para a página de registro
         exit;
     }
 
@@ -40,7 +40,7 @@ if (isset($_POST['adduser'])) {
     $statement->execute();
 
     // Redirecionar de volta para a página do painel após a inserção
-    header('Location: painel');
+    header('Location: painel.php');
     exit;
 }
 

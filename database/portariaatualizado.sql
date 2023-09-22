@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Set-2023 às 23:06
+-- Tempo de geração: 22-Set-2023 às 19:04
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.1.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `portariadigital`
+-- Banco de dados: `portaria123`
 --
 
 -- --------------------------------------------------------
@@ -122,8 +122,16 @@ CREATE TABLE `usuarios` (
   `nome` varchar(45) NOT NULL,
   `usuario` varchar(45) NOT NULL,
   `senha` varchar(45) NOT NULL,
+  `status_usuario` int(45) NOT NULL DEFAULT 1,
   `data_registro` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `tipo_usuario`, `nome`, `usuario`, `senha`, `status_usuario`, `data_registro`) VALUES
+(1, 1, 'Administrador', 'admin', 'admin', 1, '2023-09-22 19:04:01');
 
 -- --------------------------------------------------------
 
@@ -248,7 +256,7 @@ ALTER TABLE `retirada_veiculos`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `veiculos`

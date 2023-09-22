@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Redirecionar para a página de login se não estiver logado
-    header('Location: painel');
+    header('Location: painel.php');
     exit;
 }else{
 }

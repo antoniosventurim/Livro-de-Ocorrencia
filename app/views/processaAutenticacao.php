@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Função para criar um hash de senha
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
@@ -29,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['id'] = $idDoUsuario; // Armazene o ID do usuário na sessão
         $_SESSION['tipo_usuario'] = $tipousuario;
 
-        header('Location: painel');
+        header('Location: painel.php');
         exit;
     } else {
         $_SESSION['mensagem'] = "Login ou senha incorretos. Tente novamente.";
