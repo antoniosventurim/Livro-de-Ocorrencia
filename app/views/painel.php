@@ -449,7 +449,7 @@ if (!empty($_GET['search'])) {
                                                     <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="1000" placeholder="Relate a Ocorrência" required></textarea>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
+                                                    <button onclick="cadastraOcorrencia()" type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                                 </div>
                                             </form>
@@ -543,25 +543,31 @@ if (!empty($_GET['search'])) {
                                     <td><?php echo ($usuario['tipo_usuario'] == 1 ? 'Administrador' : 'Usuário Normal') ?></td>
                                     <td><?php echo ($usuario['status_usuario'] == 1 ? 'Ativo' : 'Desativado') ?></td>
                                     <td>
-                                        <form action="processaHabilitacaoUser.php" method="POST">
-                                            <input type="hidden" name="id_usuario" value="<?php echo $usuario['id']; ?>">
-                                            <select class="form-select" name="novo_status" id="novo_status">
-                                                <option value="" selected disabled>Selecione</option>
-                                                <?php if ($usuario['status_usuario'] == 1) : ?>
-                                                    <!-- Usuário está ativo, exibir opção de desativar -->
-                                                    <option value="0">Desativar</option>
-                                                <?php else : ?>
-                                                    <!-- Usuário está desativado, exibir opção de ativar -->
-                                                    <option value="1">Ativar</option>
-                                                <?php endif; ?>
-                                            </select>
+                                        <?php if ($usuario['usuario'] !== 'admin') : ?>
+                                            <form class="d-flex " action="processaHabilitacaoUser.php" method="POST">
+                                                <input type="hidden" name="id_usuario" value="<?php echo $usuario['id']; ?>">
+                                                <select class="form-select" name="novo_status" id="novo_status">
+                                                    <option value="" selected disabled>Selecione</option>
+                                                    <?php if ($usuario['status_usuario'] == 1) : ?>
+                                                        <!-- Usuário está ativo, exibir opção de desativar -->
+                                                        <option value="0">Desativar</option>
+                                                    <?php else : ?>
+                                                        <!-- Usuário está desativado, exibir opção de ativar -->
+                                                        <option value="1">Ativar</option>
+                                                    <?php endif; ?>
+                                                </select>
+                                                <button type="submit" name="alterastatususer" id="alterastatususer" class="btn btn-primary btn-alterastatus">Salvar</button>
+                                            </form>
+                                        <?php else : ?>
+                                            <!-- Exibir uma mensagem ou outra indicação aqui para o usuário 'admin' -->
+                                            <p>Administrador Geral</p>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                     <div class="modal-footer">
-                        <button type="submit" name="alterastatususer" id="alterastatususer" class="btn btn-primary">Salvar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                     </div>
                     </form>
@@ -855,9 +861,9 @@ if (!empty($_GET['search'])) {
     <script>
         // Chamar as funções quando a página estiver carregada
         $(document).ready(function() {
-        verificaNomeUsuario();
-        verificaLocal();
-    });
+            verificaNomeUsuario();
+            verificaLocal();
+        });
     </script>
     <script>
         var search = document.getElementById('pesquisar');
@@ -905,6 +911,20 @@ if (!empty($_GET['search'])) {
                 // Remova "?sucesso=1" da URL usando pushState
                 const newURL = window.location.href.replace('?sucesso=1', '');
                 window.history.pushState({}, document.title, newURL);
+            }, 5000);
+        }
+    </script>
+    <script>
+        function cadastraOcorrencia() {
+            // Obtém o botão pelo seu ID
+            var botao = document.getElementById("cadastraOcorrencia");
+
+            // Desativa o botão
+            botao.disabled = true;
+
+            // Define um atraso de 2 segundos (2000 milissegundos) para reativar o botão
+            setTimeout(function() {
+                botao.disabled = false;
             }, 5000);
         }
     </script>

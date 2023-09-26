@@ -43,10 +43,6 @@ if (isset($_SESSION['mensagem'])) {
                             <p><?php echo $mensagem; ?></p>
                         </div>
                     <?php } ?>
-                    <div>
-                        <input type="checkbox" name="savelogin" id="">
-                        <label for="savelogin">Mantenha-me conectado</label>
-                    </div>
                     <button type="submit" class="btn-login">LOGIN</button>
                     <tfoot>&copy;PEI II</tfoot>
                 </div>

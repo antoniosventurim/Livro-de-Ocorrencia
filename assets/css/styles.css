@@ -24,7 +24,6 @@
  }
 
  .left-login {
-
      width: 50vw;
      height: 100vh;
      display: flex;
@@ -57,7 +56,6 @@
  }
 
  .card-login {
-     box-shadow: 0px 10px 40px #6b6a6e;
      background-color: #e9e7ee;
      border-radius: 10px;
      width: 60%;
