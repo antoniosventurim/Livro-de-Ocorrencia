@@ -254,3 +254,7 @@ thead {
 .input-search:focus {
     outline: none;
 }
+
+.btn-alterastatus{
+    margin-left: 10px;
+}
