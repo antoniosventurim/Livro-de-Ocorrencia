@@ -59,16 +59,3 @@ function verificaLocal() {
         });
     });
 }
-
-function cadastraOcorrencia() {
-    // Obtém o botão pelo seu ID
-    var botao = document.getElementById("cadastraOcorrencia");
-
-    // Desativa o botão
-    botao.disabled = true;
-
-    // Define um atraso de 2 segundos (2000 milissegundos) para reativar o botão
-    setTimeout(function() {
-        botao.disabled = false;
-    }, 5000);
-}
