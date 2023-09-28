@@ -49,9 +49,11 @@ function verificaLocal() {
         .then(local => {
             if (local.valid) {
                 localValidationMessage.textContent = "";
+                cadastraOcorrencia.disabled = false;
             } else {
                 localValidationMessage.textContent = "Local inválido.";
                 localValidationMessage.style.color = "red";
+                cadastraOcorrencia.disabled = true;
             }
         })
         .catch(error => {
