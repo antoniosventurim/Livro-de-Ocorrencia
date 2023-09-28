@@ -159,7 +159,7 @@ if (!empty($_GET['search'])) {
     <div id="sucMensagem" class="mensagem-suc">Retirada de Chave Realizada Com Sucesso!.</div>
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark menu-left">
                 <a href="https://projetopei.dev.br/app/views/painel.php" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span>PORTARIA DIGITAL</span>
                 </a>

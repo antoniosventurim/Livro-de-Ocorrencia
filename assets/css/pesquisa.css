@@ -258,3 +258,7 @@ thead {
 .btn-alterastatus{
     margin-left: 10px;
 }
+
+.menu-left{
+    overflow: auto;
+}
