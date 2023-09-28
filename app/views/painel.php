@@ -875,7 +875,7 @@ if (!empty($_GET['search'])) {
         });
 
         function searchData() {
-            window.location = 'painel?search=' + search.value;
+            window.location = 'painel.php?search=' + search.value;
 
         }
     </script>
