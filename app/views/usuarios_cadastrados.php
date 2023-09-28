@@ -6,6 +6,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../../');
     exit;
 }
+
+if ($_SESSION['tipo_usuario'] != 1) {
+    // Se o tipo de usuário não for 1, redirecione para uma página de acesso negado
+    header('Location: painel.php'); // Substitua 'acesso_negado.php' pelo URL da página de acesso negado
+    exit;
+}
 $idUsuarioLogado = $_SESSION['id'];
 $tipoUsuarioLogado = $_SESSION['tipo_usuario'];
 // Consulta SQL para obter o nome do usuário com base no ID armazenado na sessão
@@ -105,7 +111,7 @@ $queryQtdUser = "SELECT COUNT(*) as quantidade FROM usuarios";
 $statement = $pdo->query($queryQtdUser);
 $row = $statement->fetch(PDO::FETCH_ASSOC);
 $quantidadeDeUsuarios = $row['quantidade'];
-$msgsqlsearch = 'TOTAL DE USUÁRIOS CADASTRADOS: ';
+$msgsqlsearch = 'TOTAL DE USUÁRIOS ATIVOS: ';
 
 //Query retorna quantidade de usuários ativos
 $queryQtdUserAtivo = "SELECT COUNT(*) as quantidade_ativo FROM usuarios WHERE status_usuario = 1";
