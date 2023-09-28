@@ -434,7 +434,7 @@ if (!empty($_GET['search'])) {
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="local" class="form-label"><b>Escolha um local:</b></label>
-                                                            <input class="form-control" list="localOptions" id="local" name="local" placeholder="Digite para pesquisar...">
+                                                            <input class="form-control" list="localOptions" id="local" name="local" placeholder="Digite para pesquisar..." required>
                                                             <datalist id="localOptions">
                                                                 <?php foreach ($locais as $local) : ?>
                                                                     <option value="<?php echo $local; ?>">
@@ -627,7 +627,7 @@ if (!empty($_GET['search'])) {
                         </div>
                         <div class="mb-3">
                             <label for="destino" class="form-label"><b>Informe o Destino do Veículo:</b></label>
-                            <textarea class="form-control" id="destino" name="destino" rows="4" placeholder="Informe o destino do veículo"></textarea>
+                            <textarea class="form-control" id="destino" name="destino" rows="4" placeholder="Informe o destino do veículo" required></textarea>
                         </div>
                         <input type="hidden" name="statusRetirada" value="ativa">
                         <div class="modal-footer">
