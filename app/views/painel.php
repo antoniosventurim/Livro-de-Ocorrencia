@@ -490,7 +490,7 @@ if (!empty($_GET['search'])) {
                                                     <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="1000" placeholder="Relate a Ocorrência" required></textarea>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button onclick="cadastraOcorrencia()" type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
+                                                    <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                                 </div>
                                             </form>

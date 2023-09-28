@@ -1,3 +1,4 @@
+//Função que verifica se o nome do usuário existe no banco de dados
 function verificaNomeUsuario() {
     const usuarioInput = document.getElementById("usuario");
     const usuarioValidationMessage = document.getElementById("usuarioValidationMessage");
@@ -49,26 +50,15 @@ function verificaLocal() {
         .then(local => {
             if (local.valid) {
                 localValidationMessage.textContent = "";
+                cadastraOcorrencia.disabled = false;
             } else {
                 localValidationMessage.textContent = "Local inválido.";
                 localValidationMessage.style.color = "red";
+                cadastraOcorrencia.disabled = true;
             }
         })
         .catch(error => {
             console.error("Erro na solicitação AJAX: " + error);
         });
     });
-}
-
-function cadastraOcorrencia() {
-    // Obtém o botão pelo seu ID
-    var botao = document.getElementById("cadastraOcorrencia");
-
-    // Desativa o botão
-    botao.disabled = true;
-
-    // Define um atraso de 2 segundos (2000 milissegundos) para reativar o botão
-    setTimeout(function() {
-        botao.disabled = false;
-    }, 5000);
 }
