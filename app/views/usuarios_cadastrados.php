@@ -139,13 +139,13 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark menu-left">
-                <a href="http://localhost/V4/app/views/painel.php" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="https://projetopei.dev.br/app/views/painel.php" class="d-flex logo align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span>PORTARIA DIGITAL</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="http://localhost/V4/app/views/painel.php" class="nav-link text-white" aria-current="page">
+                        <a href="https://projetopei.dev.br/app/views/painel.php" class="nav-link text-white" aria-current="page">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
                                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
@@ -185,7 +185,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                             <ul>
                                 <div class="collapse" id="collapseusuarios">
                                     <?php if ($tipoUsuarioLogado === 1) {
-                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#alluserss">
+                                        echo '<a href="usuarios_cadastrados.php" class="nav-link text-white r-chaves">
                                         <i class="bi bi-people-fill"></i>
                                         Usuários Registrados
                                     </a>';
