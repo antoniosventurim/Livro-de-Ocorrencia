@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../../includes/db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $local = $_POST['local'];
 
-    // Consulta SQL para verificar se o nome de usuário já existe
+    // Consulta SQL para verificar se o nome do local já existe
     $query = "SELECT COUNT(*) AS count FROM locais WHERE nome_local = :local";
     $statement = $pdo->prepare($query);
     $statement->bindParam(':local', $local);
@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = $statement->fetch(PDO::FETCH_ASSOC);
 
     if ($resultado['count'] > 0) {
-        // O nome do local já existe, retorne uma resposta JSON indicando que não é válido
-        echo json_encode(['valid' => false]);
-    } else {
-        // O nome do local está disponível, retorne uma resposta JSON indicando que é válido
+        // O nome do local existe, retorne uma resposta JSON indicando que é válido
         echo json_encode(['valid' => true]);
+    } else {
+        // O nome do local não existe, retorne uma resposta JSON indicando que não é válido
+        echo json_encode(['valid' => false]);
     }
 }

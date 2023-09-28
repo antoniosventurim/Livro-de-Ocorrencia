@@ -29,6 +29,7 @@ function verificaNomeUsuario() {
     });
 }
 
+//Função que verifica se o nome do Local existe no banco de dados
 function verificaLocal() {
     const localInput = document.getElementById("local");
     const localValidationMessage = document.getElementById("localValidationMessage");
@@ -36,7 +37,7 @@ function verificaLocal() {
     localInput.addEventListener("input", function() {
         const local = localInput.value;
 
-        // Enviar uma solicitação AJAX para verificar_usuario.php
+        // Enviar uma solicitação AJAX para verificar_local.php
         fetch("verificar_local.php", {
             method: "POST",
             headers: {
@@ -47,10 +48,10 @@ function verificaLocal() {
         .then(response => response.json())
         .then(local => {
             if (local.valid) {
+                localValidationMessage.textContent = "";
+            } else {
                 localValidationMessage.textContent = "Local inválido.";
                 localValidationMessage.style.color = "red";
-            } else {
-                localValidationMessage.textContent = "";
             }
         })
         .catch(error => {
@@ -59,3 +60,15 @@ function verificaLocal() {
     });
 }
 
+function cadastraOcorrencia() {
+    // Obtém o botão pelo seu ID
+    var botao = document.getElementById("cadastraOcorrencia");
+
+    // Desativa o botão
+    botao.disabled = true;
+
+    // Define um atraso de 2 segundos (2000 milissegundos) para reativar o botão
+    setTimeout(function() {
+        botao.disabled = false;
+    }, 5000);
+}
