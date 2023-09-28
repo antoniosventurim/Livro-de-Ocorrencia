@@ -47,11 +47,10 @@ function verificaLocal() {
         .then(response => response.json())
         .then(local => {
             if (local.valid) {
-                localValidationMessage.textContent = "Nome de local disponível.";
-                localValidationMessage.style.color = "green";
-            } else {
-                localValidationMessage.textContent = "Nome de local já está em uso.";
+                localValidationMessage.textContent = "Local inválido.";
                 localValidationMessage.style.color = "red";
+            } else {
+                localValidationMessage.textContent = "";
             }
         })
         .catch(error => {
