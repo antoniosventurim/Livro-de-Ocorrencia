@@ -1,3 +1,4 @@
+//Função que verifica se o nome do usuário existe no banco de dados
 function verificaNomeUsuario() {
     const usuarioInput = document.getElementById("usuario");
     const usuarioValidationMessage = document.getElementById("usuarioValidationMessage");
