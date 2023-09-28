@@ -4,7 +4,7 @@
         $usuario = $_POST['usuario'];
         $senha = $_POST['senha'];
     
-        require_once(_DIR_ . '/../../includes/db.php');
+        require_once(__DIR__ . '/../../includes/db.php');
     
         // Consulta SQL para verificar o usuário
         $query = "SELECT id, senha, tipo_usuario, status_usuario FROM usuarios WHERE usuario = :usuario";
