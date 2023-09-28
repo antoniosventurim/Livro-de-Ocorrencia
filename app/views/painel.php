@@ -91,7 +91,7 @@ $statement->execute();
 $retiradaVeiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna locais
-$queryLocais = "SELECT nome_local FROM locais";
+$queryLocais = "SELECT nome_local, bloco FROM locais";
 $statement = $pdo->prepare($queryLocais);
 $statement->execute();
 $retornalocais = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -175,13 +175,39 @@ if (!empty($_GET['search'])) {
                     </li>
                     <li>
                         <?php if ($tipoUsuarioLogado === 1) {
-                            echo '<a href="painel2" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#adduser">
-                            <i class="bi bi-person-add">
-                            <use xlink:href="#hom"></use>
-                        </i>
-                            Novo Usuario
-                        </a>';
+                            echo '<a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseusuarios" aria-expanded="false" aria-controls="collapseExample">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg>
+                                Usuarios <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>';
                         } ?>
+                        <div class="d-dowm-chaves">
+                            <ul>
+                                <div class="collapse" id="collapseusuarios">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="painel2" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#adduser">
+                                    <i class="bi bi-person-add">
+                                        <use xlink:href="#hom"></use>
+                                    </i>
+                                    Novo Usuario
+                                </a>';
+                                    } ?>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseusuarios">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#alluserss">
+                                        <i class="bi bi-people-fill"></i>
+                                        Usuarios Registrados
+                                    </a>';
+                                    } ?>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#addocorrenciaa">
@@ -254,17 +280,36 @@ if (!empty($_GET['search'])) {
                     </li>
                     <li>
                         <?php if ($tipoUsuarioLogado === 1) {
-                            echo '<a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#alluserss">
-                            <i class="bi bi-people-fill"></i>
-                            Usuarios Registrados
-                        </a>';
+                            echo '<a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapselocais" aria-expanded="false" aria-controls="collapseExample">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+                                </svg>
+                                Locais <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>';
                         } ?>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#adicionalocal">
-                            <i class="bi bi-browser-safari"></i>
-                            Adicionar Novo Local
-                        </a>
+                        <div class="d-dowm-chaves">
+                            <ul>
+                                <div class="collapse" id="collapselocais">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#adicionalocal">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                        Adicionar Novo Local
+                                        </a>';
+                                    } ?>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapselocais">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#locaisregistrados">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                        Locais Registrados
+                                        </a>';
+                                    } ?>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <?php if ($tipoUsuarioLogado === 1) {
@@ -273,9 +318,7 @@ if (!empty($_GET['search'])) {
                             Relatórios
                         </a>';
                         } ?>
-
                     </li>
-
                 </ul>
                 <hr>
                 <div class="dropdown">
@@ -852,6 +895,36 @@ if (!empty($_GET['search'])) {
                             <button type="submit" id="cadlocal" name="cadlocal" class="btn btn-primary">Cadastrar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal LOCAIS REGISTRADOS -->
+    <div class="modal fade" id="locaisregistrados" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Locais Registrados</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL LOCAIS REGISTRADOS-->
+                <div class="modal-body text-center">
+                    <table class="table-usuarios table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Local</th>
+                                <th scope="col">Bloco</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($retornalocais as $retornalocal) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                                <tr>
+                                    <td><?php echo $retornalocal['nome_local']; ?></td>
+                                    <td><?php echo $retornalocal['bloco']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
