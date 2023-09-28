@@ -5,7 +5,6 @@
         $senha = $_POST['senha'];
     
         require_once(__DIR__ . '/../../includes/db.php');
-    
         // Consulta SQL para verificar o usuário
         $query = "SELECT id, senha, tipo_usuario, status_usuario FROM usuarios WHERE usuario = :usuario";
         $statement = $pdo->prepare($query);
