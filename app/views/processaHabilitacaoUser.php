@@ -8,21 +8,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: index.php');
     exit;
 }
-    if (isset($_POST['alterastatususer'])) {
-        $idUsuario = $_POST['id_usuario'];
-        $novoStatus = $_POST['novo_status'];
+if (isset($_POST['alterastatususer'])) {
+    $idUsuario = $_POST['id_usuario'];
+    $novoStatus = $_POST['novo_status'];
     // Atualizar o status do usuário no banco de dados
+    $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
 
 
-        $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
+    // Verifique se uma opção válida foi selecionada
+    if ($novoStatus !== null && $novoStatus !== "") {
+        // Atualize o status do usuário no banco de dados
+        $queryUpdateStatus = "UPDATE usuarios SET status_usuario = :novo_status WHERE id = :id_usuario";
+        $statementUpdateStatus = $pdo->prepare($queryUpdateStatus);
+        $statementUpdateStatus->bindParam(':novo_status', $novoStatus);
+        $statementUpdateStatus->bindParam(':id_usuario', $idUsuario);
 
-        $queryAtualizarStatus = "UPDATE usuarios SET status_usuario = :novoStatus WHERE id = :id";
-        $statement = $pdo->prepare($queryAtualizarStatus);
-        $statement->bindParam(':id', $idUsuario);
-        $statement->bindParam(':novoStatus', $novoStatus, PDO::PARAM_INT);
-        $statement->execute();
-
-        // Redirecionar de volta para a página de onde veio
-        header('Location: painel.php');
-        exit;
+        if ($statementUpdateStatus->execute()) {
+            // Status atualizado com sucesso
+            $_SESSION['mensagem'] = "Status do usuário atualizado com sucesso.";
+        } else {
+            // Erro ao atualizar o status
+            $_SESSION['mensagem'] = "Erro ao atualizar o status do usuário.";
+        }
+    } else {
+        // Opção inválida selecionada, exibir mensagem de erro
+        $_SESSION['mensagem'] = "Selecione uma opção válida para o status do usuário.";
     }
+
+    // Redirecionar de volta à página de origem
+    header('Location: usuarios_cadastrados.php');
+    exit;
+}

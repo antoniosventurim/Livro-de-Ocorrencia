@@ -209,7 +209,9 @@
 }
 
 .svg-bottomchaves {
+    float: right;
     margin-left: 10px;
+
 }
 
 .custom-width-motorista {
@@ -255,10 +257,31 @@ thead {
     outline: none;
 }
 
-.btn-alterastatus{
+.btn-alterastatus {
     margin-left: 10px;
+    background-color: #212529;
+    border-color: #212529;
 }
 
-.menu-left{
+.btn-alterastatus:hover {
+    background-color: rgb(167, 2, 2);
+    border-color: rgb(167, 2, 2);
+}
+
+.menu-left {
     overflow: auto;
+}
+
+.btn-salva-senha {
+    margin-top: 10px;
+}
+
+.editar-senha-button {
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.editar-senha-button:hover {
+    background-color: rgb(167, 2, 2);
+    border-color: rgb(167, 2, 2);
 }
