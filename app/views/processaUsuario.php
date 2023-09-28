@@ -40,7 +40,7 @@ if (isset($_POST['adduser'])) {
     $statement->execute();
 
     // Redirecionar de volta para a página do painel após a inserção
-    header('Location: painel.php');
+    header('Location: usuarios_cadastrados.php');
     exit;
 }
 
