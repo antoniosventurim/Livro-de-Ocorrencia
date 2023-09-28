@@ -1,34 +1,52 @@
 <?php
-session_start();
-require_once(__DIR__ . '/../../includes/db.php');
-
-// Verificar se o usuário está logado
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirecionar para a página de login se não estiver logado
-    header('Location: index.php');
-    exit;
-}
-
-if (isset($_POST['alterasenha'])) {
-    $idUsuario = $_POST['id_usuario'];
-    $novaSenha = $_POST['nova_senha'];
-
-    $novaSenhaCriptografada = password_hash($novaSenha, PASSWORD_DEFAULT);
-    // Obtém o ID do usuário logado da variável de sessão
-    $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
-
-    // Processa o formulário e insere a ocorrência no banco de dados
-    $queryAtualizaSenha= "UPDATE usuarios SET senha = :nova_senha WHERE id = :id_usuario";
-    $statement = $pdo->prepare($queryAtualizaSenha);
-    $statement->bindParam(':id_usuario', $idUsuario);
-    $statement->bindParam(':nova_senha', $novaSenhaCriptografada);
-    $statement->execute();
-
-    // Redirecionar de volta para a página do painel após a inserção
-    header('Location: usuarios_cadastrados.php');
-    exit;
-}
-
-// Se o formulário não foi enviado ou ocorreu algum erro, você pode adicionar tratamento de erro aqui
-// ...
+    session_start();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $usuario = $_POST['usuario'];
+        $senha = $_POST['senha'];
+    
+        require_once(__DIR__ . '/../../includes/db.php');
+    
+        // Consulta SQL para verificar o usuário
+        $query = "SELECT id, senha, tipo_usuario, status_usuario FROM usuarios WHERE usuario = :usuario";
+        $statement = $pdo->prepare($query);
+        $statement->bindParam(':usuario', $usuario);
+    
+        // Executar a consulta
+        $statement->execute();
+    
+        // Verificar se o usuário foi encontrado
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+    
+        if ($row && $row['status_usuario'] == 1) {
+            // Obtenha a senha armazenada no banco de dados
+            $senhaArmazenada = $row['senha'];
+    
+            // Verifique a senha usando password_verify
+            if (password_verify($senha, $senhaArmazenada)) {
+                // Senha válida
+                $idDoUsuario = $row['id'];
+                $tipousuario = $row['tipo_usuario'];
+    
+                $_SESSION['usuario'] = $usuario;
+                $_SESSION['senha'] = $senha;
+                $_SESSION['id'] = $idDoUsuario; // Armazene o ID do usuário na sessão
+                $_SESSION['tipo_usuario'] = $tipousuario;
+    
+                header('Location: painel.php');
+                exit;
+            } else {
+                $_SESSION['mensagem'] = "Login ou senha incorretos. Tente novamente.";
+                header('Location: ../../'); // Redirecionar de volta à página de login
+                exit;
+            }
+        } elseif ($row && $row['status_usuario'] == 0) {
+            $_SESSION['mensagem'] = "Seu usuário está desativado. Entre em contato com o administrador.";
+            header('Location: ../../'); // Redirecionar de volta à página de login
+            exit;
+        } else {
+            $_SESSION['mensagem'] = "Login ou senha incorretos. Tente novamente.";
+            header('Location: ../../'); // Redirecionar de volta à página de login
+            exit;
+        }
+    }
 ?>
