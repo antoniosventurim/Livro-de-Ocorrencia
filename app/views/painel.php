@@ -949,19 +949,19 @@ if (!empty($_GET['search'])) {
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Ultimas Observacoes Registradas</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Ultimas Observações Registradas</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL ULTIMAS OBSERVACOES-->
                 <div class="modal-body text-center">
-                    <table class="table-usuarios table table-bordered table-hover">
+                    <table class="table-usuarios table table-bordered table-hover table-bordered table-striped table-condensed text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Observacao</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Data Registro</th>
-                                <th scope="col">Usuario Registrou</th>
-                                <th scope="col">ID OCORRENCIA</th>
+                                <th scope="col">OBSERVAÇÃO</th>
+                                <th scope="col">TÍTULO</th>
+                                <th scope="col">DATA REGISTRO</th>
+                                <th scope="col">USUÁRIO REGISTROU</th>
+                                <th scope="col">ID OCORRÊNCIA</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -987,7 +987,7 @@ if (!empty($_GET['search'])) {
         <div class="modal-dialog modal-x">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Local Para Ocorrencias</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Local Para Ocorrências</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL ADICIONA NOVO LOCAL-->
