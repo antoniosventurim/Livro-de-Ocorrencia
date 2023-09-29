@@ -195,6 +195,7 @@
 
 .r-chaves {
     margin: 5px;
+    text-decoration: none;
 }
 
 .nav-pills .nav-link.active,

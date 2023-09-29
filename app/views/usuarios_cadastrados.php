@@ -7,13 +7,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 
+// Se o tipo de usuário não for 1, redirecione para uma página de acesso negado
 if ($_SESSION['tipo_usuario'] != 1) {
-    // Se o tipo de usuário não for 1, redirecione para uma página de acesso negado
-    header('Location: painel.php'); // Substitua 'acesso_negado.php' pelo URL da página de acesso negado
+    header('Location: painel.php');
     exit;
 }
 $idUsuarioLogado = $_SESSION['id'];
 $tipoUsuarioLogado = $_SESSION['tipo_usuario'];
+
 // Consulta SQL para obter o nome do usuário com base no ID armazenado na sessão
 $queryNomeUsuario = "SELECT usuario FROM usuarios WHERE id = :idUsuario";
 $statementNomeUsuario = $pdo->prepare($queryNomeUsuario);
@@ -21,24 +22,6 @@ $statementNomeUsuario->bindParam(':idUsuario', $_SESSION['usuario']);
 $statementNomeUsuario->execute();
 $nomeDoUsuario = $statementNomeUsuario->fetchColumn();
 
-// Consulta SQL para selecionar as 10 últimas ocorrências ordenadas pela data de registro em ordem decrescente
-$query = "SELECT o.*, u.usuario AS nome_responsavel FROM ocorrencias o LEFT JOIN usuarios u ON o.id_responsavel = u.id ORDER BY o.id DESC LIMIT 10"; // Essa consulta traz o nome do responsavél ao inves do ID nesse caso podemos colocar o nome do responsavél ao inves do ID
-$statement = $pdo->prepare($query);
-$statement->execute();
-$ocorrencias = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
-// Consulta SQL para contar o número total de ocorrências na tabela
-$queryTotalOcorrencias = "SELECT COUNT(*) AS total_ocorrencias FROM ocorrencias";
-$statementTotalOcorrencias = $pdo->query($queryTotalOcorrencias);
-$totalOcorrencias = $statementTotalOcorrencias->fetchColumn();
-
-// Calcular quantas ocorrências excedem o limite de 10 ocorrências
-$limiteExcedente = max(0, $totalOcorrencias - 10);
-
-
-// Defina o número de ocorrências por página
-$ocorrenciasPorPagina = 10;
 //busca no banco de dados as ocorrencias por ID
 function buscarObservacoes($pdo, $idOcorrencia)
 {
@@ -356,7 +339,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                             <th scope="col">USUÁRIO</th>
                                             <th scope="col">PERFIL</th>
                                             <th scope="col">STATUS</th>
-                                            <th scope="col">EDITAR</th>,
+                                            <th scope="col">EDITAR</th>
                                             <th scope="col">MAIS</th>
                                         </tr>
                                     </thead>
