@@ -839,7 +839,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                             <td><?php echo date('d/m/Y H:i', strtotime($retiradaVeiculo['data_retirada'])); ?></td>
                                             <td><?php
                                                 $dataDevolucao = date('d/m/Y H:i', strtotime($retiradaVeiculo['data_devolucao']));
-                                                echo ($dataDevolucao == '01/01/1970 01:00') ? 'Sem Data' : $dataDevolucao;
+                                                echo ($dataDevolucao == '01/01/1970 01:00') ? 'Sem Data Devolução' : $dataDevolucao;
                                                 ?></td>
                                             <td>
                                                 <?php if (empty($retiradaVeiculo['data_devolucao'])) : ?>
