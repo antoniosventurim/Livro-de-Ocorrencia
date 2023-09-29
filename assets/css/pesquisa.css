@@ -286,3 +286,7 @@ thead {
     background-color: rgb(167, 2, 2);
     border-color: rgb(167, 2, 2);
 }
+
+.search-locais{
+    margin-bottom: 10px;
+}

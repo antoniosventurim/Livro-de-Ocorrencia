@@ -278,7 +278,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                             </svg>
                             <use xlink:href="#hom"></use>
                             </i>
-                            Ultimas Observacoes
+                            Ultimas Observações
                         </a>
                     </li>
                     <li>
@@ -697,8 +697,8 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
         </div>
     </div>
 
-     <!-- Modal VEICULOS CADASTRADOS -->
-     <div class="modal fade" id="veiculoscad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal VEICULOS CADASTRADOS -->
+    <div class="modal fade" id="veiculoscad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-x">
             <div class="modal-content">
                 <div class="modal-header">
@@ -960,6 +960,9 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                 </div>
                 <!-- CORPO DO MODAL LOCAIS REGISTRADOS-->
                 <div class="modal-body text-center">
+                    <div class="search-locais">
+                        <input class="form-control" type="text" id="barraDePesquisa" placeholder="Pesquisar...">
+                    </div>
                     <table class="table-usuarios table table-bordered table-striped table-condensed table-fixed text-center">
                         <thead>
                             <tr>
@@ -1051,6 +1054,28 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                 botao.disabled = false;
             }, 5000);
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Quando o usuário digita na barra de pesquisa
+            $('#barraDePesquisa').keyup(function() {
+                // Obter o valor digitado na barra de pesquisa
+                var termoDePesquisa = $(this).val().toLowerCase();
+
+                // Percorrer cada linha da tabela e ocultar/mostrar com base na pesquisa
+                $('.table-usuarios tbody tr').each(function() {
+                    var linha = $(this);
+                    var nomeLocal = linha.find('td:eq(0)').text().toLowerCase();
+                    var bloco = linha.find('td:eq(1)').text().toLowerCase();
+
+                    if (nomeLocal.indexOf(termoDePesquisa) !== -1 || bloco.indexOf(termoDePesquisa) !== -1) {
+                        linha.show();
+                    } else {
+                        linha.hide();
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

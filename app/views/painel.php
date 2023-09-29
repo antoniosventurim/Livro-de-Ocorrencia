@@ -308,7 +308,7 @@ if (!empty($_GET['search'])) {
                             </svg>
                             <use xlink:href="#hom"></use>
                             </i>
-                            Ultimas Observacoes
+                            Ultimas Observações
                         </a>
                     </li>
                     <li>
@@ -885,7 +885,7 @@ if (!empty($_GET['search'])) {
                                     <tr>
                                         <th>Nome do Motorista</th>
                                         <th>Nome do Veículo</th>
-                                        <th>Local</th>
+                                        <th>Destino</th>
                                         <th>Data de Retirada</th>
                                         <th>Data de Devolução</th>
                                         <th>Registrar Devolução</th>
@@ -1021,14 +1021,17 @@ if (!empty($_GET['search'])) {
                 </div>
                 <!-- CORPO DO MODAL LOCAIS REGISTRADOS-->
                 <div class="modal-body text-center">
-                    <table class="table-usuarios table table-bordered table-hover">
+                    <div class="search-locais">
+                        <input class="form-control" type="text" id="barraDePesquisa" placeholder="Pesquisar...">
+                    </div>
+                    <table class="table-usuarios table table-bordered table-hover table-bordered table-striped table-condensed text-center">
                         <thead>
                             <tr>
                                 <th scope="col">Local</th>
                                 <th scope="col">Bloco</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="resultadosPesquisa">
                             <?php foreach ($retornalocais as $retornalocal) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
                                 <tr>
                                     <td><?php echo $retornalocal['nome_local']; ?></td>
@@ -1100,6 +1103,31 @@ if (!empty($_GET['search'])) {
             }, 5000);
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            // Quando o usuário digita na barra de pesquisa
+            $('#barraDePesquisa').keyup(function() {
+                // Obter o valor digitado na barra de pesquisa
+                var termoDePesquisa = $(this).val().toLowerCase();
+
+                // Percorrer cada linha da tabela e ocultar/mostrar com base na pesquisa
+                $('.table-usuarios tbody tr').each(function() {
+                    var linha = $(this);
+                    var nomeLocal = linha.find('td:eq(0)').text().toLowerCase();
+                    var bloco = linha.find('td:eq(1)').text().toLowerCase();
+
+                    if (nomeLocal.indexOf(termoDePesquisa) !== -1 || bloco.indexOf(termoDePesquisa) !== -1) {
+                        linha.show();
+                    } else {
+                        linha.hide();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
 </body>
 
 </html>
