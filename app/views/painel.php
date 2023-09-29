@@ -21,7 +21,6 @@ $statement = $pdo->prepare($query);
 $statement->execute();
 $ocorrencias = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
 // Consulta SQL para contar o número total de ocorrências na tabela
 $queryTotalOcorrencias = "SELECT COUNT(*) AS total_ocorrencias FROM ocorrencias";
 $statementTotalOcorrencias = $pdo->query($queryTotalOcorrencias);
@@ -30,10 +29,9 @@ $totalOcorrencias = $statementTotalOcorrencias->fetchColumn();
 // Calcular quantas ocorrências excedem o limite de 10 ocorrências
 $limiteExcedente = max(0, $totalOcorrencias - 10);
 
-
 // Defina o número de ocorrências por página
 $ocorrenciasPorPagina = 10;
-//busca no banco de dados as ocorrencias por ID
+//busca no banco de dados as ocorrências por ID
 function buscarObservacoes($pdo, $idOcorrencia)
 {
     $query = "SELECT o.*, u.usuario AS nome_usuario FROM observacoes o
@@ -78,13 +76,13 @@ $statement = $pdo->prepare($queryMotoristas);
 $statement->execute();
 $motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-//Query Retorna Veiculos
+//Query Retorna Veículos
 $queryVeiculos = "SELECT id, nome FROM veiculos";
 $statement = $pdo->prepare($queryVeiculos);
 $statement->execute();
 $veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-//Query Retorna reitada de veiculos
+//Query Retorna retirada de veículos
 $queryRetiradaVeiculos = "SELECT usuarios.nome AS nome_usuario, motoristas.nome AS nome_motorista, veiculos.nome AS nome_veiculo, retirada_veiculos.data_retirada, retirada_veiculos.destino, retirada_veiculos.id_data_devolucao, retirada_veiculos.id, devolucoes.data_devolucao FROM retirada_veiculos INNER JOIN usuarios ON retirada_veiculos.id_usuario = usuarios.id INNER JOIN motoristas ON retirada_veiculos.id_motorista = motoristas.id INNER JOIN veiculos ON retirada_veiculos.veiculo = veiculos.id LEFT JOIN devolucoes ON retirada_veiculos.id = devolucoes.id_retirada_veiculo ORDER BY retirada_veiculos.id DESC LIMIT 5;";
 $statement = $pdo->prepare($queryRetiradaVeiculos);
 $statement->execute();
@@ -101,7 +99,7 @@ $locais = $nomesLocais;
 $retornaSearchs = '';
 $numeroRegistros = 0;
 
-//Sql Pesqusa Ocorrencias
+//Sql Pesquisa Ocorrências
 if (!empty($_GET['search'])) {
     // Sua consulta atual com base na pesquisa não vazia
     $dataSearch = $_GET['search'];
@@ -155,7 +153,7 @@ if (!empty($_GET['search'])) {
 </head>
 
 <body>
-    <div id="erroMensagem" class="mensagem-erro">Nao foi possivel Realizar a Retirada de Chave.</div>
+    <div id="erroMensagem" class="mensagem-erro">Não foi possível Realizar a Retirada de Chave.</div>
     <div id="sucMensagem" class="mensagem-suc">Retirada de Chave Realizada Com Sucesso!.</div>
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
@@ -508,7 +506,7 @@ if (!empty($_GET['search'])) {
                                                     <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="1000" placeholder="Relate a Ocorrência" required></textarea>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button onclick="cadastraOcorrencia()" type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
+                                                    <button type="submit" name="cadastraOcorrencia" id="cadastraOcorrencia" class="btn btn-primary">Cadastrar</button>
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                                 </div>
                                             </form>
@@ -952,6 +950,7 @@ if (!empty($_GET['search'])) {
         $(document).ready(function() {
             verificaNomeUsuario();
             verificaLocal();
+            cadastraOcorrencia();
         });
     </script>
     <script>
@@ -1000,20 +999,6 @@ if (!empty($_GET['search'])) {
                 // Remova "?sucesso=1" da URL usando pushState
                 const newURL = window.location.href.replace('?sucesso=1', '');
                 window.history.pushState({}, document.title, newURL);
-            }, 5000);
-        }
-    </script>
-    <script>
-        function cadastraOcorrencia() {
-            // Obtém o botão pelo seu ID
-            var botao = document.getElementById("cadastraOcorrencia");
-
-            // Desativa o botão
-            botao.disabled = true;
-
-            // Define um atraso de 2 segundos (2000 milissegundos) para reativar o botão
-            setTimeout(function() {
-                botao.disabled = false;
             }, 5000);
         }
     </script>
