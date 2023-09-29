@@ -62,13 +62,13 @@ $statement->execute();
 $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 // Query Retorna os Motoristas
-$queryMotoristas = "SELECT id, nome FROM motoristas";
+$queryMotoristas = "SELECT id, nome, setor FROM motoristas";
 $statement = $pdo->prepare($queryMotoristas);
 $statement->execute();
 $motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna Veiculos
-$queryVeiculos = "SELECT id, nome FROM veiculos";
+$queryVeiculos = "SELECT id, nome, tipo_veiculo, placa FROM veiculos";
 $statement = $pdo->prepare($queryVeiculos);
 $statement->execute();
 $veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -223,6 +223,28 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                             <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
                                         </svg>
                                         Adicionar Motorista
+                                    </a>';
+                                    } ?>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#motoristascad">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Motoristas Cadastrados
+                                    </a>';
+                                    } ?>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <?php if ($tipoUsuarioLogado === 1) {
+                                        echo '<a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#veiculoscad">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Veiculos Cadastrados
                                     </a>';
                                     } ?>
                             </ul>
@@ -670,6 +692,82 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal VEICULOS CADASTRADOS -->
+     <div class="modal fade" id="veiculoscad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-x">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Veiculos Cadastrados</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL VEICULO CADASTRADOS -->
+                <div class="modal-body text-center">
+                    <table class="table table-bordered table-striped table-condensed table-fixed text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Veiculo</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Placa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($veiculos as $veiculo) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                                <tr>
+                                    <td><?php echo $veiculo['tipo_veiculo']; ?></td>
+                                    <td><?php echo $veiculo['nome']; ?></td>
+                                    <td><?php echo $veiculo['placa']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"><a href="#" class="r-chaves text-white" data-bs-toggle="modal" data-bs-target="#adicionaveiculo">
+                                Cadastrar Veiculo
+                            </a></button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal MOTORISTAS CADASTRADOS -->
+    <div class="modal fade" id="motoristascad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-x">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Motoristas Cadastrados</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL MOTORISTAS CADASTRADOS -->
+                <div class="modal-body text-center">
+                    <table class="table table-bordered table-striped table-condensed table-fixed text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Setor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($motoristas as $motorista) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                                <tr>
+                                    <td><?php echo $motorista['nome']; ?></td>
+                                    <td><?php echo $motorista['setor']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"><a href="#" class="r-chaves text-white" data-bs-toggle="modal" data-bs-target="#adicionamotorista">
+                                Cadastrar Motorista
+                            </a></button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
