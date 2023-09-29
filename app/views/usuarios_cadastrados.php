@@ -623,9 +623,9 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                 <div class="modal-body">
                     <form method="POST" action="processaRetiradaVeiculo.php">
                         <div class="mb-3">
-                            <label for="usuarioResponsavel" class="form-label"><b>Responsavel pelo Veiculo:</b></label>
+                            <label for="usuarioResponsavel" class="form-label"><b>Responsável pelo Veiculo:</b></label>
                             <select class="form-select" id="usuarioResponsavel" name="usuarioResponsavel" required>
-                                <option value="" disabled selected>Selecione o Responsavel</option>
+                                <option value="" disabled selected>Selecione o Responsável</option>
                                 <?php foreach ($motoristas as $motorista) : ?>
                                     <option value="<?php echo $motorista['id']; ?>"><?php echo $motorista['nome']; ?></option>
                                 <?php endforeach; ?>
@@ -824,12 +824,12 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                             <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                                 <thead>
                                     <tr>
-                                        <th>Nome do Motorista</th>
-                                        <th>Nome do Veículo</th>
-                                        <th>Local</th>
-                                        <th>Data de Retirada</th>
-                                        <th>Data de Devolução</th>
-                                        <th>Registrar Devolução</th>
+                                        <th>NOME DO MOTORISTA</th>
+                                        <th>NOME DO VEÍCULO</th>
+                                        <th>DESTINO</th>
+                                        <th>DATA DE RETIRADA</th>
+                                        <th>DATA DE DEVOLUÇÃO</th>
+                                        <th>REGISTRAR DEVOLUÇÃO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -871,7 +871,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                         <p><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                                 <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-                                            </svg> Atencao ao registrar data de devolucao uma vez que registrada nao sera possivel alterar.</p>
+                                            </svg> Atenção, ao registrar data de devolução, uma vez que registrada não será possível alterar.</p>
                                     </div>
                                 </tfoot>
                             </table>
@@ -890,7 +890,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Ultimas Observacoes Registradas</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Ultimas Observações Registradas</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL ULTIMAS OBSERVACOES-->
@@ -898,11 +898,11 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                     <table class="table-usuarios table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Observacao</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Data Registro</th>
-                                <th scope="col">Usuario Registrou</th>
-                                <th scope="col">ID OCORRENCIA</th>
+                                <th scope="col">OBSERVAÇÃO</th>
+                                <th scope="col">TÍTULO</th>
+                                <th scope="col">DATA REGISTRO</th>
+                                <th scope="col">USUÁRIO REGISTROU</th>
+                                <th scope="col">ID OCORRÊNCIA</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -873,7 +873,7 @@ if (!empty($_GET['search'])) {
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Devolucao de Chaves</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Devolução de Chaves</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL DEVOLUCAO-->
@@ -883,12 +883,12 @@ if (!empty($_GET['search'])) {
                             <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                                 <thead>
                                     <tr>
-                                        <th>Nome do Motorista</th>
-                                        <th>Nome do Veículo</th>
-                                        <th>Destino</th>
-                                        <th>Data de Retirada</th>
-                                        <th>Data de Devolução</th>
-                                        <th>Registrar Devolução</th>
+                                        <th>NOME DO MOTORISTA</th>
+                                        <th>NOME DO VEÍCULO</th>
+                                        <th>DESTINO</th>
+                                        <th>DATA DE RETIRADA</th>
+                                        <th>DATA DE DEVOLUÇÃO</th>
+                                        <th>REGISTRAR DEVOLUÇÃO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
