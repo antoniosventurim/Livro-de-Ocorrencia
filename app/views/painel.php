@@ -77,7 +77,7 @@ $statement->execute();
 $motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna Veículos
-$queryVeiculos = "SELECT id, nome FROM veiculos";
+$queryVeiculos = "SELECT id, nome, tipo_veiculo, placa FROM veiculos";
 $statement = $pdo->prepare($queryVeiculos);
 $statement->execute();
 $veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -767,8 +767,31 @@ if (!empty($_GET['search'])) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL VEICULO CADASTRADOS -->
-                <div class="modal-body">
-
+                <div class="modal-body text-center">
+                    <table class="table table-bordered table-striped table-condensed table-fixed text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Veiculo</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Placa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($veiculos as $veiculo) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                                <tr>
+                                    <td><?php echo $veiculo['tipo_veiculo']; ?></td>
+                                    <td><?php echo $veiculo['nome']; ?></td>
+                                    <td><?php echo $veiculo['placa']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"><a href="#" class="r-chaves text-white" data-bs-toggle="modal" data-bs-target="#adicionaveiculo">
+                                Cadastrar Veiculo
+                            </a></button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -784,7 +807,7 @@ if (!empty($_GET['search'])) {
                 </div>
                 <!-- CORPO DO MODAL MOTORISTAS CADASTRADOS -->
                 <div class="modal-body text-center">
-                    <table class="table-usuarios table table-bordered table-hover">
+                    <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                         <thead>
                             <tr>
                                 <th scope="col">Nome</th>
@@ -802,7 +825,7 @@ if (!empty($_GET['search'])) {
                     </table>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary"><a href="#" class="r-chaves text-white" data-bs-toggle="modal" data-bs-target="#adicionamotorista">
-                                Adicionar Motorista
+                                Cadastrar Motorista
                             </a></button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     </div>
@@ -857,7 +880,7 @@ if (!empty($_GET['search'])) {
                 <div class="modal-body ">
                     <div class="container">
                         <form action="processaDevolucao.php" method="post">
-                            <table class="table table-bordered text-center">
+                            <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                                 <thead>
                                     <tr>
                                         <th>Nome do Motorista</th>
