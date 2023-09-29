@@ -30,12 +30,14 @@ if (isset($_POST['adduser'])) {
         exit;
     }
 
+    $hashSenha = password_hash($senha, PASSWORD_DEFAULT);
+
     // Processa o formulário e insere a ocorrência no banco de dados
     $queryInserirUsuario = "INSERT INTO usuarios (tipo_usuario, nome, usuario, senha, data_registro) VALUES (:tipo_usuario, :nome, :usuario, :senha, NOW())";
     $statement = $pdo->prepare($queryInserirUsuario);
     $statement->bindParam(':nome', $nome);
     $statement->bindParam(':usuario', $usuario);
-    $statement->bindParam(':senha', $senha);
+    $statement->bindParam(':senha', $hashSenha);
     $statement->bindParam(':tipo_usuario', $tipoUsuario);
     $statement->execute();
 
