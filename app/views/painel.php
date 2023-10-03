@@ -49,7 +49,7 @@ $queryuser = "SELECT id, nome, usuario, tipo_usuario, status_usuario FROM usuari
 $statement = $pdo->prepare($queryuser);
 $statement->execute();
 
-// Recupere os resultados em um array
+// Recupera os resultados em um array
 $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 $queryObservacoes = "SELECT obs.id AS observacao_id,
@@ -899,8 +899,14 @@ if (!empty($_GET['search'])) {
                                             <td><?php echo $retiradaVeiculo['destino']; ?></td>
                                             <td><?php echo date('d/m/Y H:i', strtotime($retiradaVeiculo['data_retirada'])); ?></td>
                                             <td><?php
-                                                $dataDevolucao = date('d/m/Y H:i', strtotime($retiradaVeiculo['data_devolucao']));
-                                                echo ($dataDevolucao == '01/01/1970 01:00') ? 'Sem Data Devolução' : $dataDevolucao;
+                                                if ($retiradaVeiculo['id_data_devolucao'] !== null) {
+                                                    $dataDevolucao = date('d/m/Y H:i', strtotime($retiradaVeiculo['data_devolucao']));
+                                                } else {
+                                                    $dataDevolucao = ($retiradaVeiculo['id_data_devolucao'] !== null) ?
+                                                        date('d/m/Y H:i', strtotime($retiradaVeiculo['data_devolucao'])) :
+                                                        'Sem Data Devolução';
+                                                }
+                                                echo $dataDevolucao;
                                                 ?></td>
                                             <td>
                                                 <?php if (empty($retiradaVeiculo['data_devolucao'])) : ?>
