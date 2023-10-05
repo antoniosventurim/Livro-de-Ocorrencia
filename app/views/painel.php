@@ -77,7 +77,7 @@ $statement->execute();
 $motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna Veículos
-$queryVeiculos = "SELECT id, nome, tipo_veiculo, placa FROM veiculos";
+$queryVeiculos = "SELECT id, nome, tipo_veiculo, placa, status_veiculo FROM veiculos";
 $statement = $pdo->prepare($queryVeiculos);
 $statement->execute();
 $veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -704,7 +704,9 @@ $statusmotorista = "";
                             <select class="form-select" id="nomeVeiculo" name="nomeVeiculo" required>
                                 <option value="" disabled selected>Selecione o tipo de veículo</option>
                                 <?php foreach ($veiculos as $veiculo) : ?>
-                                    <option value="<?php echo $veiculo['id']; ?>"><?php echo $veiculo['nome']; ?></option>
+                                    <?php if ($veiculo['status_veiculo'] != 0) : ?>
+                                        <option value="<?php echo $veiculo['id']; ?>"><?php echo $veiculo['nome']; ?></option>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -779,9 +781,11 @@ $statusmotorista = "";
                     <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Veiculo</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Placa</th>
+                                <th scope="col">VEÍCULO</th>
+                                <th scope="col">NOME</th>
+                                <th scope="col">PLACA</th>
+                                <th scope="col">STATUS</th>
+                                <th scope="col">AÇÃO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -790,6 +794,26 @@ $statusmotorista = "";
                                     <td><?php echo $veiculo['tipo_veiculo']; ?></td>
                                     <td><?php echo $veiculo['nome']; ?></td>
                                     <td><?php echo $veiculo['placa']; ?></td>
+                                    <td>
+                                        <?php
+                                        $status = $veiculo['status_veiculo'];
+                                        if ($status == 1) {
+                                            echo 'Ativo';
+                                        } else {
+                                            echo 'Inativo';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $idVeiculo = $veiculo['id'];
+                                        $botaoLabel = ($status == 1) ? 'Desativar' : 'Ativar';
+                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-veiculo' : 'btn-primary ativar-veiculo';
+                                        ?>
+                                        <button class="btn <?php echo $botaoClass; ?>" data-id="<?php echo $idVeiculo; ?>">
+                                            <?php echo $botaoLabel; ?>
+                                        </button>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -843,7 +867,7 @@ $statusmotorista = "";
                                         <?php
                                         $idMotorista = $motorista['id'];
                                         $botaoLabel = ($status == 1) ? 'Desativar' : 'Ativar';
-                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-motorista' : 'btn-success ativar-motorista';
+                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-motorista' : 'btn-primary ativar-motorista';
                                         ?>
                                         <button class="btn <?php echo $botaoClass; ?>" data-id="<?php echo $idMotorista; ?>">
                                             <?php echo $botaoLabel; ?>
@@ -1205,7 +1229,41 @@ $statusmotorista = "";
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('.ativar-veiculo, .desativar-veiculo').click(function() {
+                var idVeiculo = $(this).data('id');
+                var novoStatus = $(this).hasClass('ativar-veiculo') ? 1 : 0; // Verifique a classe do botão
 
+                // Armazene a referência ao botão atual para uso posterior
+                var botao = $(this);
+
+                // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
+                $.ajax({
+                    url: 'altera_status_veiculo.php', // Substitua pelo URL correto do seu script de servidor
+                    method: 'POST',
+                    data: {
+                        id_veiculo: idVeiculo,
+                        novo_status: novoStatus
+                    },
+                    success: function(response) {
+                        // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
+                        if (novoStatus === 1) {
+                            alert('Veículo ativado com sucesso.');
+                        } else {
+                            alert('Veículo desativado com sucesso.');
+                        }
+
+                        // Recarregue a página
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao alterar o status do veículo.');
+                    }
+                });
+            });
+        });
+    </script>
 
 
 </body>
