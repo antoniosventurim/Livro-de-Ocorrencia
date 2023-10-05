@@ -119,7 +119,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../assets/css/pesquisa.css">
     <link rel="shortcut icon" href="../../assets/images/fav.png">
-    <title>Painel</title>
+    <title>Usuários Cadastrados</title>
 </head>
 
 <body>
@@ -808,7 +808,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                         <?php
                                         $idMotorista = $motorista['id'];
                                         $botaoLabel = ($status == 1) ? 'Desativar' : 'Ativar';
-                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-motorista' : 'btn-success ativar-motorista';
+                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-motorista' : 'btn-primary ativar-motorista';
                                         ?>
                                         <button class="btn <?php echo $botaoClass; ?>" data-id="<?php echo $idMotorista; ?>">
                                             <?php echo $botaoLabel; ?>
