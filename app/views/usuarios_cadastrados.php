@@ -62,7 +62,7 @@ $statement->execute();
 $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 // Query Retorna os Motoristas
-$queryMotoristas = "SELECT id, nome, setor FROM motoristas";
+$queryMotoristas = "SELECT id, nome, status_motorista, setor FROM motoristas";
 $statement = $pdo->prepare($queryMotoristas);
 $statement->execute();
 $motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -631,9 +631,11 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                         <div class="mb-3">
                             <label for="usuarioResponsavel" class="form-label"><b>Responsável pelo Veiculo:</b></label>
                             <select class="form-select" id="usuarioResponsavel" name="usuarioResponsavel" required>
-                                <option value="" disabled selected>Selecione o Responsável</option>
+                                <option value="" disabled selected>Selecione o Responsavel</option>
                                 <?php foreach ($motoristas as $motorista) : ?>
-                                    <option value="<?php echo $motorista['id']; ?>"><?php echo $motorista['nome']; ?></option>
+                                    <?php if ($motorista['status_motorista'] != 0) : ?>
+                                        <option value="<?php echo $motorista['id']; ?>"><?php echo $motorista['nome']; ?></option>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
                             <span id="motoristaValidationMessage"></span>
@@ -757,8 +759,10 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                     <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Setor</th>
+                                <th scope="col">NOME</th>
+                                <th scope="col">SETOR</th>
+                                <th scope="col">STATUS</th>
+                                <th scope="col">AÇÃO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -766,6 +770,26 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                 <tr>
                                     <td><?php echo $motorista['nome']; ?></td>
                                     <td><?php echo $motorista['setor']; ?></td>
+                                    <td>
+                                        <?php
+                                        $status = $motorista['status_motorista'];
+                                        if ($status == 1) {
+                                            echo 'Ativo';
+                                        } else {
+                                            echo 'Inativo';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $idMotorista = $motorista['id'];
+                                        $botaoLabel = ($status == 1) ? 'Desativar' : 'Ativar';
+                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-motorista' : 'btn-success ativar-motorista';
+                                        ?>
+                                        <button class="btn <?php echo $botaoClass; ?>" data-id="<?php echo $idMotorista; ?>">
+                                            <?php echo $botaoLabel; ?>
+                                        </button>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -901,7 +925,7 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                 </div>
                 <!-- CORPO DO MODAL ULTIMAS OBSERVACOES-->
                 <div class="modal-body text-center">
-                    <table class="table-usuarios table table-bordered table-hover">
+                    <table class="table-usuarios table table-bordered table-hover table-striped table-condensed table-fixed text-center">
                         <thead>
                             <tr>
                                 <th scope="col">OBSERVAÇÃO</th>
@@ -919,7 +943,6 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                     <td><?php echo date('d/m/Y H:i', strtotime($observacao['data_registro'])); ?></td>
                                     <td><?php echo $observacao['nome_usuario']; ?></td>
                                     <td><?php echo $observacao['id_ocorrencia']; ?></td>
-
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -934,14 +957,14 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
         <div class="modal-dialog modal-x">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Local Para Ocorrencias</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Local Para Ocorrências</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL ADICIONA NOVO LOCAL-->
                 <div class="modal-body">
                     <form method="POST" action="processaLocal.php">
                         <div class="mb-3">
-                            <label for="local" class="form-label"><b>Nome do Local:</b></label>
+                            <label for="local" class="form-label"><b>Nome do Local</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="local" name="local" placeholder="Informe o novo local" required>
                         </div>
 
@@ -1084,6 +1107,42 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                         linha.show();
                     } else {
                         linha.hide();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.ativar-motorista, .desativar-motorista').click(function() {
+                var idMotorista = $(this).data('id');
+                var novoStatus = $(this).hasClass('ativar-motorista') ? 1 : 0; // Verifique a classe do botão
+
+                // Armazene a referência ao botão atual para uso posterior
+                var botao = $(this);
+
+                // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
+                $.ajax({
+                    url: 'altera_status_motorista.php', // Substitua pelo URL correto do seu script de servidor
+                    method: 'POST',
+                    data: {
+                        id_motorista: idMotorista,
+                        novo_status: novoStatus
+                    },
+                    success: function(response) {
+                        // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
+                        if (novoStatus === 1) {
+                            alert('Motorista ativado com sucesso.');
+                        } else {
+                            alert('Motorista desativado com sucesso.');
+                        }
+
+                        // Recarregue a página
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao alterar o status do motorista.');
                     }
                 });
             });

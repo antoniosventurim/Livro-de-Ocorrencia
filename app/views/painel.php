@@ -71,7 +71,7 @@ $statement->execute();
 $totalObservacoes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 // Query Retorna os Motoristas
-$queryMotoristas = "SELECT id, nome, setor FROM motoristas";
+$queryMotoristas = "SELECT id, nome, status_motorista, setor FROM motoristas";
 $statement = $pdo->prepare($queryMotoristas);
 $statement->execute();
 $motoristas = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -131,7 +131,7 @@ if (!empty($_GET['search'])) {
     $numeroRegistros = $statement->rowCount();
     $msgsqlsearch = 'Últimos Registros: ';
 }
-
+$statusmotorista = "";
 //var_dump($idUsuarioLogado);
 //var_dump($_SESSION['usuario']);
 //var_dump($_SESSION['tipo_usuario']);
@@ -234,7 +234,7 @@ if (!empty($_GET['search'])) {
                                 <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z" />
                                 <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.807.807 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155 1.806 0 4.037-.084 5.592-.155A1.479 1.479 0 0 0 15 9.611v-.413c0-.099-.01-.197-.03-.294l-.335-1.68a.807.807 0 0 0-.43-.563 1.807 1.807 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3H4.82Z" />
                             </svg>
-                            Registros de Veiculos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                            Registros de Veículos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                             </svg>
@@ -247,7 +247,7 @@ if (!empty($_GET['search'])) {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
                                         </svg>
-                                        Adicionar Veiculo
+                                        Adicionar Veículo
                                     </a>';
                                     } ?>
                             </ul>
@@ -491,7 +491,7 @@ if (!empty($_GET['search'])) {
                         </div>
                         <div class="table-footer">
                             <div class="totalfooter">
-                                <h1>TOTAL DE OCORRENCIAS: <?php echo $totalOcorrencias ?></h1>
+                                <h1>TOTAL DE OCORRÊNCIAS: <?php echo $totalOcorrencias ?></h1>
                             </div>
                             <div class="paginacao">
                                 <div class="pagination text-white">
@@ -692,7 +692,9 @@ if (!empty($_GET['search'])) {
                             <select class="form-select" id="usuarioResponsavel" name="usuarioResponsavel" required>
                                 <option value="" disabled selected>Selecione o Responsavel</option>
                                 <?php foreach ($motoristas as $motorista) : ?>
-                                    <option value="<?php echo $motorista['id']; ?>"><?php echo $motorista['nome']; ?></option>
+                                    <?php if ($motorista['status_motorista'] != 0) : ?>
+                                        <option value="<?php echo $motorista['id']; ?>"><?php echo $motorista['nome']; ?></option>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
                             <span id="motoristaValidationMessage"></span>
@@ -730,14 +732,14 @@ if (!empty($_GET['search'])) {
         <div class="modal-dialog modal-x">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Veiculo</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Veículo</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO MODAL ADICIONA VEICULO-->
                 <div class="modal-body">
                     <form method="POST" action="processaVeiculo.php">
                         <div class="mb-3">
-                            <label for="tipo_veiculo" class="form-label"><b>Tipo de Veículo:</b></label>
+                            <label for="tipo_veiculo" class="form-label"><b>Tipo de Veículo</b></label>
                             <select class="form-select custom-width-motorista" id="tipo_veiculo" name="tipo_veiculo" required>
                                 <option value="" disabled selected>Selecione</option>
                                 <option value="Carro">Carro</option>
@@ -746,12 +748,12 @@ if (!empty($_GET['search'])) {
                         </div>
 
                         <div class="mb-3">
-                            <label for="nome" class="form-label"><b>Nome do Veículo:</b></label>
+                            <label for="nome" class="form-label"><b>Nome do Veículo</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="nome" name="nome" placeholder="Insira o nome do veículo" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="placa" class="form-label"><b>Placa:</b></label>
+                            <label for="placa" class="form-label"><b>Placa</b></label>
                             <input type="text" class="form-control custom-width-motorista" id="placa" name="placa" placeholder="Insira a placa" required>
                         </div>
                         <div class="modal-footer">
@@ -816,8 +818,10 @@ if (!empty($_GET['search'])) {
                     <table class="table table-bordered table-striped table-condensed table-fixed text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Setor</th>
+                                <th scope="col">NOME</th>
+                                <th scope="col">SETOR</th>
+                                <th scope="col">STATUS</th>
+                                <th scope="col">AÇÃO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -825,6 +829,26 @@ if (!empty($_GET['search'])) {
                                 <tr>
                                     <td><?php echo $motorista['nome']; ?></td>
                                     <td><?php echo $motorista['setor']; ?></td>
+                                    <td>
+                                        <?php
+                                        $status = $motorista['status_motorista'];
+                                        if ($status == 1) {
+                                            echo 'Ativo';
+                                        } else {
+                                            echo 'Inativo';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $idMotorista = $motorista['id'];
+                                        $botaoLabel = ($status == 1) ? 'Desativar' : 'Ativar';
+                                        $botaoClass = ($status == 1) ? 'btn-danger desativar-motorista' : 'btn-success ativar-motorista';
+                                        ?>
+                                        <button class="btn <?php echo $botaoClass; ?>" data-id="<?php echo $idMotorista; ?>">
+                                            <?php echo $botaoLabel; ?>
+                                        </button>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -942,7 +966,7 @@ if (!empty($_GET['search'])) {
                                         <p><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                                 <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-                                            </svg> Atencao ao registrar data de devolucao uma vez que registrada nao sera possivel alterar.</p>
+                                            </svg> Atenção, ao registrar data de devolução, uma vez que registrada não será possível alterar.</p>
                                     </div>
                                 </tfoot>
                             </table>
@@ -1141,6 +1165,41 @@ if (!empty($_GET['search'])) {
                         linha.show();
                     } else {
                         linha.hide();
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.ativar-motorista, .desativar-motorista').click(function() {
+                var idMotorista = $(this).data('id');
+                var novoStatus = $(this).hasClass('ativar-motorista') ? 1 : 0; // Verifique a classe do botão
+
+                // Armazene a referência ao botão atual para uso posterior
+                var botao = $(this);
+
+                // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
+                $.ajax({
+                    url: 'altera_status_motorista.php', // Substitua pelo URL correto do seu script de servidor
+                    method: 'POST',
+                    data: {
+                        id_motorista: idMotorista,
+                        novo_status: novoStatus
+                    },
+                    success: function(response) {
+                        // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
+                        if (novoStatus === 1) {
+                            alert('Motorista ativado com sucesso.');
+                        } else {
+                            alert('Motorista desativado com sucesso.');
+                        }
+
+                        // Recarregue a página
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao alterar o status do motorista.');
                     }
                 });
             });
