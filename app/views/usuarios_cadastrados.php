@@ -125,6 +125,12 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
 <body>
     <div id="erroMensagem" class="mensagem-erro">Nao foi possivel Realizar a Retirada de Chave.</div>
     <div id="sucMensagem" class="mensagem-suc">Retirada de Chave Realizada Com Sucesso!.</div>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
     <div class="main">
         <main class="d-flex flex-nowrap side-bar">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark menu-left">
@@ -985,6 +991,10 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
             </div>
         </div>
     </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
     <script src="../../assets/scripts/scripts.js"></script>
     <script src="../../assets/scripts/jQuery.min.js"></script>
     <script>
