@@ -770,7 +770,7 @@ $statusmotorista = "";
 
     <!-- Modal VEICULOS CADASTRADOS -->
     <div class="modal fade" id="veiculoscad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-x">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Veiculos Cadastrados</b></h1>
@@ -831,7 +831,7 @@ $statusmotorista = "";
 
     <!-- Modal MOTORISTAS CADASTRADOS -->
     <div class="modal fade" id="motoristascad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-x">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Motoristas Cadastrados</b></h1>
