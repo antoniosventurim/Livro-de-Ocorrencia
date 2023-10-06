@@ -1018,7 +1018,7 @@ $statusmotorista = "";
                         <thead>
                             <tr>
                                 <th scope="col">OBSERVAÇÃO</th>
-                                <th scope="col">TÍTULO</th>
+                                <th scope="col">TÍTULO OCORRÊNCIA</th>
                                 <th scope="col">DATA REGISTRO</th>
                                 <th scope="col">USUÁRIO REGISTROU</th>
                                 <th scope="col">ID OCORRÊNCIA</th>
