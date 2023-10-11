@@ -101,6 +101,39 @@ $queryQtdUserAtivo = "SELECT COUNT(*) as quantidade_ativo FROM usuarios WHERE st
 $statement = $pdo->query($queryQtdUserAtivo);
 $rowativos = $statement->fetch(PDO::FETCH_ASSOC);
 $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
+
+$statusmotorista = "";
+//Query Retorna Eventos
+$queryEventos = "SELECT
+e.nome_evento,
+e.solicitante,
+l.nome_local,
+e.data_inicio,
+e.data_fim,
+e.dia_semana,
+e.qtd_participantes,
+u.nome as nome_usuario
+FROM
+eventos e
+JOIN
+usuarios u
+ON
+e.usuario_id = u.id
+JOIN
+locais l
+ON
+e.local_reservado = l.id
+WHERE
+(e.data_inicio > CURDATE() OR (e.data_inicio = CURDATE() AND TIME(e.data_inicio) >= TIME(NOW())))
+AND e.data_inicio <= DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+ORDER BY
+e.data_inicio;";
+$statement = $pdo->prepare($queryEventos);
+$statement->execute();
+$eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 //var_dump($retornaQtdUserAtivos);
 //var_dump($idUsuarioLogado);
 //var_dump($_SESSION['usuario']);
@@ -320,6 +353,53 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
                                         Locais Registrados
                                         </a>';
                                     } ?>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseeventos" aria-expanded="false" aria-controls="collapseExample">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+                                <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
+                            Eventos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                        <div class="d-dowm-chaves">
+                            <ul>
+                                <div class="collapse" id="collapseeventos">
+
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#adicionaevento">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+                                            <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                        </svg>
+                                        Adicionar Novo Evento
+                                    </a>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseeventos">
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#eventosregistrados">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
+                                            <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                                        </svg>
+                                        Eventos da Semana
+                                    </a>
+
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseeventos">
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#filtrareventos">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                                        </svg>
+                                        Filtrar Eventos
+                                    </a>
+
                             </ul>
                         </div>
                     </li>
@@ -1041,6 +1121,135 @@ $quantidadeUsuariosAtivos = $rowativos['quantidade_ativo'];
             </div>
         </div>
     </div>
+    <!-- Modal NOVO EVENTO -->
+    <div class="modal fade" id="adicionaevento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Adicionar Novo Evento</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL NOVO EVENTO-->
+                <div class="modal-body text-center">
+                    <div class="card-body body-novoevento">
+                        <form method="POST" action="processaEventos.php" class="row g-3">
+                            <div class="col-md-12">
+                                <label for="evento" class="form-label"><b>Nome do Evento</b></label>
+                                <input type="text" class="form-control" id="nomeEvento" name="nomeEvento" placeholder="Informe o Nome do Evento">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="solicitante" class="form-label"><b>Solicitante</b></label>
+                                <input type="text" class="form-control" id="solicitante" name="solicitante" placeholder="Nome do Solicitante" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="diaSemana" class="form-label"><b>Local Reservado</b></label>
+                                <select id="localReservado" name="localReservado" class="form-select" required>
+                                    <option selected disabled>Selecione</option>
+                                    <?php foreach ($retornalocais as $retornalocal) : ?>
+                                        <option value="<?php echo $retornalocal['id']; ?>">
+                                            <?php echo $retornalocal['nome_local'] . ' (' . $retornalocal['bloco'] . ')'; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="diaSemana" class="form-label"><b>Dia da Semana</b></label>
+                                <select id="diaSemana" name="diaSemana" class="form-select" required>
+                                    <option selected>Selecione</option>
+                                    <option value="Segunda-Feira">Segunda-Feira</option>
+                                    <option value="Terca-Feira">Terca-Feira</option>
+                                    <option value="Quarta-Feira">Quarta-Feira</option>
+                                    <option value="Quinta-Feira">Quinta-Feira</option>
+                                    <option value="Sexta-Feira">Sexta-Feira</option>
+                                    <option value="Sabado">Sabado</option>
+                                    <option value="Domingo">Domingo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="participantes" class="form-label"><b>Quantidade de Participantes</b></label>
+                                <input type="number" class="form-control" id="qtdParticipantes" name="qtdParticipantes" placeholder="Informe a quantidade">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dataHora" class="form-label"><b>Data e Hora Inicio</b></label>
+                                <input type="datetime-local" class="form-control" id="dataHoraEventoinicio" name="dataHoraEventoinicio" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dataHora" class="form-label"><b>Data e Hora Fim</b></label>
+                                <input type="datetime-local" class="form-control" id="dataHoraEventofim" name="dataHoraEventofim" required>
+                            </div>
+
+                            <hr>
+                            <div class="modal-footer">
+                                <button type="submit" name="cadastraEvento" id="cadastraEvento" class="btn btn-primary">Cadastrar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal EVENTOS REGISTRADOS -->
+    <div class="modal fade" id="eventosregistrados" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xlx modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Eventos nos próximos 7 dias</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL EVENTOS REGISTRADOS-->
+                <div class="modal-body text-center">
+                    <table class="table-eventos table table-bordered table-hover table-bordered table-striped table-condensed text-center">
+                        <thead class="thead-eventos">
+                            <tr>
+                                <th scope="col">NOME DO EVENTO</th>
+                                <th scope="col">SOLICITANTE</th>
+                                <th scope="col">LOCAL RESERVADO</th>
+                                <th scope="col">DIA DA SEMANA</th>
+                                <th scope="col">DATA INICIO</th>
+                                <th scope="col">DATA FIM</th>
+                                <th scope="col">PARTICIPANTES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultadosPesquisa">
+                            <?php foreach ($eventos as $evento) : ?> <!-- Loop para que enquanto exista registro ele mostre na tela -->
+                                <tr>
+                                    <td><?php echo $evento['nome_evento']; ?></td>
+                                    <td><?php echo $evento['solicitante']; ?></td>
+                                    <td><?php echo $evento['nome_local']; ?></td>
+                                    <td><?php echo $evento['dia_semana']; ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($evento['data_inicio']));; ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($evento['data_fim'])); ?></td>
+                                    <td><?php echo $evento['qtd_participantes']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal FILTRAR EVENTOS REGISTRADOS -->
+    <div class="modal fade" id="filtrareventos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xlx modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Eventos Por Data</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO FILTRAR MODAL EVENTOS REGISTRADOS-->
+                <div class="modal-body text-center">
+                    <h1>EM DESEMVOLVIMENTO</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');

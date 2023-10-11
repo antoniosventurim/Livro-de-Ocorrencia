@@ -240,8 +240,18 @@
     border-radius: 10px 10px 0 0;
 }
 
+.table>thead {
+    vertical-align: middle;
+}
+
 thead {
     top: 0;
+    position: sticky;
+    z-index: 1;
+}
+
+.thead-eventos {
+    top: -20px;
     position: sticky;
     z-index: 1;
 }
@@ -285,6 +295,25 @@ thead {
     border-color: rgb(167, 2, 2);
 }
 
-.search-locais{
+.search-locais {
     margin-bottom: 10px;
+}
+
+.body-novoevento {
+    border-radius: 10px;
+    padding: 10px;
+
+}
+
+.modal-xlx {
+    max-width: 95vw;
+    max-height: 95vh;
+}
+
+.table-eventos {
+    overflow-y: auto;
+}
+
+.table {
+    --bs-table-hover-bg: rgb(0 0 0 / 34%);
 }
