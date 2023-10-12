@@ -55,9 +55,9 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim'])  && isset($_POST['
 
         foreach ($result as $evento) {
             echo "<tr>";
-            echo "<td>" . mb_convert_encoding($evento['nome_evento'], 'UTF-8', 'ISO-8859-1') . "</td>";
-            echo "<td>" . mb_convert_encoding($evento['data_inicio'], 'UTF-8', 'ISO-8859-1') . "</td>";
-            echo "<td>" . mb_convert_encoding($evento['data_fim'], 'UTF-8', 'ISO-8859-1') . "</td>";
+            echo "<td>" . $evento['nome_evento'] . "</td>";
+            echo "<td>" . $evento['data_inicio'] . "</td>";
+            echo "<td>" . $evento['data_fim'] . "</td>";
             echo "</tr>";
         }
 

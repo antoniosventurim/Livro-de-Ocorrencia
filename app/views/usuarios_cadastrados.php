@@ -1246,7 +1246,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <!-- CORPO DO FILTRAR MODAL EVENTOS REGISTRADOS-->
                 <div class="modal-body">
-                    <form id="filtroForm" action="">
+                    <form id="filtroForm" action="filtra_eventos.php">
                         <div class="filtro-evento">
                             <div class="form-group">
                                 <label for="data-inicio">Data de Início:</label>
@@ -1496,6 +1496,13 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             var headerData = Array.from(headers).map(function(th) {
                 return th.innerText;
             });
+            var utf16 = csvData.map(function(line) {
+                return line + '\n';
+            });
+
+            var blob = new Blob([new TextEncoder().encode(utf16)], {
+                type: 'text/csv;charset=UTF-16LE;'
+            });
 
             // Adicione os nomes das colunas ao array CSV
             csvData.push(headerData.join(','));
@@ -1509,27 +1516,22 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 });
                 csvData.push(rowData.join(','));
             }
-
+            csvData.unshift('\uFEFF' + csvData[0]);
             // Crie um blob de dados CSV
-            var csvBlob = new Blob([csvData.join('\n')], {
-                type: 'text/csv'
-            });
-
-            // Crie um objeto URL para o blob
-            var csvURL = URL.createObjectURL(csvBlob);
+            var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
 
             // Crie um elemento 'a' para o link de download
+            var encodedUri = encodeURI(csvContent);
             var link = document.createElement('a');
-            link.href = csvURL;
+            link.href = encodedUri;
+            link.target = '_blank';
             link.download = 'dados.csv';
 
             // Clique automaticamente no link para iniciar o download
             link.click();
-
-            // Libere o objeto URL após o download
-            URL.revokeObjectURL(csvURL);
         });
     </script>
+
 
 </body>
 

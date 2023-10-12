@@ -398,6 +398,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         </svg>
                                         Adicionar Novo Evento
                                     </a>
+                                </div>
                             </ul>
                             <ul>
                                 <div class="collapse" id="collapseeventos">
@@ -409,7 +410,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         </svg>
                                         Eventos da Semana
                                     </a>
-
+                                </div>
                             </ul>
                             <ul>
                                 <div class="collapse" id="collapseeventos">
@@ -419,7 +420,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         </svg>
                                         Filtrar Eventos
                                     </a>
-
+                                </DIV>
                             </ul>
                         </div>
                     </li>
@@ -474,7 +475,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <th scope="col">LOCAL</th>
                                             <th scope="col">RESPONSÁVEL</th>
                                             <th scope="col">DATA REGISTRO</th>
-                                            <th scope="col">DESCRIÇÃO COMPLETA</th>
+                                            <th scope="col">RELATÓRIO COMPLETA</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -488,7 +489,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                                     <td><?php echo date('d/m/Y H:i', strtotime($retornaSearch['data_registro'])); ?></td> <!-- Formata data e hora para dd/mm/aaaa H:i -->
                                                     <td>
                                                         <a class="btn-descricao" href="#" data-bs-toggle="modal" data-bs-target="#descricao_completa_<?php echo $retornaSearch['id']; ?>">
-                                                            Visualizar Descrição
+                                                            Visualizar Relatório
                                                             <ion-icon name="paper-plane-outline"></ion-icon></a>
                                                     </td>
                                                 </tr>
@@ -1298,13 +1299,39 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         <div class="modal-dialog modal-xlx modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Eventos Por Data</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Eventos</b></h1>
+                    <div class="form-group exporta-eventos">
+                        <button type="submit" id="exportar-dados">Exportar Dados.csv</button>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO FILTRAR MODAL EVENTOS REGISTRADOS-->
-                <div class="modal-body text-center">
-                    <h1>EM DESEMVOLVIMENTO</h1>
+                <div class="modal-body">
+                    <form id="filtroForm" action="">
+                        <div class="filtro-evento">
+                            <div class="form-group">
+                                <label for="data-inicio">Data de Início:</label>
+                                <input type="date" class="form-control" id="data_inicio">
+                            </div>
+                            <div class="form-group data-fim-eventos">
+                                <label for="data-fim">Data de Término:</label>
+                                <input type="date" class="form-control" id="data_fim">
+                            </div>
+                            <div class="form-group col-md-6 filtro-nome-evento">
+                                <label for="exampleInput">Filtrar pelo Nome do Evento:</label>
+                                <input type="text" class="form-control" id="busca_nome_evento" placeholder="Aguardando...">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="resultado-filtro-eventos">
+                            <div id="result"></div>
+                        </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btn-filtrar">Filtrar</button>
+                </div>
+                </form>
+                <!-- fim data filtro -->
             </div>
         </div>
     </div>
@@ -1470,6 +1497,93 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        // Submeter o formulário dentro da modal
+        $('#filtroForm').submit(function(event) {
+            event.preventDefault(); // Impede o envio do formulário padrão
+
+            // Obtém as datas de início e término do formulário
+            var dataInicio = $('#data_inicio').val();
+            var dataFim = $('#data_fim').val();
+            var nomeEvento = $('#busca_nome_evento').val();
+
+            // Envia uma requisição AJAX para o servidor para filtrar eventos
+            $.ajax({
+                url: 'filtra_eventos.php', // Substitua pelo URL correto do seu script de servidor
+                method: 'POST',
+                data: {
+                    data_inicio: dataInicio,
+                    data_fim: dataFim,
+                    busca_nome_evento: nomeEvento
+                },
+                success: function(response) {
+                    // Atualiza a div de resultado com os eventos filtrados
+                    $('#result').html(response);
+                },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar eventos.');
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        document.getElementById('exportar-dados').addEventListener('click', function() {
+            var table = document.querySelector('.tabelafiltrada');
+
+            if (!table) {
+                alert('Nenhuma tabela encontrada para exportar.');
+                return;
+            }
+
+            var csvData = [];
+
+            // Obtenha as linhas da tabela
+            var rows = table.querySelectorAll('tr');
+
+            // Obtenha os nomes das colunas (linha de cabeçalho)
+            var headerRow = rows[0];
+            var headers = headerRow.querySelectorAll('th');
+            var headerData = Array.from(headers).map(function(th) {
+                return th.innerText;
+            });
+            var utf16 = csvData.map(function(line) {
+                return line + '\n';
+            });
+
+            var blob = new Blob([new TextEncoder().encode(utf16)], {
+                type: 'text/csv;charset=UTF-16LE;'
+            });
+
+            // Adicione os nomes das colunas ao array CSV
+            csvData.push(headerData.join(','));
+
+            // Percorra as linhas de dados
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = [];
+                var cells = rows[i].querySelectorAll('td');
+                cells.forEach(function(cell) {
+                    rowData.push(cell.innerText);
+                });
+                csvData.push(rowData.join(','));
+            }
+            csvData.unshift('\uFEFF' + csvData[0]);
+            // Crie um blob de dados CSV
+            var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+
+            // Crie um elemento 'a' para o link de download
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement('a');
+            link.href = encodedUri;
+            link.target = '_blank';
+            link.download = 'dados.csv';
+
+            // Clique automaticamente no link para iniciar o download
+            link.click();
         });
     </script>
 </body>
