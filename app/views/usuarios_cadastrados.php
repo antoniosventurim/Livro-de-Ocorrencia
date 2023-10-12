@@ -1240,16 +1240,26 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO FILTRAR MODAL EVENTOS REGISTRADOS-->
-                <div class="modal-body text-center">
-                    <h1>EM DESEMVOLVIMENTO</h1>
+                <div class="modal-body">
+                    <form id="filtroForm">
+                        Data de Início: <input type="date" id="data_inicio">
+                        Data de Término: <input type="date" id="data_fim">
+                        <input type="submit" value="Filtrar">
+                    </form>
+                    <div id="result"></div>
                 </div>
+                <!-- fim data filtro -->
+
+
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
 
 
-    
+
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
@@ -1261,6 +1271,33 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         $(document).ready(function() {
             verificaNomeUsuario();
             verificaLocal();
+        });
+    </script>
+    <script>
+        // Submeter o formulário dentro da modal
+        $('#filtroForm').submit(function(event) {
+            event.preventDefault(); // Impede o envio do formulário padrão
+
+            // Obtém as datas de início e término do formulário
+            var dataInicio = $('#data_inicio').val();
+            var dataFim = $('#data_fim').val();
+
+            // Envia uma requisição AJAX para o servidor para filtrar eventos
+            $.ajax({
+                url: 'filtra_eventos.php', // Substitua pelo URL correto do seu script de servidor
+                method: 'POST',
+                data: {
+                    data_inicio: dataInicio,
+                    data_fim: dataFim
+                },
+                success: function(response) {
+                    // Atualiza a div de resultado com os eventos filtrados
+                    $('#result').html(response);
+                },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar eventos.');
+                }
+            });
         });
     </script>
     <script>
