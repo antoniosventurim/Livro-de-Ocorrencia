@@ -1,35 +1,70 @@
 <?php
 session_start();
 require_once(__DIR__ . '/../../includes/db.php');
-
+header('Content-Type: text/html; charset=UTF-8');
 // Verifique se as datas foram fornecidas no POST
-if (isset($_POST['data_inicio']) && isset($_POST['data_fim'])) {
-    // Obtenha as datas de início e término do POST
+if (isset($_POST['data_inicio']) && isset($_POST['data_fim'])  && isset($_POST['busca_nome_evento'])) {
     $dataInicio = $_POST['data_inicio'];
     $dataFim = $_POST['data_fim'];
+    $nomeEvento = $_POST['busca_nome_evento'];
 
-    // Consulta SQL para buscar eventos com base nas datas
-    $query = "SELECT data_inicio, data_fim, nome_evento FROM eventos WHERE data_inicio >= :dataInicio AND data_fim <= :dataFim";
+    $query = "SELECT nome_evento, data_inicio, data_fim FROM eventos WHERE 1 = 1";
+
+    // Adicione filtros com base no que o usuário preencheu
+    if (!empty($dataInicio)) {
+        $query .= " AND data_inicio >= :dataInicio";
+    }
+
+    if (!empty($dataFim)) {
+        $query .= " AND data_fim <= :dataFim";
+    }
+
+    if (!empty($nomeEvento)) {
+        $query .= " AND nome_evento LIKE :nomeEvento";
+    }
 
     // Prepare a consulta
     $statement = $pdo->prepare($query);
 
-    // Substitua os marcadores de posição pelos valores
-    $statement->bindParam(':dataInicio', $dataInicio);
-    $statement->bindParam(':dataFim', $dataFim);
+    // Substitua os marcadores de posição pelos valores, se necessário
+    if (!empty($dataInicio)) {
+        $statement->bindParam(':dataInicio', $dataInicio);
+    }
+
+    if (!empty($dataFim)) {
+        $statement->bindParam(':dataFim', $dataFim);
+    }
+
+    if (!empty($nomeEvento)) {
+        $nomeEvento = '%' . $nomeEvento . '%'; // Adicione curingas para fazer uma pesquisa parcial
+        $statement->bindParam(':nomeEvento', $nomeEvento);
+    }
 
     // Execute a consulta
     $statement->execute();
 
-    // Processar os resultados
+    // Recupere os resultados
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    if (count($result) > 0) {
+        echo '<table class="table table-bordered table-striped tabelafiltrada">';
+        echo "<tr>";
+        echo "<th>Nome do Evento</th>";
+        echo "<th>Data de Início</th>";
+        echo "<th>Data de Término</th>";
+        echo "</tr>";
 
-    // Aqui, você pode formatar os resultados como desejar. Neste exemplo, vou simplesmente exibir os eventos em uma lista.
-    echo "<ul>";
-    foreach ($result as $evento) {
-        echo "<li>" . $evento['nome_evento'] . " - " . $evento['data_inicio'] . " - " . $evento['data_fim'] . "</li>";
+        foreach ($result as $evento) {
+            echo "<tr>";
+            echo "<td>" . mb_convert_encoding($evento['nome_evento'], 'UTF-8', 'ISO-8859-1') . "</td>";
+            echo "<td>" . mb_convert_encoding($evento['data_inicio'], 'UTF-8', 'ISO-8859-1') . "</td>";
+            echo "<td>" . mb_convert_encoding($evento['data_fim'], 'UTF-8', 'ISO-8859-1') . "</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "Nenhum evento encontrado.";
     }
-    echo "</ul>";
 } else {
-    echo "Datas de início e término não fornecidas no POST.";
+    echo "";
 }

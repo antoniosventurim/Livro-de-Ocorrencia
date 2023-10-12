@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once(__DIR__ . '/../../includes/db.php');
+header('Content-Type: text/html; charset=UTF-8');
 //print_r($_SESSION);
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header('Location: ../../');
@@ -80,7 +81,7 @@ $statement->execute();
 $retiradaVeiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna locais
-$queryLocais = "SELECT nome_local, bloco FROM locais";
+$queryLocais = "SELECT id, nome_local, bloco FROM locais";
 $statement = $pdo->prepare($queryLocais);
 $statement->execute();
 $retornalocais = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -88,6 +89,7 @@ $retornalocais = $statement->fetchAll(PDO::FETCH_ASSOC);
 $nomesLocais = array_column($retornalocais, 'nome_local');
 $locais = $nomesLocais;
 $retornaSearchs = '';
+$numeroRegistros = 0;
 
 //Queyr retorna quantidade de usuários cadastrados
 $queryQtdUser = "SELECT COUNT(*) as quantidade FROM usuarios";
@@ -1236,28 +1238,44 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         <div class="modal-dialog modal-xlx modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Eventos Por Data</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Eventos</b></h1>
+                    <div class="form-group exporta-eventos">
+                        <button type="submit" id="exportar-dados">Exportar Dados.csv</button>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- CORPO DO FILTRAR MODAL EVENTOS REGISTRADOS-->
                 <div class="modal-body">
-                    <form id="filtroForm">
-                        Data de Início: <input type="date" id="data_inicio">
-                        Data de Término: <input type="date" id="data_fim">
-                        <input type="submit" value="Filtrar">
-                    </form>
-                    <div id="result"></div>
+                    <form id="filtroForm" action="">
+                        <div class="filtro-evento">
+                            <div class="form-group">
+                                <label for="data-inicio">Data de Início:</label>
+                                <input type="date" class="form-control" id="data_inicio">
+                            </div>
+                            <div class="form-group data-fim-eventos">
+                                <label for="data-fim">Data de Término:</label>
+                                <input type="date" class="form-control" id="data_fim">
+                            </div>
+                            <div class="form-group col-md-6 filtro-nome-evento">
+                                <label for="exampleInput">Filtrar pelo Nome do Evento:</label>
+                                <input type="text" class="form-control" id="busca_nome_evento" placeholder="Aguardando...">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="resultado-filtro-eventos">
+                            <div id="result"></div>
+                        </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btn-filtrar">Filtrar</button>
+                </div>
+                </form>
                 <!-- fim data filtro -->
-
-
             </div>
         </div>
     </div>
     </div>
     </div>
-
-
 
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
@@ -1281,6 +1299,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             // Obtém as datas de início e término do formulário
             var dataInicio = $('#data_inicio').val();
             var dataFim = $('#data_fim').val();
+            var nomeEvento = $('#busca_nome_evento').val();
 
             // Envia uma requisição AJAX para o servidor para filtrar eventos
             $.ajax({
@@ -1288,7 +1307,8 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 method: 'POST',
                 data: {
                     data_inicio: dataInicio,
-                    data_fim: dataFim
+                    data_fim: dataFim,
+                    busca_nome_evento: nomeEvento
                 },
                 success: function(response) {
                     // Atualiza a div de resultado com os eventos filtrados
@@ -1456,6 +1476,61 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             });
         });
     </script>
+    <script>
+        document.getElementById('exportar-dados').addEventListener('click', function() {
+            var table = document.querySelector('.tabelafiltrada');
+
+            if (!table) {
+                alert('Nenhuma tabela encontrada para exportar.');
+                return;
+            }
+
+            var csvData = [];
+
+            // Obtenha as linhas da tabela
+            var rows = table.querySelectorAll('tr');
+
+            // Obtenha os nomes das colunas (linha de cabeçalho)
+            var headerRow = rows[0];
+            var headers = headerRow.querySelectorAll('th');
+            var headerData = Array.from(headers).map(function(th) {
+                return th.innerText;
+            });
+
+            // Adicione os nomes das colunas ao array CSV
+            csvData.push(headerData.join(','));
+
+            // Percorra as linhas de dados
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = [];
+                var cells = rows[i].querySelectorAll('td');
+                cells.forEach(function(cell) {
+                    rowData.push(cell.innerText);
+                });
+                csvData.push(rowData.join(','));
+            }
+
+            // Crie um blob de dados CSV
+            var csvBlob = new Blob([csvData.join('\n')], {
+                type: 'text/csv'
+            });
+
+            // Crie um objeto URL para o blob
+            var csvURL = URL.createObjectURL(csvBlob);
+
+            // Crie um elemento 'a' para o link de download
+            var link = document.createElement('a');
+            link.href = csvURL;
+            link.download = 'dados.csv';
+
+            // Clique automaticamente no link para iniciar o download
+            link.click();
+
+            // Libere o objeto URL após o download
+            URL.revokeObjectURL(csvURL);
+        });
+    </script>
+
 </body>
 
 </html>
