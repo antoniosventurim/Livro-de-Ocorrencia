@@ -1249,15 +1249,15 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <form id="filtroForm" action="filtra_eventos.php">
                         <div class="filtro-evento">
                             <div class="form-group">
-                                <label for="data-inicio">Data de Início:</label>
+                                <label for="data-inicio"><b>Data de Início:</b></label>
                                 <input type="date" class="form-control" id="data_inicio">
                             </div>
                             <div class="form-group data-fim-eventos">
-                                <label for="data-fim">Data de Término:</label>
+                                <label for="data-fim"><b>Data de Término:</b></label>
                                 <input type="date" class="form-control" id="data_fim">
                             </div>
                             <div class="form-group col-md-6 filtro-nome-evento">
-                                <label for="exampleInput">Filtrar pelo Nome do Evento:</label>
+                                <label for="exampleInput"><b>Filtrar pelo Nome do Evento:</b></label>
                                 <input type="text" class="form-control" id="busca_nome_evento" placeholder="Aguardando...">
                             </div>
                         </div>
