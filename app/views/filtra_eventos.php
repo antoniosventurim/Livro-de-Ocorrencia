@@ -56,8 +56,8 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim'])  && isset($_POST['
         foreach ($result as $evento) {
             echo "<tr>";
             echo "<td>" . $evento['nome_evento'] . "</td>";
-            echo "<td>" . $evento['data_inicio'] . "</td>";
-            echo "<td>" . $evento['data_fim'] . "</td>";
+            echo "<td>" . date('d/m/Y h:m', strtotime($evento['data_inicio'])) . "</td>";
+            echo "<td>" . date('d/m/Y h:m', strtotime($evento['data_fim'])) . "</td>";
             echo "</tr>";
         }
 

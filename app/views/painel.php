@@ -244,9 +244,10 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <li>
                         <div class="li-usuarios">
                             <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseocorrencias" aria-expanded="false" aria-controls="collapseExample">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-journal-bookmark-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8V1z" />
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
                                 </svg>
                                 Ocorrências <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
@@ -259,7 +260,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="collapse" id="collapseocorrencias">
 
                                     <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#addocorrenciaa">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
                                             <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
                                             <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
@@ -271,7 +272,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <ul>
                                 <div class="collapse" id="collapseocorrencias">
                                     <a href="painel2" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#ultimasobservacoes">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                             <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
                                             <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
@@ -279,6 +280,17 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         <use xlink:href="#hom"></use>
                                         </i>
                                         Ultimas Observações
+                                    </a>
+
+                            </ul>
+
+                            <ul>
+                                <div class="collapse" id="collapseocorrencias">
+                                    <a href="painel2" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#filtrarocorrencias">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                                        </svg>
+                                        Filtrar Ocorrências
                                     </a>
 
                             </ul>
@@ -452,17 +464,6 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 </DIV>
                             </ul>
                         </div>
-                    </li>
-                    <li>
-                        <?php if ($tipoUsuarioLogado === 1) {
-                            echo '<a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#relatorioss">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                            <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
-                            </svg>
-                            Relatórios
-                        </a>';
-                        } ?>
                     </li>
                 </ul>
                 <hr>
@@ -764,18 +765,48 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
-    <!-- Modal RELATÓRIOS -->
-    <div class="modal fade" id="relatorioss" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+    <!-- Modal FILTRAR OCORRÊNCIAS -->
+    <div class="modal fade" id="filtrarocorrencias" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xlx modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Relatórios</b></h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Ocorrências</b></h1>
+                    <div class="form-group exporta-eventos">
+                        <button type="submit" id="exportar-dados">Exportar Dados.csv</button>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <!-- CORPO DO MODAL RELATÓRIOS-->
+                <!-- CORPO DO MODAL FILTRAR OCORRÊNCIAS -->
                 <div class="modal-body">
-                    <h1>EM DESENVOLVIMENTO</h1>
+                    <form class="text-center" id="filtroFormOcorrencias" action="">
+                        <div class="filtro-evento">
+                            <div class="form-group">
+                                <label for="data-inicio"><b>Data Inicio:</b></label>
+                                <input type="date" class="form-control" id="data_inicio_ocorrencia">
+                            </div>
+                            <div class="form-group data-fim-ocorrencia">
+                                <label for="data-fim"><b>Data Fim:</b></label>
+                                <input type="date" class="form-control" id="data_fim_ocorrencia">
+                            </div>
+                            <div class="form-group col-md-3 filtro-titulo-ocorrencia">
+                                <label for="exampleInput"><b>Título:</b></label>
+                                <input type="text" class="form-control" id="busca_titulo_ocorrencia" placeholder="Filtrar por título...">
+                            </div>
+                            <div class="form-group col-md-3 filtro-nome-responsavel-ocorrencia">
+                                <label for="exampleInput"><b>Responsável:</b></label>
+                                <input type="text" class="form-control" id="busca_nome_responsavel_ocorrencia" placeholder="Filtrar por responsável...">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="resultado-filtro-eventos">
+                            <div id="result"></div>
+                        </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btn-filtrar">Filtrar</button>
+                </div>
+                </form>
+                <!-- fim data filtro -->
             </div>
         </div>
     </div>
@@ -1311,7 +1342,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $evento['solicitante']; ?></td>
                                     <td><?php echo $evento['nome_local']; ?></td>
                                     <td><?php echo $evento['dia_semana']; ?></td>
-                                    <td><?php echo date('d/m/Y H:i', strtotime($evento['data_inicio']));; ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($evento['data_inicio'])); ?></td>
                                     <td><?php echo date('d/m/Y H:i', strtotime($evento['data_fim'])); ?></td>
                                     <td><?php echo $evento['qtd_participantes']; ?></td>
                                 </tr>
@@ -1336,7 +1367,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <!-- CORPO DO FILTRAR MODAL EVENTOS REGISTRADOS-->
                 <div class="modal-body">
-                    <form id="filtroForm" action="">
+                    <form id="filtroForm" action="filtra_eventos.php">
                         <div class="filtro-evento">
                             <div class="form-group">
                                 <label for="data-inicio"><b>Data de Início:</b></label>
@@ -1353,7 +1384,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <hr>
                         <div class="resultado-filtro-eventos">
-                            <div id="result"></div>
+                            <div id="resultado"></div>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -1363,258 +1394,285 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <!-- fim data filtro -->
             </div>
         </div>
-    </div>
 
 
-
-
-
-
-
-
-
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
-    <script src="../../assets/scripts/scripts.js"></script>
-    <script src="../../assets/scripts/jQuery.min.js"></script>
-    <script>
-        // Chamar as funções quando a página estiver carregada
-        $(document).ready(function() {
-            verificaNomeUsuario();
-            verificaLocal();
-            cadastraOcorrencia();
-        });
-    </script>
-    <script>
-        var search = document.getElementById('pesquisar');
-
-        search.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                searchData();
-            }
-        });
-
-        function searchData() {
-            window.location = 'painel.php?search=' + search.value;
-
-        }
-    </script>
-    <script>
-        // Obtém a data e hora atual
-        const dataHoraAtual = new Date();
-        // Formata a data e hora no formato esperado (AAAA-MM-DDTHH:MM)
-        const formatoDataHora = `${dataHoraAtual.getFullYear()}-${(dataHoraAtual.getMonth() + 1).toString().padStart(2, '0')}-${dataHoraAtual.getDate().toString().padStart(2, '0')}T${dataHoraAtual.getHours().toString().padStart(2, '0')}:${dataHoraAtual.getMinutes().toString().padStart(2, '0')}`;
-        // Define o valor do input como a data e hora formatada
-        document.getElementById("dataRetirada").value = formatoDataHora;
-    </script>
-    <script>
-        if (window.location.href.indexOf('?erro=1') !== -1) {
-            // A URL contém "?erro=1", mostre a mensagem de erro
-            document.getElementById('erroMensagem').style.display = 'block';
-
-            // Adicione um atraso de 5 segundos (5000 milissegundos) para ocultar a mensagem
-            setTimeout(function() {
-                document.getElementById('erroMensagem').style.display = 'none';
-
-                // Remova "?erro=1" da URL usando pushState
-                const newURL = window.location.href.replace('?erro=1', '');
-                window.history.pushState({}, document.title, newURL);
-            }, 6000);
-        } else if (window.location.href.indexOf('?sucesso=1') !== -1) {
-            // A URL contém "?sucesso=1", mostre a mensagem de sucesso
-            document.getElementById('sucMensagem').style.display = 'block';
-
-            // Adicione um atraso de 5 segundos (5000 milissegundos) para ocultar a mensagem
-            setTimeout(function() {
-                document.getElementById('sucMensagem').style.display = 'none';
-
-                // Remova "?sucesso=1" da URL usando pushState
-                const newURL = window.location.href.replace('?sucesso=1', '');
-                window.history.pushState({}, document.title, newURL);
-            }, 5000);
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            // Quando o usuário digita na barra de pesquisa
-            $('#barraDePesquisa').keyup(function() {
-                // Obter o valor digitado na barra de pesquisa
-                var termoDePesquisa = $(this).val().toLowerCase();
-
-                // Percorrer cada linha da tabela e ocultar/mostrar com base na pesquisa
-                $('.table-usuarios tbody tr').each(function() {
-                    var linha = $(this);
-                    var nomeLocal = linha.find('td:eq(0)').text().toLowerCase();
-                    var bloco = linha.find('td:eq(1)').text().toLowerCase();
-
-                    if (nomeLocal.indexOf(termoDePesquisa) !== -1 || bloco.indexOf(termoDePesquisa) !== -1) {
-                        linha.show();
-                    } else {
-                        linha.hide();
-                    }
-                });
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+        <script src="../../assets/scripts/scripts.js"></script>
+        <script src="../../assets/scripts/jQuery.min.js"></script>
+        <script>
+            // Chamar as funções quando a página estiver carregada
+            $(document).ready(function() {
+                verificaNomeUsuario();
+                verificaLocal();
+                cadastraOcorrencia();
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.ativar-motorista, .desativar-motorista').click(function() {
-                var idMotorista = $(this).data('id');
-                var novoStatus = $(this).hasClass('ativar-motorista') ? 1 : 0; // Verifique a classe do botão
+        </script>
 
-                // Armazene a referência ao botão atual para uso posterior
-                var botao = $(this);
+        <script>
+            var search = document.getElementById('pesquisar');
 
-                // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
-                $.ajax({
-                    url: 'altera_status_motorista.php', // Substitua pelo URL correto do seu script de servidor
-                    method: 'POST',
-                    data: {
-                        id_motorista: idMotorista,
-                        novo_status: novoStatus
-                    },
-                    success: function(response) {
-                        // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
-                        if (novoStatus === 1) {
-                            alert('Motorista ativado com sucesso.');
-                        } else {
-                            alert('Motorista desativado com sucesso.');
-                        }
-
-                        // Recarregue a página
-                        location.reload();
-                    },
-                    error: function() {
-                        alert('Ocorreu um erro ao alterar o status do motorista.');
-                    }
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.ativar-veiculo, .desativar-veiculo').click(function() {
-                var idVeiculo = $(this).data('id');
-                var novoStatus = $(this).hasClass('ativar-veiculo') ? 1 : 0; // Verifique a classe do botão
-
-                // Armazene a referência ao botão atual para uso posterior
-                var botao = $(this);
-
-                // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
-                $.ajax({
-                    url: 'altera_status_veiculo.php', // Substitua pelo URL correto do seu script de servidor
-                    method: 'POST',
-                    data: {
-                        id_veiculo: idVeiculo,
-                        novo_status: novoStatus
-                    },
-                    success: function(response) {
-                        // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
-                        if (novoStatus === 1) {
-                            alert('Veículo ativado com sucesso.');
-                        } else {
-                            alert('Veículo desativado com sucesso.');
-                        }
-
-                        // Recarregue a página
-                        location.reload();
-                    },
-                    error: function() {
-                        alert('Ocorreu um erro ao alterar o status do veículo.');
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        // Submeter o formulário dentro da modal
-        $('#filtroForm').submit(function(event) {
-            event.preventDefault(); // Impede o envio do formulário padrão
-
-            // Obtém as datas de início e término do formulário
-            var dataInicio = $('#data_inicio').val();
-            var dataFim = $('#data_fim').val();
-            var nomeEvento = $('#busca_nome_evento').val();
-
-            // Envia uma requisição AJAX para o servidor para filtrar eventos
-            $.ajax({
-                url: 'filtra_eventos.php', // Substitua pelo URL correto do seu script de servidor
-                method: 'POST',
-                data: {
-                    data_inicio: dataInicio,
-                    data_fim: dataFim,
-                    busca_nome_evento: nomeEvento
-                },
-                success: function(response) {
-                    // Atualiza a div de resultado com os eventos filtrados
-                    $('#result').html(response);
-                },
-                error: function() {
-                    alert('Ocorreu um erro ao buscar eventos.');
+            search.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    searchData();
                 }
             });
-        });
-    </script>
 
+            function searchData() {
+                window.location = 'painel.php?search=' + search.value;
 
-    <script>
-        document.getElementById('exportar-dados').addEventListener('click', function() {
-            var table = document.querySelector('.tabelafiltrada');
-
-            if (!table) {
-                alert('Nenhuma tabela encontrada para exportar.');
-                return;
             }
+        </script>
 
-            var csvData = [];
+        <script>
+            // Obtém a data e hora atual
+            const dataHoraAtual = new Date();
+            // Formata a data e hora no formato esperado (AAAA-MM-DDTHH:MM)
+            const formatoDataHora = `${dataHoraAtual.getFullYear()}-${(dataHoraAtual.getMonth() + 1).toString().padStart(2, '0')}-${dataHoraAtual.getDate().toString().padStart(2, '0')}T${dataHoraAtual.getHours().toString().padStart(2, '0')}:${dataHoraAtual.getMinutes().toString().padStart(2, '0')}`;
+            // Define o valor do input como a data e hora formatada
+            document.getElementById("dataRetirada").value = formatoDataHora;
+        </script>
+        <script>
+            if (window.location.href.indexOf('?erro=1') !== -1) {
+                // A URL contém "?erro=1", mostre a mensagem de erro
+                document.getElementById('erroMensagem').style.display = 'block';
 
-            // Obtenha as linhas da tabela
-            var rows = table.querySelectorAll('tr');
+                // Adicione um atraso de 5 segundos (5000 milissegundos) para ocultar a mensagem
+                setTimeout(function() {
+                    document.getElementById('erroMensagem').style.display = 'none';
 
-            // Obtenha os nomes das colunas (linha de cabeçalho)
-            var headerRow = rows[0];
-            var headers = headerRow.querySelectorAll('th');
-            var headerData = Array.from(headers).map(function(th) {
-                return th.innerText;
-            });
-            var utf16 = csvData.map(function(line) {
-                return line + '\n';
-            });
+                    // Remova "?erro=1" da URL usando pushState
+                    const newURL = window.location.href.replace('?erro=1', '');
+                    window.history.pushState({}, document.title, newURL);
+                }, 6000);
+            } else if (window.location.href.indexOf('?sucesso=1') !== -1) {
+                // A URL contém "?sucesso=1", mostre a mensagem de sucesso
+                document.getElementById('sucMensagem').style.display = 'block';
 
-            var blob = new Blob([new TextEncoder().encode(utf16)], {
-                type: 'text/csv;charset=UTF-16LE;'
-            });
+                // Adicione um atraso de 5 segundos (5000 milissegundos) para ocultar a mensagem
+                setTimeout(function() {
+                    document.getElementById('sucMensagem').style.display = 'none';
 
-            // Adicione os nomes das colunas ao array CSV
-            csvData.push(headerData.join(','));
+                    // Remova "?sucesso=1" da URL usando pushState
+                    const newURL = window.location.href.replace('?sucesso=1', '');
+                    window.history.pushState({}, document.title, newURL);
+                }, 5000);
+            }
+        </script>
+        <script>
+            $(document).ready(function() {
+                // Quando o usuário digita na barra de pesquisa
+                $('#barraDePesquisa').keyup(function() {
+                    // Obter o valor digitado na barra de pesquisa
+                    var termoDePesquisa = $(this).val().toLowerCase();
 
-            // Percorra as linhas de dados
-            for (var i = 1; i < rows.length; i++) {
-                var rowData = [];
-                var cells = rows[i].querySelectorAll('td');
-                cells.forEach(function(cell) {
-                    rowData.push(cell.innerText);
+                    // Percorrer cada linha da tabela e ocultar/mostrar com base na pesquisa
+                    $('.table-usuarios tbody tr').each(function() {
+                        var linha = $(this);
+                        var nomeLocal = linha.find('td:eq(0)').text().toLowerCase();
+                        var bloco = linha.find('td:eq(1)').text().toLowerCase();
+
+                        if (nomeLocal.indexOf(termoDePesquisa) !== -1 || bloco.indexOf(termoDePesquisa) !== -1) {
+                            linha.show();
+                        } else {
+                            linha.hide();
+                        }
+                    });
                 });
-                csvData.push(rowData.join(','));
-            }
-            csvData.unshift('\uFEFF' + csvData[0]);
-            // Crie um blob de dados CSV
-            var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('.ativar-motorista, .desativar-motorista').click(function() {
+                    var idMotorista = $(this).data('id');
+                    var novoStatus = $(this).hasClass('ativar-motorista') ? 1 : 0; // Verifique a classe do botão
 
-            // Crie um elemento 'a' para o link de download
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement('a');
-            link.href = encodedUri;
-            link.target = '_blank';
-            link.download = 'dados.csv';
+                    // Armazene a referência ao botão atual para uso posterior
+                    var botao = $(this);
 
-            // Clique automaticamente no link para iniciar o download
-            link.click();
-        });
-    </script>
+                    // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
+                    $.ajax({
+                        url: 'altera_status_motorista.php', // Substitua pelo URL correto do seu script de servidor
+                        method: 'POST',
+                        data: {
+                            id_motorista: idMotorista,
+                            novo_status: novoStatus
+                        },
+                        success: function(response) {
+                            // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
+                            if (novoStatus === 1) {
+                                alert('Motorista ativado com sucesso.');
+                            } else {
+                                alert('Motorista desativado com sucesso.');
+                            }
+
+                            // Recarregue a página
+                            location.reload();
+                        },
+                        error: function() {
+                            alert('Ocorreu um erro ao alterar o status do motorista.');
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('.ativar-veiculo, .desativar-veiculo').click(function() {
+                    var idVeiculo = $(this).data('id');
+                    var novoStatus = $(this).hasClass('ativar-veiculo') ? 1 : 0; // Verifique a classe do botão
+
+                    // Armazene a referência ao botão atual para uso posterior
+                    var botao = $(this);
+
+                    // Envie uma solicitação AJAX para o servidor para alterar o status do motorista
+                    $.ajax({
+                        url: 'altera_status_veiculo.php', // Substitua pelo URL correto do seu script de servidor
+                        method: 'POST',
+                        data: {
+                            id_veiculo: idVeiculo,
+                            novo_status: novoStatus
+                        },
+                        success: function(response) {
+                            // Atualize a tabela ou faça qualquer outra coisa necessária após a alteração de status
+                            if (novoStatus === 1) {
+                                alert('Veículo ativado com sucesso.');
+                            } else {
+                                alert('Veículo desativado com sucesso.');
+                            }
+
+                            // Recarregue a página
+                            location.reload();
+                        },
+                        error: function() {
+                            alert('Ocorreu um erro ao alterar o status do veículo.');
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            // Submeter o formulário dentro da modal
+            $('#filtroFormOcorrencias').submit(function(event) {
+                event.preventDefault(); // Impede o envio do formulário padrão
+
+                // Obtém as datas de início e término do formulário
+                var dataInicio = $('#data_inicio_ocorrencia').val();
+                var dataFim = $('#data_fim_ocorrencia').val();
+                var tituloOcorrencia = $('#busca_titulo_ocorrencia').val();
+                var nomeResponsavel = $('#busca_nome_responsavel_ocorrencia').val();
+
+                // Envia uma requisição AJAX para o servidor para filtrar ocorrencias
+                $.ajax({
+                    url: 'filtra_ocorrencias.php',
+                    method: 'POST',
+                    data: {
+                        data_inicio: dataInicio,
+                        data_fim: dataFim,
+                        titulo_ocorrencia: tituloOcorrencia,
+                        nome_responsavel: nomeResponsavel
+
+                    },
+                    success: function(response) {
+                        // Atualiza a div de resultado com os eventos filtrados
+                        $('#result').html(response);
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao buscar Ocorrências.');
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            // Submeter o formulário dentro da modal
+            $('#filtroForm').submit(function(event) {
+                event.preventDefault(); // Impede o envio do formulário padrão
+
+                // Obtém as datas de início e término do formulário
+                var dataInicio = $('#data_inicio').val();
+                var dataFim = $('#data_fim').val();
+                var nomeEvento = $('#busca_nome_evento').val();
+
+                // Envia uma requisição AJAX para o servidor para filtrar eventos
+                $.ajax({
+                    url: 'filtra_eventos.php', // Substitua pelo URL correto do seu script de servidor
+                    method: 'POST',
+                    data: {
+                        data_inicio: dataInicio,
+                        data_fim: dataFim,
+                        busca_nome_evento: nomeEvento
+                    },
+                    success: function(response) {
+                        // Atualiza a div de resultado com os eventos filtrados
+                        $('#resultado').html(response);
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao buscar eventos.');
+                    }
+                });
+            });
+        </script>
+
+
+        <script>
+            document.getElementById('exportar-dados').addEventListener('click', function() {
+                var table = document.querySelector('.tabelafiltrada');
+
+                if (!table) {
+                    alert('Nenhuma tabela encontrada para exportar.');
+                    return;
+                }
+
+                var csvData = [];
+
+                // Obtenha as linhas da tabela
+                var rows = table.querySelectorAll('tr');
+
+                // Obtenha os nomes das colunas (linha de cabeçalho)
+                var headerRow = rows[0];
+                var headers = headerRow.querySelectorAll('th');
+                var headerData = Array.from(headers).map(function(th) {
+                    return th.innerText;
+                });
+                var utf16 = csvData.map(function(line) {
+                    return line + '\n';
+                });
+
+                var blob = new Blob([new TextEncoder().encode(utf16)], {
+                    type: 'text/csv;charset=UTF-16LE;'
+                });
+
+                // Adicione os nomes das colunas ao array CSV
+                csvData.push(headerData.join(','));
+
+                // Percorra as linhas de dados
+                for (var i = 1; i < rows.length; i++) {
+                    var rowData = [];
+                    var cells = rows[i].querySelectorAll('td');
+                    cells.forEach(function(cell) {
+                        rowData.push(cell.innerText);
+                    });
+                    csvData.push(rowData.join(','));
+                }
+                csvData.unshift('\uFEFF' + csvData[0]);
+                // Crie um blob de dados CSV
+                var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+
+                // Crie um elemento 'a' para o link de download
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement('a');
+                link.href = encodedUri;
+                link.target = '_blank';
+                link.download = 'dados.csv';
+
+                // Clique automaticamente no link para iniciar o download
+                link.click();
+            });
+        </script>
 </body>
 
 </html>
