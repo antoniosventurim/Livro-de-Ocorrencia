@@ -1340,6 +1340,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         $(document).ready(function() {
             verificaNomeUsuario();
             verificaLocal();
+            cadastraOcorrencia();
         });
     </script>
 

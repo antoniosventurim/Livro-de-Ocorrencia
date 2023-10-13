@@ -114,12 +114,12 @@ if (!empty($_GET['search'])) {
     FROM ocorrencias
     INNER JOIN usuarios ON ocorrencias.id_responsavel = usuarios.id
     ORDER BY ocorrencias.data_registro DESC
-    LIMIT 15;";
+    LIMIT 10;";
     $statement = $pdo->prepare($sqlSearch);
     $statement->execute();
     $retornaSearchs = $statement->fetchAll(PDO::FETCH_ASSOC);
     $numeroRegistros = $statement->rowCount();
-    $msgsqlsearch = 'Últimos Registros: ';
+    $msgsqlsearch = 'Estes São os ';
 }
 $statusmotorista = "";
 
@@ -292,14 +292,66 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         </svg>
                                         Filtrar Ocorrências
                                     </a>
-
                             </ul>
                         </div>
                     </li>
 
+                    <!-- BTN ACESSO DE PESSOAS -->
                     <li>
+                        <div class="li-usuarios">
+                            <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseacessodepessoas" aria-expanded="false" aria-controls="collapseExample">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
+                                    <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z" />
+                                    <path d="M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z" />
+                                </svg>
+                                Acesso de Pessoas <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="d-dowm-chaves">
+                            <ul>
+                                <div class="collapse" id="collapseacessodepessoas">
 
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#addacessos">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                                        </svg>
+                                        Novo Acesso
+                                    </a>
+
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseacessodepessoas">
+                                    <a href="" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#filtraacessos">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                                        </svg>
+                                        <use xlink:href="#hom"></use>
+                                        </i>
+                                        Filtrar Acessos
+                                    </a>
+
+                            </ul>
+
+                            <ul>
+                                <div class="collapse" id="collapseocorrencias">
+                                    <a href="painel2" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#filtrarocorrencias">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                                        </svg>
+                                        Filtrar Ocorrências
+                                    </a>
+                            </ul>
+                        </div>
                     </li>
+
+
                     <li>
                         <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
@@ -599,7 +651,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <div class="paginacao">
                                 <div class="pagination text-white">
-                                    <h4><?php echo $msgsqlsearch . $numeroRegistros ?></h4>
+                                    <h4><?php echo $msgsqlsearch . "Últimos " . $numeroRegistros . " Registros" ?></h4>
                                 </div>
                             </div>
 
@@ -806,6 +858,77 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <button type="submit" class="btn btn-primary" id="btn-filtrar">Filtrar</button>
                 </div>
                 </form>
+                <!-- fim data filtro -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Acesso -->
+    <div class="modal fade" id="addacessos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Cadastrar Novo Acesso</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL NOVO ACESSO -->
+                <div class="modal-body">
+                    <div class="container">
+                        <form action="/" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="nome"><b>Nome</b></label>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o Nome" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="destino"><b>Destino</b></label>
+                                    <input type="text" class="form-control" list="localOptions" id="local" name="local" placeholder="Destino..." required>
+                                    <datalist id="localOptions">
+                                        <?php foreach ($locais as $local) : ?>
+                                            <option value="<?php echo $local; ?>">
+                                            <?php endforeach; ?>
+                                    </datalist>
+                                    <span id="localValidationMessage"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="documento"><b>Documento</b></label>
+                                    <input type="text" class="form-control" id="documento" name="documento" placeholder="Aguardando doc...">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="tipo"><b>Tipo</b></label>
+                                <select class="form-select" id="tipo" name="tipo" required>
+                                    <option value="" selected disabled>Selecione</option>
+                                    <option value="aluno">Aluno</option>
+                                    <option value="visitante">Visitante</option>
+                                </select>
+                            </div>
+                            <div class="mt-5">
+                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- fim data filtro -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal FILTRAR ACESSOS -->
+    <div class="modal fade" id="filtraacessos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xlx modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Acessos</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL FILTRAR ACESSOS -->
+                <div class="modal-body">
+                    <h1>Desenvolvimento</h1>
+                </div>
                 <!-- fim data filtro -->
             </div>
         </div>
@@ -1408,6 +1531,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 verificaNomeUsuario();
                 verificaLocal();
                 cadastraOcorrencia();
+                filtraOcorrencia();
             });
         </script>
 
