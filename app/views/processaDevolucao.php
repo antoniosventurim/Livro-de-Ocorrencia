@@ -13,9 +13,7 @@ if (isset($_POST['devolucao'])) {
     $dataDevolucao = $_POST['dataDevolucao'];
     $idRetirada = $_POST['idRetiradaVeiculo'];
     $statusDevolucao = $_POST['statusDevolucao'];
-
-    // Obtém o ID do usuário logado da variável de sessão
-    $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
+    $idUsuarioLogado = $_SESSION['id'];
 
     try {
         // Inicia uma transação
@@ -26,7 +24,7 @@ if (isset($_POST['devolucao'])) {
         $statement = $pdo->prepare($queryInserirDevolucao);
         $statement->bindParam(':dataDevolucao', $dataDevolucao);
         $statement->bindParam(':idRetiradaVeiculo', $idRetirada);
-        $statement->bindParam(':id_usuario_registrou', $idUsuarioLogado); // Use o ID do usuário logado
+        $statement->bindParam(':id_usuario_registrou', $idUsuarioLogado);
         $statement->execute();
 
         // Recupera o ID da devolução inserida
@@ -52,9 +50,4 @@ if (isset($_POST['devolucao'])) {
         echo 'Erro: ' . $e->getMessage();
     }
 }
-
-
-
-
-// Se o formulário não foi enviado ou ocorreu algum erro, você pode adicionar tratamento de erro aqui
-// ...
+//tratamento de erros aqui.

@@ -15,7 +15,7 @@ if (isset($_POST['adduser'])) {
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
     // Obtém o ID do usuário logado da variável de sessão
-    $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
+    $idUsuarioLogado = $_SESSION['id'];
 
     // Verifique se já existe um usuário com o mesmo nome de usuário
     $queryVerificarUsuarioExistente = "SELECT id FROM usuarios WHERE usuario = :usuario";

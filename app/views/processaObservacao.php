@@ -9,12 +9,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 
+// Recebe os dados apos submit no formulário
 if (isset($_POST['cadastra_observacao'])) {
     $observacao = $_POST['observacao'];
-    $idUsuarioLogado = $_SESSION['id'];  // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário // Obtém o ID do usuário logado da variável de sessão
+    $idUsuarioLogado = $_SESSION['id'];  
     $idOcorrencia = $_POST['ocorrencia_id'];
     
-
     // Processa o formulário e insere a ocorrência no banco de dados
     $queryInserirObservacao = "INSERT INTO observacoes (id_ocorrencia, id_usuario, observacao, data_registro) VALUES (:idOcorrencia, :id_responsavel, :observacao, NOW())";
     $statement = $pdo->prepare($queryInserirObservacao);
@@ -27,7 +27,4 @@ if (isset($_POST['cadastra_observacao'])) {
     header('Location: painel.php');
     exit;
 }
-
-// Se o formulário não foi enviado ou ocorreu algum erro, você pode adicionar tratamento de erro aqui
-// ...
-?>
+//tratamento de erros aqui.
