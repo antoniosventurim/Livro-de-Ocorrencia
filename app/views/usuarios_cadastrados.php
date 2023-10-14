@@ -44,6 +44,7 @@ $statement->execute();
 // Recupere os resultados em um array
 $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+
 $queryObservacoes = "SELECT obs.id AS observacao_id,
 obs.id_ocorrencia AS id_ocorrencia,
 obs.observacao,
@@ -526,7 +527,17 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <tr>
                                                 <td><?php echo $usuario['nome']; ?></td>
                                                 <td><?php echo $usuario['usuario']; ?></td>
-                                                <td><?php echo ($usuario['tipo_usuario'] == 1 ? 'Administrador' : 'Usuário Normal') ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($usuario['tipo_usuario'] == 1) {
+                                                        echo 'Administrador';
+                                                    } elseif ($usuario['tipo_usuario'] == 2) {
+                                                        echo 'Usuário Eventos';
+                                                    } else {
+                                                        echo 'Usuário Normal';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td><?php echo ($usuario['status_usuario'] == 1 ? 'Ativo' : 'Desativado') ?></td>
                                                 <td>
                                                     <?php if ($usuario['usuario'] !== 'admin') : ?>
@@ -653,13 +664,13 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <form method="POST" action="processaUsuario.php">
                             <div class="mb-3">
                                 <label for="nome" class="form-label"><b>Nome Completo</b></label>
-                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite Seu nome Completo" required>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o nome completo" required>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="usuario" class="form-label"><b>Usuário</b></label>
-                                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="EX: antonio.venturim" required>
+                                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nome.ultimo nome" required>
                                         <span id="usuarioValidationMessage"></span>
                                     </div>
                                 </div>
@@ -676,6 +687,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="0">Usuario</option>
                                     <option value="1">Administrador</option>
+                                    <option value="2">Usuario Eventos</option>
                                 </select>
                             </div>
                             <div class="modal-footer">
@@ -714,7 +726,17 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 <tr>
                                     <td><?php echo $usuario['nome']; ?></td>
                                     <td><?php echo $usuario['usuario']; ?></td>
-                                    <td><?php echo ($usuario['tipo_usuario'] == 1 ? 'Administrador' : 'Usuário Normal') ?></td>
+                                    <td>
+                                        <?php
+                                        if ($usuario['tipo_usuario'] == 1) {
+                                            echo 'Administrador';
+                                        } elseif ($usuario['tipo_usuario'] == 2) {
+                                            echo 'Usuário Eventos';
+                                        } else {
+                                            echo 'Usuário Normal';
+                                        }
+                                        ?>
+                                    </td>
                                     <td><?php echo ($usuario['status_usuario'] == 1 ? 'Ativo' : 'Desativado') ?></td>
                                     <td>
                                         <?php if ($usuario['usuario'] !== 'admin') : ?>

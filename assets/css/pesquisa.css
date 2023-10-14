@@ -341,3 +341,11 @@ thead {
 .exporta-eventos button {
     border-radius: 5px;
 }
+
+.imagem-eventos{
+    margin-left: 45%;
+    align-items: center;
+    max-width: 100vw;
+    max-height: 90vh;
+    overflow: hidden;
+}
