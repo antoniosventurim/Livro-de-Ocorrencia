@@ -75,7 +75,7 @@ $statement->execute();
 $veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna reitada de veiculos
-$queryRetiradaVeiculos = "SELECT usuarios.nome AS nome_usuario, motoristas.nome AS nome_motorista, veiculos.nome AS nome_veiculo, retirada_veiculos.data_retirada, retirada_veiculos.destino, retirada_veiculos.id_data_devolucao, retirada_veiculos.id, devolucoes.data_devolucao FROM retirada_veiculos INNER JOIN usuarios ON retirada_veiculos.id_usuario = usuarios.id INNER JOIN motoristas ON retirada_veiculos.id_motorista = motoristas.id INNER JOIN veiculos ON retirada_veiculos.veiculo = veiculos.id LEFT JOIN devolucoes ON retirada_veiculos.id = devolucoes.id_retirada_veiculo ORDER BY retirada_veiculos.id DESC LIMIT 5;";
+$queryRetiradaVeiculos = "SELECT usuarios.nome AS nome_usuario, motoristas.nome AS nome_motorista, veiculos.nome AS nome_veiculo, retirada_veiculos.data_retirada, retirada_veiculos.destino, retirada_veiculos.id_data_devolucao, retirada_veiculos.id, devolucoes.data_devolucao FROM retirada_veiculos INNER JOIN usuarios ON retirada_veiculos.id_usuario = usuarios.id INNER JOIN motoristas ON retirada_veiculos.id_motorista = motoristas.id INNER JOIN veiculos ON retirada_veiculos.id_veiculo = veiculos.id LEFT JOIN devolucoes ON retirada_veiculos.id = devolucoes.id_retirada_veiculo ORDER BY retirada_veiculos.id DESC LIMIT 5;";
 $statement = $pdo->prepare($queryRetiradaVeiculos);
 $statement->execute();
 $retiradaVeiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -399,7 +399,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <li>
                         <?php if ($tipoUsuarioLogado === 1) {
                             echo '<a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapselocais" aria-expanded="false" aria-controls="collapseExample">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
                                 </svg>
                                 Locais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
@@ -765,11 +765,11 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <form class="text-center" id="filtroFormOcorrencias" action="">
                         <div class="filtro-evento">
                             <div class="form-group">
-                                <label for="data-inicio"><b>Data Inicio:</b></label>
+                                <label for="data_inicio"><b>Data Inicio:</b></label>
                                 <input type="date" class="form-control" id="data_inicio_ocorrencia">
                             </div>
                             <div class="form-group data-fim-ocorrencia">
-                                <label for="data-fim"><b>Data Fim:</b></label>
+                                <label for="data_fim"><b>Data Fim:</b></label>
                                 <input type="date" class="form-control" id="data_fim_ocorrencia">
                             </div>
                             <div class="form-group col-md-3 filtro-titulo-ocorrencia">
@@ -1470,8 +1470,6 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         $(document).ready(function() {
             verificaNomeUsuario();
             verificaLocal();
-            cadastraOcorrencia();
-            filtraOcorrencia();
         });
     </script>
 
@@ -1536,20 +1534,6 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
         });
-    </script>
-    <script>
-        var search = document.getElementById('pesquisar');
-
-        search.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                searchData();
-            }
-        });
-
-        function searchData() {
-            window.location = 'painel.php?search=' + search.value;
-
-        }
     </script>
     <script>
         // Obtém a data e hora atual
