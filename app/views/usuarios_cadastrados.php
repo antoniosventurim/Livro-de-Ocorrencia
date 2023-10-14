@@ -277,13 +277,55 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                             </ul>
                         </div>
-                    </li <li>
+                    </li>
+                    <!-- BTN ACESSO DE PESSOAS -->
+                    <li>
+                        <div class="li-usuarios">
+                            <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseacessodepessoas" aria-expanded="false" aria-controls="collapseExample">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
+                                    <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z" />
+                                    <path d="M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z" />
+                                </svg>
+                                Acesso de Pessoas <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="d-dowm-chaves">
+                            <ul>
+                                <div class="collapse" id="collapseacessodepessoas">
+
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#addacessos">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                                        </svg>
+                                        Novo Acesso
+                                    </a>
+
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseacessodepessoas">
+                                    <a href="" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#filtraacessos">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                                        </svg>
+                                        <use xlink:href="#hom"></use>
+                                        </i>
+                                        Filtrar Acessos
+                                    </a>
+
+                            </ul>
+                        </div>
+                    </li>
                     <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
                             <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z" />
                             <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.807.807 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155 1.806 0 4.037-.084 5.592-.155A1.479 1.479 0 0 0 15 9.611v-.413c0-.099-.01-.197-.03-.294l-.335-1.68a.807.807 0 0 0-.43-.563 1.807 1.807 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3H4.82Z" />
                         </svg>
-                        Registros de Veiculos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
+                        Registros de Veículos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-double-down svg-bottomchaves" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                             <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                         </svg>
@@ -714,7 +756,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Ocorrências</b></h1>
                     <div class="form-group exporta-eventos">
-                        <button type="submit" id="exportar-dados">Exportar Dados.csv</button>
+                        <button type="submit" id="exportar-dados-ocorrencias">Exportar Dados.csv</button>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -746,6 +788,94 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="btn-filtrar-ocorrencias">Filtrar</button>
+                </div>
+                </form>
+                <!-- fim data filtro -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Acesso -->
+    <div class="modal fade" id="addacessos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Cadastrar Novo Acesso</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL NOVO ACESSO -->
+                <div class="modal-body">
+                    <div class="container">
+                        <form action="processaNovoAcesso.php" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="nome"><b>Nome</b></label>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o Nome" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="destino"><b>Destino</b></label>
+                                    <input type="text" class="form-control" list="localOptions" id="local" name="local" placeholder="Destino..." required>
+                                    <datalist id="localOptions">
+                                        <?php foreach ($locais as $local) : ?>
+                                            <option value="<?php echo $local; ?>">
+                                            <?php endforeach; ?>
+                                    </datalist>
+                                    <span id="localValidationMessage"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="documento"><b>Documento</b></label>
+                                    <input type="text" class="form-control" id="documento" name="documento" placeholder="Aguardando doc...">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="tipo"><b>Tipo</b></label>
+                                <select class="form-select" id="tipo" name="tipo" required>
+                                    <option value="" selected disabled>Selecione</option>
+                                    <option value="0">Aluno</option>
+                                    <option value="1">Visitante</option>
+                                </select>
+                            </div>
+                            <div class="mt-5">
+                                <button type="submit" class="btn btn-primary" id="cadastrar_acesso" name="cadastrar_acesso">Cadastrar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- fim data filtro -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal FILTRAR ACESSOS -->
+    <div class="modal fade" id="filtraacessos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xlx modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Acessos</b></h1>
+                    <div class="form-group exporta-eventos">
+                        <button type="submit" id="exportar-dados-acessos">Exportar Dados.csv</button>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL FILTRAR ACESSOS-->
+                <div class="modal-body">
+                    <form id="filtroFormAcessos" action="filtra_acessos.php">
+                        <div class="filtro-evento">
+                            <div class="form-group col-md-12 filtro-nome-pessoa">
+                                <label for="exampleInput"><b>Nome da Pessoa</b></label>
+                                <input type="text" class="form-control" id="busca_nome_pessoa" name="busca_nome_pessoa" placeholder="Aguardando...">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="resultado-filtro-acessos">
+                            <div id="resultadoAcessos"></div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>
                 </form>
                 <!-- fim data filtro -->
@@ -1291,7 +1421,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Eventos</b></h1>
                     <div class="form-group exporta-eventos">
-                        <button type="submit" id="exportar-dados">Exportar Dados.csv</button>
+                        <button type="submit" id="exportar-dados-eventos">Exportar Dados.csv</button>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -1341,6 +1471,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             verificaNomeUsuario();
             verificaLocal();
             cadastraOcorrencia();
+            filtraOcorrencia();
         });
     </script>
 
@@ -1563,7 +1694,144 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         });
     </script>
     <script>
-        document.getElementById('exportar-dados').addEventListener('click', function() {
+        document.getElementById('exportar-dados-ocorrencias').addEventListener('click', function() {
+            var table = document.querySelector('.tabelafiltrada');
+
+            if (!table) {
+                alert('Nenhuma tabela encontrada para exportar.');
+                return;
+            }
+
+            var csvData = [];
+
+            // Obtenha as linhas da tabela
+            var rows = table.querySelectorAll('tr');
+
+            // Obtenha os nomes das colunas (linha de cabeçalho)
+            var headerRow = rows[0];
+            var headers = headerRow.querySelectorAll('th');
+            var headerData = Array.from(headers).map(function(th) {
+                return th.innerText;
+            });
+            var utf16 = csvData.map(function(line) {
+                return line + '\n';
+            });
+
+            var blob = new Blob([new TextEncoder().encode(utf16)], {
+                type: 'text/csv;charset=UTF-16LE;'
+            });
+
+            // Adicione os nomes das colunas ao array CSV
+            csvData.push(headerData.join(','));
+
+            // Percorra as linhas de dados
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = [];
+                var cells = rows[i].querySelectorAll('td');
+                cells.forEach(function(cell) {
+                    rowData.push(cell.innerText);
+                });
+                csvData.push(rowData.join(','));
+            }
+            csvData.unshift('\uFEFF' + csvData[0]);
+            // Crie um blob de dados CSV
+            var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+
+            // Crie um elemento 'a' para o link de download
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement('a');
+            link.href = encodedUri;
+            link.target = '_blank';
+            link.download = 'dados.csv';
+
+            // Clique automaticamente no link para iniciar o download
+            link.click();
+        });
+    </script>
+    <!-- SCRIPT FILTRO DE ACESSOS -->
+    <script>
+        // Submeter o formulário dentro da modal
+        $('#filtroFormAcessos').submit(function(event) {
+            event.preventDefault(); // Impede o envio do formulário padrão
+
+            var nomePessoa = $('#busca_nome_pessoa').val();
+
+            // Envia uma requisição AJAX para o servidor para filtrar ocorrencias
+            $.ajax({
+                url: 'filtra_acessos.php',
+                method: 'POST',
+                data: {
+                    busca_nome_pessoa: nomePessoa
+
+                },
+                success: function(response) {
+                    // Atualiza a div de resultado com os eventos filtrados
+                    $('#resultadoAcessos').html(response);
+                },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar Acessos.');
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('exportar-dados-acessos').addEventListener('click', function() {
+            var table = document.querySelector('.tabelafiltradaAcessos');
+
+            if (!table) {
+                alert('Nenhuma tabela encontrada para exportar.');
+                return;
+            }
+
+            var csvData = [];
+
+            // Obtenha as linhas da tabela
+            var rows = table.querySelectorAll('tr');
+
+            // Obtenha os nomes das colunas (linha de cabeçalho)
+            var headerRow = rows[0];
+            var headers = headerRow.querySelectorAll('th');
+            var headerData = Array.from(headers).map(function(th) {
+                return th.innerText;
+            });
+            var utf16 = csvData.map(function(line) {
+                return line + '\n';
+            });
+
+            var blob = new Blob([new TextEncoder().encode(utf16)], {
+                type: 'text/csv;charset=UTF-16LE;'
+            });
+
+            // Adicione os nomes das colunas ao array CSV
+            csvData.push(headerData.join(','));
+
+            // Percorra as linhas de dados
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = [];
+                var cells = rows[i].querySelectorAll('td');
+                cells.forEach(function(cell) {
+                    rowData.push(cell.innerText);
+                });
+                csvData.push(rowData.join(','));
+            }
+            csvData.unshift('\uFEFF' + csvData[0]);
+            // Crie um blob de dados CSV
+            var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+
+            // Crie um elemento 'a' para o link de download
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement('a');
+            link.href = encodedUri;
+            link.target = '_blank';
+            link.download = 'dados.csv';
+
+            // Clique automaticamente no link para iniciar o download
+            link.click();
+        });
+    </script>
+
+    <script>
+        document.getElementById('exportar-dados-eventos').addEventListener('click', function() {
             var table = document.querySelector('.tabelafiltrada');
 
             if (!table) {

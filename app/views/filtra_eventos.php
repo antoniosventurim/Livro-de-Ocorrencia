@@ -46,7 +46,7 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim'])  && isset($_POST['
     // Recupere os resultados
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     if (count($result) > 0) {
-        echo '<table class="table table-bordered table-striped tabelafiltrada">';
+        echo '<table class="table table-bordered table-striped tabelafiltradaEventos">';
         echo "<tr>";
         echo "<th>Nome do Evento</th>";
         echo "<th>Data de Início</th>";
