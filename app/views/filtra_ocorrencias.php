@@ -57,7 +57,7 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
         // Você pode gerar a tabela ou retornar os dados no formato desejado
         // Aqui, vou gerar uma tabela como exemplo
 
-        echo '<table class="table table-bordered table-striped tabelafiltrada">';
+        echo '<table class="table table-bordered table-striped tabelafiltradaOcorrencias">';
         echo "<tr>";
         echo "<th>Data de Registro</th>";
         echo "<th>Título da Ocorrência</th>";
