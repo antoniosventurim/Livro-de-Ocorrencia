@@ -864,7 +864,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <!-- CORPO DO MODAL NOVO ACESSO -->
                 <div class="modal-body">
                     <div class="container">
-                        <form action="/" method="post">
+                        <form action="processaNovoAcesso.php" method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="nome"><b>Nome</b></label>
@@ -891,12 +891,12 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 <label for="tipo"><b>Tipo</b></label>
                                 <select class="form-select" id="tipo" name="tipo" required>
                                     <option value="" selected disabled>Selecione</option>
-                                    <option value="aluno">Aluno</option>
-                                    <option value="visitante">Visitante</option>
+                                    <option value="0">Aluno</option>
+                                    <option value="1">Visitante</option>
                                 </select>
                             </div>
                             <div class="mt-5">
-                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary" id="cadastrar_acesso" name="cadastrar_acesso">Cadastrar</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </form>
@@ -908,22 +908,39 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Modal FILTRAR ACESSOS -->
+    <!-- Modal FILTRAR EVENTOS REGISTRADOS -->
     <div class="modal fade" id="filtraacessos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xlx modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Acessos</b></h1>
+                    <div class="form-group exporta-eventos">
+                        <button type="submit" id="exportar-dados-acessos">Exportar Dados.csv</button>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <!-- CORPO DO MODAL FILTRAR ACESSOS -->
+                <!-- CORPO DO MODAL FILTRAR ACESSOS-->
                 <div class="modal-body">
-                    <h1>Desenvolvimento</h1>
+                    <form id="filtroFormAcessos" action="filtra_acessos.php">
+                        <div class="filtro-evento">
+                            <div class="form-group col-md-12 filtro-nome-pessoa">
+                                <label for="exampleInput"><b>Nome da Pessoa</b></label>
+                                <input type="text" class="form-control" id="busca_nome_pessoa" name="busca_nome_pessoa" placeholder="Aguardando...">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="resultado-filtro-acessos">
+                            <div id="resultadoAcessos"></div>
+                        </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+                </form>
                 <!-- fim data filtro -->
             </div>
         </div>
     </div>
-
     <!-- Modal RETIRADA DE VEICULO -->
     <div class="modal fade" id="retiradaveiculo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-x">
@@ -1668,34 +1685,58 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             });
         </script>
 
+        <!-- SCRIPT FILTRO DE ACESSOS -->
         <script>
             // Submeter o formulário dentro da modal
-            $('#filtroFormOcorrencias').submit(function(event) {
+            $('#filtroFormAcessos').submit(function(event) {
                 event.preventDefault(); // Impede o envio do formulário padrão
 
-                // Obtém as datas de início e término do formulário
-                var dataInicio = $('#data_inicio_ocorrencia').val();
-                var dataFim = $('#data_fim_ocorrencia').val();
-                var tituloOcorrencia = $('#busca_titulo_ocorrencia').val();
-                var nomeResponsavel = $('#busca_nome_responsavel_ocorrencia').val();
+                var nomePessoa = $('#busca_nome_pessoa').val();
 
                 // Envia uma requisição AJAX para o servidor para filtrar ocorrencias
                 $.ajax({
-                    url: 'filtra_ocorrencias.php',
+                    url: 'filtra_acessos.php',
                     method: 'POST',
                     data: {
-                        data_inicio: dataInicio,
-                        data_fim: dataFim,
-                        titulo_ocorrencia: tituloOcorrencia,
-                        nome_responsavel: nomeResponsavel
+                        busca_nome_pessoa: nomePessoa
 
                     },
                     success: function(response) {
                         // Atualiza a div de resultado com os eventos filtrados
-                        $('#result').html(response);
+                        $('#resultadoAcessos').html(response);
                     },
                     error: function() {
-                        alert('Ocorreu um erro ao buscar Ocorrências.');
+                        alert('Ocorreu um erro ao buscar Acessos.');
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            // Submeter o formulário dentro da modal
+            $('#filtroForm').submit(function(event) {
+                event.preventDefault(); // Impede o envio do formulário padrão
+
+                // Obtém as datas de início e término do formulário
+                var dataInicio = $('#data_inicio').val();
+                var dataFim = $('#data_fim').val();
+                var nomeEvento = $('#busca_nome_evento').val();
+
+                // Envia uma requisição AJAX para o servidor para filtrar eventos
+                $.ajax({
+                    url: 'filtra_eventos.php', // Substitua pelo URL correto do seu script de servidor
+                    method: 'POST',
+                    data: {
+                        data_inicio: dataInicio,
+                        data_fim: dataFim,
+                        busca_nome_evento: nomeEvento
+                    },
+                    success: function(response) {
+                        // Atualiza a div de resultado com os eventos filtrados
+                        $('#resultado').html(response);
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao buscar eventos.');
                     }
                 });
             });
@@ -1735,6 +1776,62 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
         <script>
             document.getElementById('exportar-dados').addEventListener('click', function() {
                 var table = document.querySelector('.tabelafiltrada');
+
+                if (!table) {
+                    alert('Nenhuma tabela encontrada para exportar.');
+                    return;
+                }
+
+                var csvData = [];
+
+                // Obtenha as linhas da tabela
+                var rows = table.querySelectorAll('tr');
+
+                // Obtenha os nomes das colunas (linha de cabeçalho)
+                var headerRow = rows[0];
+                var headers = headerRow.querySelectorAll('th');
+                var headerData = Array.from(headers).map(function(th) {
+                    return th.innerText;
+                });
+                var utf16 = csvData.map(function(line) {
+                    return line + '\n';
+                });
+
+                var blob = new Blob([new TextEncoder().encode(utf16)], {
+                    type: 'text/csv;charset=UTF-16LE;'
+                });
+
+                // Adicione os nomes das colunas ao array CSV
+                csvData.push(headerData.join(','));
+
+                // Percorra as linhas de dados
+                for (var i = 1; i < rows.length; i++) {
+                    var rowData = [];
+                    var cells = rows[i].querySelectorAll('td');
+                    cells.forEach(function(cell) {
+                        rowData.push(cell.innerText);
+                    });
+                    csvData.push(rowData.join(','));
+                }
+                csvData.unshift('\uFEFF' + csvData[0]);
+                // Crie um blob de dados CSV
+                var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+
+                // Crie um elemento 'a' para o link de download
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement('a');
+                link.href = encodedUri;
+                link.target = '_blank';
+                link.download = 'dados.csv';
+
+                // Clique automaticamente no link para iniciar o download
+                link.click();
+            });
+        </script>
+
+        <script>
+            document.getElementById('exportar-dados-acessos').addEventListener('click', function() {
+                var table = document.querySelector('.tabelafiltradaAcessos');
 
                 if (!table) {
                     alert('Nenhuma tabela encontrada para exportar.');
