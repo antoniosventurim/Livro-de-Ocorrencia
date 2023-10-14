@@ -8,7 +8,7 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim'])  && isset($_POST['
     $dataFim = $_POST['data_fim'];
     $nomeEvento = $_POST['busca_nome_evento'];
 
-    $query = "SELECT nome_evento, data_inicio, data_fim FROM eventos WHERE 1 = 1";
+    $query = "SELECT nome_evento, data_inicio, data_fim FROM eventos WHERE 1 = 1 ORDER BY data_inicio ASC";
 
     // Adicione filtros com base no que o usuário preencheu
     if (!empty($dataInicio)) {

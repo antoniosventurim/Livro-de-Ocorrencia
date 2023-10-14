@@ -5,7 +5,7 @@ header('Content-Type: text/html; charset=UTF-8');
 
 $nomePessoa = '%' . $_POST['busca_nome_pessoa'] . '%';
 
-$query = "SELECT nome, destino, tipo_pessoa, data_acesso FROM acessos WHERE nome LIKE :nomePessoa";
+$query = "SELECT nome, destino, tipo_pessoa, data_acesso FROM acessos WHERE nome LIKE :nomePessoa ORDER BY data_acesso ASC";
 $statement = $pdo->prepare($query);
 $statement->bindParam(':nomePessoa', $nomePessoa, PDO::PARAM_STR);
 

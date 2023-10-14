@@ -12,7 +12,7 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
     $query = "SELECT o.data_registro, o.titulo, u.nome AS nome_responsavel
               FROM ocorrencias o
               LEFT JOIN usuarios u ON o.id_responsavel = u.id
-              WHERE 1 = 1";
+              WHERE 1 = 1 ORDER BY data_registro ASC";
 
     // Adicione filtros com base no que o usuário preencheu
     if (!empty($dataInicio) && !empty($dataFim)) {
