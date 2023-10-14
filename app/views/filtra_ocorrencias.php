@@ -47,8 +47,6 @@ if (isset($_POST['data_inicio']) || isset($_POST['data_fim']) || isset($_POST['t
     $statement->execute();
 }
 
-
-// Recupere os resultados
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 // Se você tiver resultados, pode gerar a tabela ou os dados no formato desejado

@@ -1580,7 +1580,6 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 verificaNomeUsuario();
                 verificaLocal();
                 cadastraOcorrencia();
-                filtraOcorrencia();
             });
         </script>
 
