@@ -9,23 +9,14 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
     $tituloOcorrencia = $_POST['titulo_ocorrencia'];
     $nomeResponsavel = $_POST['nome_responsavel'];
 
-    // Converte as datas do formato "d-m-Y" para "Y-m-d"
-    $dataInicio = date('Y-m-d', strtotime($dataInicio));
-    $dataFim = date('Y-m-d', strtotime($dataFim));
-
-    $query = "SELECT o.data_registro, o.titulo, u.nome AS nome_responsavel, o.descricao
+    $query = "SELECT o.data_registro, o.titulo, u.nome AS nome_responsavel
               FROM ocorrencias o
               LEFT JOIN usuarios u ON o.id_responsavel = u.id
               WHERE 1 = 1";
 
     // Adicione filtros com base no que o usuário preencheu
-    if (!empty($dataInicio)) {
-        $query .= " AND o.data_registro >= :dataInicio";
-    }
-
-    if (!empty($dataFim)) {
-        $dataFim = date('Y-m-d', strtotime($dataFim . ' + 1 day')); // Adicione 1 dia à data de término
-        $query .= " AND o.data_registro <= :dataFim";
+    if (!empty($dataInicio) && !empty($dataFim)) {
+        $query .= " AND o.data_registro BETWEEN :dataInicio AND :dataFim";
     }
 
     if (!empty($tituloOcorrencia)) {
@@ -40,11 +31,8 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
     $statement = $pdo->prepare($query);
 
     // Substitua os marcadores de posição pelos valores, se necessário
-    if (!empty($dataInicio)) {
+    if (!empty($dataInicio) && !empty($dataFim)) {
         $statement->bindParam(':dataInicio', $dataInicio);
-    }
-
-    if (!empty($dataFim)) {
         $statement->bindParam(':dataFim', $dataFim);
     }
 
@@ -64,7 +52,7 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
     // Recupere os resultados
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // Se você tiver resultados, pode gerar a tabela ou os dados em JSON, por exemplo
+    // Se você tiver resultados, pode gerar a tabela ou os dados no formato desejado
     if (count($result) > 0) {
         // Você pode gerar a tabela ou retornar os dados no formato desejado
         // Aqui, vou gerar uma tabela como exemplo
@@ -74,7 +62,6 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
         echo "<th>Data de Registro</th>";
         echo "<th>Título da Ocorrência</th>";
         echo "<th>Nome do Responsável</th>";
-        echo "<th>Descrição</th>";
         echo "</tr>";
 
         foreach ($result as $ocorrencia) {
@@ -82,7 +69,6 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
             echo "<td>" . date('d/m/Y', strtotime($ocorrencia['data_registro'])) . "</td>";
             echo "<td>" . $ocorrencia['titulo'] . "</td>";
             echo "<td>" . $ocorrencia['nome_responsavel'] . "</td>";
-            echo "<td>" . $ocorrencia['descricao'] . "</td>";
             echo "</tr>";
         }
 
@@ -91,6 +77,6 @@ if (isset($_POST['data_inicio']) && isset($_POST['data_fim']) && isset($_POST['t
         echo "Nenhuma ocorrência encontrada.";
     }
 } else {
-    echo " ";
+    echo "Preencha os campos do formulário para filtrar.";
 }
 ?>
