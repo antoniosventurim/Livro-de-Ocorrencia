@@ -73,7 +73,7 @@ $statement->execute();
 $veiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 //Query Retorna retirada de veículos
-$queryRetiradaVeiculos = "SELECT usuarios.nome AS nome_usuario, motoristas.nome AS nome_motorista, veiculos.nome AS nome_veiculo, retirada_veiculos.data_retirada, retirada_veiculos.destino, retirada_veiculos.id_data_devolucao, retirada_veiculos.id, devolucoes.data_devolucao FROM retirada_veiculos INNER JOIN usuarios ON retirada_veiculos.id_usuario = usuarios.id INNER JOIN motoristas ON retirada_veiculos.id_motorista = motoristas.id INNER JOIN veiculos ON retirada_veiculos.veiculo = veiculos.id LEFT JOIN devolucoes ON retirada_veiculos.id = devolucoes.id_retirada_veiculo ORDER BY retirada_veiculos.id DESC LIMIT 5;";
+$queryRetiradaVeiculos = "SELECT usuarios.nome AS nome_usuario, motoristas.nome AS nome_motorista, veiculos.nome AS nome_veiculo, retirada_veiculos.data_retirada, retirada_veiculos.destino, retirada_veiculos.id_data_devolucao, retirada_veiculos.id, devolucoes.data_devolucao FROM retirada_veiculos INNER JOIN usuarios ON retirada_veiculos.id_usuario = usuarios.id INNER JOIN motoristas ON retirada_veiculos.id_motorista = motoristas.id INNER JOIN veiculos ON retirada_veiculos.id_veiculo = veiculos.id LEFT JOIN devolucoes ON retirada_veiculos.id = devolucoes.id_retirada_veiculo ORDER BY retirada_veiculos.id DESC LIMIT 5;";
 $statement = $pdo->prepare($queryRetiradaVeiculos);
 $statement->execute();
 $retiradaVeiculos = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -412,6 +412,15 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
                                         </svg>
                                         Devolução
+                                    </a>
+                            </ul>
+                            <ul>
+                                <div class="collapse" id="collapseExample">
+                                    <a href="#" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#filtraretiradas">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        Filtrar Retiradas
                                     </a>
                             </ul>
                         </div>
@@ -890,7 +899,8 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 <select class="form-select" id="tipo" name="tipo" required>
                                     <option value="" selected disabled>Selecione</option>
                                     <option value="0">Aluno</option>
-                                    <option value="1">Visitante</option>
+                                    <option value="1">Professor</option>
+                                    <option value="2">Visitante</option>
                                 </select>
                             </div>
                             <div class="mt-5">
@@ -1267,6 +1277,41 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
+
+     <!-- Modal FILTRAR RETIRADAS -->
+     <div class="modal fade" id="filtraretiradas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xlx modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><b>Filtrar Retiradas</b></h1>
+                    <div class="form-group exporta-eventos">
+                        <button type="submit" id="exportar-dados-retiradas">Exportar Dados.csv</button>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- CORPO DO MODAL FILTRAR RETIRADAS-->
+                <div class="modal-body">
+                    <form id="filtroFormRetiradas" action="filtra_retiradas.php">
+                        <div class="filtro-evento">
+                            <div class="form-group col-md-12 filtro-retiradas">
+                                <label for="exampleInput"><b>Nome do Motorista</b></label>
+                                <input type="text" class="form-control" id="busca_nome_motorista" name="busca_nome_motorista" placeholder="Aguardando...">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="resultado-filtro-acessos">
+                            <div id="resultadoRetiradas"></div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+                </form>
+                <!-- fim data filtro -->
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="ultimasobservacoes" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -1681,6 +1726,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                 });
             });
         </script>
+
         <!-- SCRIPT FILTRO DE OCORRÊNCIAS -->
         <script>
             // Submeter o formulário dentro da modal
@@ -1734,6 +1780,33 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                     success: function(response) {
                         // Atualiza a div de resultado com os eventos filtrados
                         $('#resultadoAcessos').html(response);
+                    },
+                    error: function() {
+                        alert('Ocorreu um erro ao buscar Acessos.');
+                    }
+                });
+            });
+        </script>
+
+        <!-- SCRIPT FILTRO RETIRADAS DE VEÍCULOS -->
+        <script>
+            // Submeter o formulário dentro da modal
+            $('#filtroFormRetiradas').submit(function(event) {
+                event.preventDefault(); // Impede o envio do formulário padrão
+
+                var nomeMotorista = $('#busca_nome_motorista').val();
+
+                // Envia uma requisição AJAX para o servidor para filtrar motorista
+                $.ajax({
+                    url: 'filtra_retiradas.php',
+                    method: 'POST',
+                    data: {
+                        busca_nome_motorista: nomeMotorista
+
+                    },
+                    success: function(response) {
+                        // Atualiza a div de resultado com os eventos filtrados
+                        $('#resultadoRetiradas').html(response);
                     },
                     error: function() {
                         alert('Ocorreu um erro ao buscar Acessos.');

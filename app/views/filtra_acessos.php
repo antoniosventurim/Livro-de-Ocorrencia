@@ -11,26 +11,37 @@ $statement->bindParam(':nomePessoa', $nomePessoa, PDO::PARAM_STR);
 
 $statement->execute();
 
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    if (count($result) > 0) {
-        echo '<table class="table table-bordered table-striped tabelafiltradaAcessos">';
+$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+if (count($result) > 0) {
+    echo '<table class="table table-bordered table-striped tabelafiltradaAcessos">';
+    echo "<tr>";
+    echo "<th>NOME</th>";
+    echo "<th>DESTINO</th>";
+    echo "<th>TIPO DE ACESSO</th>";
+    echo "<th>DATA DE ACESSO</th>";
+    echo "</tr>";
+
+    foreach ($result as $acesso) {
         echo "<tr>";
-        echo "<th>NOME</th>";
-        echo "<th>DESTINO</th>";
-        echo "<th>TIPO DE ACESSO</th>";
-        echo "<th>DATA DE ACESSO</th>";
-        echo "</tr>";
-
-        foreach ($result as $acesso) {
-            echo "<tr>";
-            echo "<td>" . $acesso['nome'] . "</td>";
-            echo "<td>" . $acesso['destino'] . "</td>";
-            echo "<td>" . ($acesso['tipo_pessoa'] == 0 ? 'Aluno' : 'Visitante') . "</td>";
-            echo "<td>" . $acesso['data_acesso'] . "</td>";
-            echo "</tr>";
+        echo "<td>" . $acesso['nome'] . "</td>";
+        echo "<td>" . $acesso['destino'] . "</td>";
+        echo "<td>";
+        if ($acesso['tipo_pessoa'] == 0) {
+            echo 'Aluno';
+        } elseif ($acesso['tipo_pessoa'] == 1) {
+            echo 'Professor';
+        } elseif ($acesso['tipo_pessoa'] == 2) {
+            echo 'Visitante';
+        } else {
+            // Lida com qualquer outro valor, se necessário.
+            echo 'Outro';
         }
-
-        echo "</table>";
-    } else {
-        echo "Nenhum acesso encontrado.";
+        echo "</td>";
+        echo "<td>" . date('d/m/Y h:m', strtotime($acesso['data_acesso'])) . "</td>";
+        echo "</tr>";
     }
+
+    echo "</table>";
+} else {
+    echo "Nenhum acesso encontrado.";
+}
