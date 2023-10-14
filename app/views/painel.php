@@ -223,9 +223,7 @@ $eventos = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="collapse" id="collapseusuarios">
                                     <?php if ($tipoUsuarioLogado === 1) {
                                         echo '<a href="painel2" class="nav-link text-white r-chaves" data-bs-toggle="modal" data-bs-target="#adduser">
-                                    <i class="bi bi-person-add">
-                                        <use xlink:href="#hom"></use>
-                                    </i>
+                                    <i class="bi bi-person-add"></i>
                                     Novo Usuário
                                 </a>';
                                     } ?>
