@@ -1,3 +1,3 @@
 # LIVRO DE OCORÊNCIAS DIGITAL
 
-livro de ocorrencias digital, facilitando a vida do seu porteiro.
+livro de ocorrencias digital, projeto de Extensão e Inovação Interdisciplinar II - Multivix EAD
