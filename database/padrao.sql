@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Set-2023 às 19:04
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.1.12
+-- Tempo de geração: 20/11/2023 às 13:31
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,29 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `portaria123`
+-- Banco de dados: `padrao`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `devolucoes`
+-- Estrutura para tabela `acessos`
+--
+
+CREATE TABLE `acessos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `destino` varchar(45) NOT NULL,
+  `documento` varchar(45) NOT NULL,
+  `tipo_pessoa` int(11) NOT NULL,
+  `data_acesso` datetime NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `devolucoes`
 --
 
 CREATE TABLE `devolucoes` (
@@ -37,7 +53,26 @@ CREATE TABLE `devolucoes` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `locais`
+-- Estrutura para tabela `eventos`
+--
+
+CREATE TABLE `eventos` (
+  `id` int(11) NOT NULL,
+  `nome_evento` text NOT NULL,
+  `solicitante` varchar(45) NOT NULL,
+  `local_reservado` int(11) NOT NULL,
+  `data_inicio` datetime NOT NULL,
+  `data_fim` datetime NOT NULL,
+  `dia_semana` varchar(45) NOT NULL,
+  `qtd_participantes` int(11) NOT NULL,
+  `data_registro` datetime NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `locais`
 --
 
 CREATE TABLE `locais` (
@@ -51,7 +86,7 @@ CREATE TABLE `locais` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `motoristas`
+-- Estrutura para tabela `motoristas`
 --
 
 CREATE TABLE `motoristas` (
@@ -59,6 +94,7 @@ CREATE TABLE `motoristas` (
   `nome` varchar(45) NOT NULL,
   `cpf` bigint(20) NOT NULL,
   `setor` varchar(45) NOT NULL,
+  `status_motorista` int(11) NOT NULL DEFAULT 1,
   `id_usuario` int(11) NOT NULL,
   `data_registro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -66,7 +102,7 @@ CREATE TABLE `motoristas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `observacoes`
+-- Estrutura para tabela `observacoes`
 --
 
 CREATE TABLE `observacoes` (
@@ -80,7 +116,7 @@ CREATE TABLE `observacoes` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `ocorrencias`
+-- Estrutura para tabela `ocorrencias`
 --
 
 CREATE TABLE `ocorrencias` (
@@ -95,14 +131,14 @@ CREATE TABLE `ocorrencias` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `retirada_veiculos`
+-- Estrutura para tabela `retirada_veiculos`
 --
 
 CREATE TABLE `retirada_veiculos` (
   `id` int(11) NOT NULL,
   `id_motorista` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `veiculo` int(11) NOT NULL,
+  `id_veiculo` int(11) NOT NULL,
   `destino` varchar(45) NOT NULL,
   `data_retirada` datetime NOT NULL,
   `statusVeiculo` varchar(45) NOT NULL,
@@ -113,7 +149,7 @@ CREATE TABLE `retirada_veiculos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -121,22 +157,22 @@ CREATE TABLE `usuarios` (
   `tipo_usuario` int(11) NOT NULL,
   `nome` varchar(45) NOT NULL,
   `usuario` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `status_usuario` int(45) NOT NULL DEFAULT 1,
   `data_registro` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `tipo_usuario`, `nome`, `usuario`, `senha`, `status_usuario`, `data_registro`) VALUES
-(1, 1, 'Administrador', 'admin', 'admin', 1, '2023-09-22 19:04:01');
+(1, 1, 'Administrador', 'admin', '$2y$10$1pgjHDjWCz5P.CDzdh.eXesiWINwbE65zY2Hp0QbxBPx/Zzs26kui', 1, '2023-11-20 13:29:00');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `veiculos`
+-- Estrutura para tabela `veiculos`
 --
 
 CREATE TABLE `veiculos` (
@@ -144,6 +180,7 @@ CREATE TABLE `veiculos` (
   `tipo_veiculo` varchar(45) NOT NULL,
   `nome` varchar(45) NOT NULL,
   `placa` varchar(45) NOT NULL,
+  `status_veiculo` int(11) NOT NULL DEFAULT 1,
   `id_usuario` int(11) NOT NULL,
   `data_registro` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -153,7 +190,14 @@ CREATE TABLE `veiculos` (
 --
 
 --
--- Índices para tabela `devolucoes`
+-- Índices de tabela `acessos`
+--
+ALTER TABLE `acessos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`);
+
+--
+-- Índices de tabela `devolucoes`
 --
 ALTER TABLE `devolucoes`
   ADD PRIMARY KEY (`id`),
@@ -161,21 +205,29 @@ ALTER TABLE `devolucoes`
   ADD KEY `id_usuario_registrou` (`id_usuario_registrou`);
 
 --
--- Índices para tabela `locais`
+-- Índices de tabela `eventos`
+--
+ALTER TABLE `eventos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `local_reservado` (`local_reservado`);
+
+--
+-- Índices de tabela `locais`
 --
 ALTER TABLE `locais`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Índices para tabela `motoristas`
+-- Índices de tabela `motoristas`
 --
 ALTER TABLE `motoristas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Índices para tabela `observacoes`
+-- Índices de tabela `observacoes`
 --
 ALTER TABLE `observacoes`
   ADD PRIMARY KEY (`id`),
@@ -183,43 +235,55 @@ ALTER TABLE `observacoes`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Índices para tabela `ocorrencias`
+-- Índices de tabela `ocorrencias`
 --
 ALTER TABLE `ocorrencias`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_responsavel` (`id_responsavel`);
 
 --
--- Índices para tabela `retirada_veiculos`
+-- Índices de tabela `retirada_veiculos`
 --
 ALTER TABLE `retirada_veiculos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_motorista` (`id_motorista`),
-  ADD KEY `retirada_veiculos_ibfk_3` (`veiculo`),
+  ADD KEY `retirada_veiculos_ibfk_3` (`id_veiculo`),
   ADD KEY `retirada_veiculos_ibfk_4` (`id_data_devolucao`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `veiculos`
+-- Índices de tabela `veiculos`
 --
 ALTER TABLE `veiculos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `acessos`
+--
+ALTER TABLE `acessos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `devolucoes`
 --
 ALTER TABLE `devolucoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `eventos`
+--
+ALTER TABLE `eventos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -265,52 +329,65 @@ ALTER TABLE `veiculos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `devolucoes`
+-- Restrições para tabelas `acessos`
+--
+ALTER TABLE `acessos`
+  ADD CONSTRAINT `acessos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para tabelas `devolucoes`
 --
 ALTER TABLE `devolucoes`
   ADD CONSTRAINT `devolucoes_ibfk_1` FOREIGN KEY (`id_retirada_veiculo`) REFERENCES `retirada_veiculos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `devolucoes_ibfk_2` FOREIGN KEY (`id_usuario_registrou`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `locais`
+-- Restrições para tabelas `eventos`
+--
+ALTER TABLE `eventos`
+  ADD CONSTRAINT `eventos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `eventos_ibfk_2` FOREIGN KEY (`local_reservado`) REFERENCES `locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para tabelas `locais`
 --
 ALTER TABLE `locais`
   ADD CONSTRAINT `locais_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `motoristas`
+-- Restrições para tabelas `motoristas`
 --
 ALTER TABLE `motoristas`
   ADD CONSTRAINT `motoristas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `observacoes`
+-- Restrições para tabelas `observacoes`
 --
 ALTER TABLE `observacoes`
   ADD CONSTRAINT `observacoes_ibfk_1` FOREIGN KEY (`id_ocorrencia`) REFERENCES `ocorrencias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `observacoes_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `ocorrencias`
+-- Restrições para tabelas `ocorrencias`
 --
 ALTER TABLE `ocorrencias`
   ADD CONSTRAINT `ocorrencias_ibfk_1` FOREIGN KEY (`id_responsavel`) REFERENCES `usuarios` (`id`);
 
 --
--- Limitadores para a tabela `retirada_veiculos`
+-- Restrições para tabelas `retirada_veiculos`
 --
 ALTER TABLE `retirada_veiculos`
   ADD CONSTRAINT `retirada_veiculos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `retirada_veiculos_ibfk_2` FOREIGN KEY (`id_motorista`) REFERENCES `motoristas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `retirada_veiculos_ibfk_3` FOREIGN KEY (`veiculo`) REFERENCES `veiculos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `retirada_veiculos_ibfk_3` FOREIGN KEY (`id_veiculo`) REFERENCES `veiculos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `retirada_veiculos_ibfk_4` FOREIGN KEY (`id_data_devolucao`) REFERENCES `devolucoes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `veiculos`
+-- Restrições para tabelas `veiculos`
 --
 ALTER TABLE `veiculos`
   ADD CONSTRAINT `veiculos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
