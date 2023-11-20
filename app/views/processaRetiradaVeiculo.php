@@ -19,7 +19,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
     // Obtém o ID do usuário logado da variável de sessão
     $idUsuarioLogado = $_SESSION['id']; // Certifique-se de que $_SESSION['usuario'] contém o ID do usuário
 
-    $queryVerificaRetirada = "SELECT COUNT(*) FROM retirada_veiculos WHERE (id_motorista = :id_motorista OR veiculo = :veiculo) AND statusVeiculo = 'ativa'";
+    $queryVerificaRetirada = "SELECT COUNT(*) FROM retirada_veiculos WHERE (id_motorista = :id_motorista OR id_veiculo = :veiculo) AND statusVeiculo = 'ativa'";
     $statement = $pdo->prepare($queryVerificaRetirada);
     $statement->bindParam(':id_motorista', $motoristaResponsavel);
     $statement->bindParam(':veiculo', $nomeVeiculo);
@@ -30,7 +30,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
         header('Location: painel.php?erro=1');
     } else {
         // O usuário não possui uma retirada ativa, permitir a nova retirada e registrá-la no banco de dados
-        $queryInserirRetirada = "INSERT INTO retirada_veiculos (id_motorista, id_usuario, veiculo, destino, data_retirada, statusVeiculo, data_registro) VALUES (:usuarioResponsavel, :id_usuario, :veiculo, :destino, :dataRetirada, :statusRetirada, NOW())";
+        $queryInserirRetirada = "INSERT INTO retirada_veiculos (id_motorista, id_usuario, id_veiculo, destino, data_retirada, statusVeiculo, data_registro) VALUES (:usuarioResponsavel, :id_usuario, :veiculo, :destino, :dataRetirada, :statusRetirada, NOW())";
         $statement = $pdo->prepare($queryInserirRetirada);
         $statement->bindParam(':usuarioResponsavel', $motoristaResponsavel);
         $statement->bindParam(':id_usuario', $idUsuarioLogado); // Use o ID do usuário logado
@@ -40,7 +40,7 @@ if (isset($_POST['cadretiradaveiculo'])) {
         $statement->bindParam(':statusRetirada', $statusRetirada); // Use o status da retirada
         $statement->execute();
 
-        // Redirecionar de volta para a página do painel após a inserção
+        // Redirecionar de volta para a página do painel após a inserção com msg
         header('Location: painel.php?sucesso=1');
         exit;
     }
